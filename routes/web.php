@@ -17,15 +17,30 @@ Route::get('/', function(){
 
 });
 
-Route::get('/admin', 'Admin\AdminController@index')->name('admin.index');
+Route::prefix('/admin')->group(function(){
 
-Route::resource('admin/usuarios', 'Admin\UsuariosController', [
-  'names'=> [
-    'index'=> 'admin.usuarios.index',
-    'create'=> 'admin.usuarios.create',
-    'store'=> 'admin.usuarios.store',
-    'edit'=> 'admin.usuarios.edit',
-    'update'=> 'admin.usuarios.update',
-    'destroy'=> 'admin.usuarios.destroy'
-  ]
-]);
+  Route::get('/', 'Admin\AdminController@index')->name('admin.index');
+
+  Route::resource('/usuarios', 'Admin\UsuariosController', [
+    'names'=> [
+      'index'=> 'admin.usuarios.index',
+      'create'=> 'admin.usuarios.create',
+      'store'=> 'admin.usuarios.store',
+      'edit'=> 'admin.usuarios.edit',
+      'update'=> 'admin.usuarios.update',
+      'destroy'=> 'admin.usuarios.destroy'
+    ]
+  ]);
+
+  Route::resource('/roles', 'Admin\RolesController', [
+    'names'=> [
+      'index'=> 'admin.roles.index',
+      'create'=> 'admin.roles.create',
+      'store'=> 'admin.roles.store',
+      'edit'=> 'admin.roles.edit',
+      'update'=> 'admin.roles.update',
+      'destroy'=> 'admin.roles.destroy'
+    ]
+  ]);
+
+});
