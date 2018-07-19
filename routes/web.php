@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function(){
+
+  return 'Hola mundo';
+
 });
+
+Route::get('/admin', 'Admin\AdminController@index')->name('admin.index');
+
+Route::resource('admin/usuarios', 'Admin\UsuariosController', [
+  'names'=> [
+    'index'=> 'admin.usuarios.index',
+    'create'=> 'admin.usuarios.create',
+    'store'=> 'admin.usuarios.store',
+    'edit'=> 'admin.usuarios.edit',
+    'update'=> 'admin.usuarios.update',
+    'destroy'=> 'admin.usuarios.destroy'
+  ]
+]);
