@@ -12,6 +12,16 @@
     <label for="clave">Clave</label>
     <input type="password" name="clave" class="form-control" id="clave" placeholder="clave">
   </div>
+
+  <label>Roles</label>
+  <div class="form-group">
+    @foreach($roles as $rol)
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" name="{{ $rol->nombre }}" type="checkbox" id="{{ $rol->nombre }}" value="1">
+      <label class="form-check-label" for="{{ $rol->nombre }}">{{ $rol->nombre }}</label>
+    </div>
+    @endforeach
+  </div>
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 

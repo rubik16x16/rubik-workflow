@@ -16,6 +16,7 @@
     <thead>
       <tr>
         <th>email</th>
+        <th>roles</th>
         <th>estado</th>
         <th>acciones</th>
       </tr>
@@ -38,6 +39,7 @@
         <table-head></table-head>
         <tr v-for="(usuario, index) in usuarios">
           <td>{{ usuario.email }}</td>
+          <td><span v-for="(rol, index) in usuario.roles">*{{ rol.nombre }} </span></td>
           <td v-if="usuario.estado">activo</td>
           <td v-else>inactivo</td>
           <td>

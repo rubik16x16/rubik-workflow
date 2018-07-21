@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Usuario;
+use App\Models\Rol;
+use App\Models\UsuarioRol;
 
 class UsuariosController extends Controller{
   /**
@@ -14,9 +16,11 @@ class UsuariosController extends Controller{
    * @return \Illuminate\Http\Response
    */
   public function index(){
+
     return view('admin.usuarios.index', [
-      'usuarios' => Usuario::all()
+      'usuarios' => Usuario::all()->load('roles')
     ]);
+
   }
 
   /**
@@ -25,7 +29,11 @@ class UsuariosController extends Controller{
    * @return \Illuminate\Http\Response
    */
   public function create(){
-    return view('admin.usuarios.create');
+
+    return view('admin.usuarios.create', [
+      'roles' => Rol::all()
+    ]);
+
   }
 
   /**
@@ -45,12 +53,19 @@ class UsuariosController extends Controller{
       $usuario->clave= password_hash($request->clave, PASSWORD_DEFAULT);
       $usuario->save();
 
+      foreach(Rol::all() as $rol){
+        if(array_key_exists ($rol->nombre, $request->all())){
+          $usuarioRol= new UsuarioRol([
+            'usuario_id' => $usuario->id,
+            'rol_id' => $rol->id
+          ]);
+          $usuarioRol->save();
+        }
+      }
+
       return redirect(route('admin.usuarios.index'));
 
     }
-
-    $request->session()->flash('error', 'Usuario ya registrado');
-    $request->session()->flash('email', $request->get('email'));
 
     return redirect(route('admin.usuario.create'));
   }
@@ -72,9 +87,21 @@ class UsuariosController extends Controller{
    * @return \Illuminate\Http\Response
    */
   public function edit($id){
+
+    $usuario= Usuario::find($id)->load('roles');
+    $roles= Rol::all();
+
+    foreach($roles as $rol){
+      if($usuario->roles->contains($rol)){
+        $rol->checked= true;
+      }
+    }
+
     return view('admin.usuarios.edit',[
-      'usuario' => Usuario::find($id)
+      'usuario' => $usuario,
+      'roles' => $roles
     ]);
+
   }
 
   /**
@@ -86,10 +113,22 @@ class UsuariosController extends Controller{
    */
   public function update(Request $request, $id){
 
-    $usuario= Usuario::find($id);
+    $usuario= Usuario::find($id)->load('roles');
     $usuario->email= $request->email;
     $usuario->clave= password_hash($request->clave, PASSWORD_DEFAULT);
     $usuario->save();
+
+    UsuarioRol::where('usuario_id', $id)->delete();
+
+    foreach(Rol::all() as $rol){
+      if(array_key_exists ($rol->nombre, $request->all())){
+        $usuarioRol= new UsuarioRol([
+          'usuario_id' => $usuario->id,
+          'rol_id' => $rol->id
+        ]);
+        $usuarioRol->save();
+      }
+    }
 
     return redirect(route('admin.usuarios.index'));
 
@@ -105,6 +144,6 @@ class UsuariosController extends Controller{
 
     $usuario= Usuario::find($id);
     $usuario->delete();
-    
+
   }
 }
