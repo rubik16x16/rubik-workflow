@@ -2,7 +2,6 @@
 
 @section('content')
 
-<a href="{{ route('admin.usuarios.index') }}">usuarios</a>
-<a href="{{ route('admin.roles.index') }}">roles</a>
+<h2>Bienvenido al dashBoard</h2>
 
 @endsection

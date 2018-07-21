@@ -2,28 +2,7 @@
 
 @section('content')
 
-<div id="usuariosApp">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>email</th>
-        <th>estado</th>
-        <th>acciones</th>
-      </tr>
-    </thead>
-    @foreach($usuarios as $usuario)
-    <tr>
-      <td>{{ $usuario->email }}</td>
-      <td>@if($usuario->estado) activo @else inactivo @endif</td>
-      <td>
-        <a href="{{ route('admin.usuarios.edit', ['id'=> $usuario->id]) }}" class="btn btn-warning">editar</a>
-        <a href="#" class="btn btn-danger" @click.prevent="destroy({{ $usuario->id }})">eliminar</a>
-      </td>
-    </tr>
-    @endforeach
-  </table>
-  <a href="{{ route('admin.usuarios.create') }}" class="btn btn-primary">Crear usuario</a>
-</div>
+<div id="usuarios-app"></div>
 
 @endsection
 
@@ -31,14 +10,49 @@
 
 <script>
 
+  Vue.component('table-head', {
+    template:`
+    @verbatim
+    <thead>
+      <tr>
+        <th>email</th>
+        <th>estado</th>
+        <th>acciones</th>
+      </tr>
+    </thead>
+    @endverbatim`
+  });
+
   const usuariosApp= new Vue({
-    el: '#usuariosApp',
+    el: '#usuarios-app',
     data: {
-      url: "{{ route('admin.usuarios.destroy', ['id' => 'id']) }}"
+      usuarios: @json($usuarios),
+      urlDestroy: "{{ route('admin.usuarios.destroy', ['id' => 'id']) }}",
+      urlEdit: "{{ route('admin.usuarios.edit',['id' => 'id']) }}",
+      urlCreate: "{{ route('admin.usuarios.create') }}"
     },
+    template:`
+    @verbatim
+    <div class="usuarios-app">
+      <table class="table">
+        <table-head></table-head>
+        <tr v-for="(usuario, index) in usuarios">
+          <td>{{ usuario.email }}</td>
+          <td v-if="usuario.estado">activo</td>
+          <td v-else>inactivo</td>
+          <td>
+            <a :href="edit(usuario.id)" class="btn btn-warning">editar</a>
+            <a href="#" class="btn btn-danger" @click.prevent="destroy(usuario.id, index)">eliminar</a>
+          </td>
+        </tr>
+      </table>
+      <a :href="urlCreate" class="btn btn-primary">Crear usuario</a>
+    </div>
+    @endverbatim`,
     methods: {
-      destroy: function(id){
-        var url= this.url.replace('id', id);
+      destroy: function(id, index){
+        var url= this.urlDestroy.replace('id', id);
+        this.usuarios.splice(index, 1);
         axios({
 					method: 'DELETE',
 					url: url,
@@ -50,6 +64,9 @@
 				}).catch(e => {
 					console.log(e);
 				});
+      },
+      edit: function(id){
+        return this.urlEdit.replace('id', id);
       }
     }
   });

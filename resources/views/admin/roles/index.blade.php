@@ -2,29 +2,7 @@
 
 @section('content')
 
-<div id="rolesApp">
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>nombre</th>
-      <th>acciones</th>
-    </tr>
-  </thead>
-  @foreach($roles as $rol)
-  <tr>
-    <td>{{ $rol->nombre }}</td>
-    <td>
-      <a href="{{ route('admin.roles.edit', ['id'=> $rol->id]) }}" class="btn btn-warning">editar</a>
-      <a href="#" class="btn btn-danger" @click.prevent="destroy({{ $rol->id }})">eliminar</a>
-    </td>
-  </tr>
-  @endforeach
-</table>
-
-<a href="{{ route('admin.roles.create') }}">Nuevo rol</a>
-
-</div>
+<div id="roles-app"></div>
 
 @endsection
 
@@ -32,14 +10,46 @@
 
 <script>
 
+  Vue.component('table-head', {
+    template:`
+    @verbatim
+    <thead>
+      <tr>
+        <th>nombre</th>
+        <th>acciones</th>
+      </tr>
+    </thead>
+    @endverbatim`
+  });
+
   const rolesApp= new Vue({
-    el: '#rolesApp',
+    el: '#roles-app',
     data: {
-      url: "{{ route('admin.roles.destroy', ['id' => 'id']) }}"
+      roles: @json($roles),
+      urlDestroy: "{{ route('admin.roles.destroy', ['id' => 'id']) }}",
+      urlEdit: "{{ route('admin.roles.edit',['id' => 'id']) }}",
+      urlCreate: "{{ route('admin.roles.create') }}"
     },
+    template:`
+    @verbatim
+    <div class="roles-app">
+      <table class="table">
+        <table-head></table-head>
+        <tr v-for="(rol, index) in roles">
+          <td>{{ rol.nombre }}</td>
+          <td>
+            <a :href="edit(rol.id)" class="btn btn-warning">editar</a>
+            <a href="#" class="btn btn-danger" @click.prevent="destroy(rol.id, index)">eliminar</a>
+          </td>
+        </tr>
+      </table>
+      <a :href="urlCreate" class="btn btn-primary">Crear rol</a>
+    </div>
+    @endverbatim`,
     methods: {
-      destroy: function(id){
-        var url= this.url.replace('id', id);
+      destroy: function(id, index){
+        var url= this.urlDestroy.replace('id', id);
+        this.roles.splice(index, 1);
         axios({
 					method: 'DELETE',
 					url: url,
@@ -51,6 +61,9 @@
 				}).catch(e => {
 					console.log(e);
 				});
+      },
+      edit: function(id){
+        return this.urlEdit.replace('id', id);
       }
     }
   });
