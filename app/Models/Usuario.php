@@ -15,4 +15,12 @@ class Usuario extends Model{
     return $this->belongsToMany('App\Models\Rol', 'usuario_rol', 'usuario_id', 'rol_id');
 
   }
+
+  public function permisos(){
+    $permisos= collect();
+    foreach ($this->roles as $rol){
+      $permisos= $permisos->concat($rol->permisos);
+    }
+    return $permisos;
+  }
 }

@@ -23,16 +23,12 @@ Route::middleware('adminAuth')->group(function(){
 
     Route::get('/', 'Admin\AdminController@index')->name('admin.index');
 
-    Route::resource('/usuarios', 'Admin\UsuariosController', [
-      'names'=> [
-        'index'=> 'admin.usuarios.index',
-        'create'=> 'admin.usuarios.create',
-        'store'=> 'admin.usuarios.store',
-        'edit'=> 'admin.usuarios.edit',
-        'update'=> 'admin.usuarios.update',
-        'destroy'=> 'admin.usuarios.destroy'
-      ]
-    ]);
+    Route::get('/usuarios', 'Admin\UsuariosController@index')->name('admin.usuarios.index')->middleware('permiso:usuarios-lista');
+    Route::get('/usuarios/create', 'Admin\UsuariosController@create')->name('admin.usuarios.create')->middleware('permiso:usuarios-agregar');
+    Route::post('/usuarios', 'Admin\UsuariosController@store')->name('admin.usuarios.store')->middleware('permiso:usuarios-agregar');
+    Route::get('/usuarios/{id}/edit', 'Admin\UsuariosController@edit')->name('admin.usuarios.edit')->middleware('permiso:usuarios-editar');
+    Route::put('/usuarios/{id}', 'Admin\UsuariosController@update')->name('admin.usuarios.update')->middleware('permiso:usuarios-editar');
+    Route::delete('/usuarios/{id}', 'Admin\UsuariosController@destroy')->name('admin.usuarios.destroy')->middleware('permiso:usuarios-eliminar');
 
     Route::resource('/roles', 'Admin\RolesController', [
       'names'=> [
