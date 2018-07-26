@@ -19,7 +19,7 @@ class Permiso{
     $admin= Usuario::find($request->session()->get('admin.id'));
     $permisos= $admin->permisos();
     $permisos= $permisos->map(function($item){
-      return $item->seccion . '-' . $item->tipo;
+      return $item->seccion->nombre . '-' . $item->tipo;
     })->toArray();
 
     if(!in_array($permiso, $permisos)){

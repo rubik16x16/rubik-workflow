@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Permiso extends Model{
 
   protected $table= 'permisos';
-  protected $fillable= ['seccion', 'tipo', 'rol_id'];
+  protected $fillable= ['tipo', 'rol_id', 'seccion_id'];
+
+  public function seccion(){
+
+    return $this->belongsTo('App\Models\Seccion');
+
+  }
 
 }

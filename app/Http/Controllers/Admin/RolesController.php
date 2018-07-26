@@ -47,22 +47,16 @@ class RolesController extends Controller{
    */
   public function store(Request $request){
 
-    $secciones= Seccion::all()->map(function($seccion){
-      return $seccion->nombre;
-    });
-
     $rol= new Rol($request->all());
     $rol->save();
 
     foreach($request->all() as $clave => $valor){
       $permiso= explode('-', $clave);
       if(count($permiso) > 1){
-        $seccion= $permiso[0];
+        $seccionId= $permiso[0];
         $tipo= $permiso[1];
-        if(in_array($seccion, $secciones->toArray())){
-          $permiso= new Permiso(['seccion'=> $seccion, 'tipo' => $tipo, 'rol_id' => $rol->id]);
-          $permiso->save();
-        }
+        $permiso= new Permiso(['seccion_id'=> $seccionId, 'tipo' => $tipo, 'rol_id' => $rol->id]);
+        $permiso->save();
       }
     }
 
@@ -94,7 +88,7 @@ class RolesController extends Controller{
 
     foreach($secciones as $seccion){
       foreach($rol->permisos as $permiso){
-        if($permiso->seccion == $seccion->nombre){
+        if($permiso->seccion->nombre == $seccion->nombre){
           $seccionPermiso[]= $permiso->tipo;
         }
       }
@@ -119,10 +113,6 @@ class RolesController extends Controller{
    */
   public function update(Request $request, $id){
 
-    $secciones= Seccion::all()->map(function($seccion){
-      return $seccion->nombre;
-    });
-
     $rol= Rol::find($id);
     $rol->fill($request->all());
     $rol->save();
@@ -132,12 +122,10 @@ class RolesController extends Controller{
     foreach($request->all() as $clave => $valor){
       $permiso= explode('-', $clave);
       if(count($permiso) > 1){
-        $seccion= $permiso[0];
+        $seccionId= $permiso[0];
         $tipo= $permiso[1];
-        if(in_array($seccion, $secciones->toArray())){
-          $permiso= new Permiso(['seccion'=> $seccion, 'tipo' => $tipo, 'rol_id' => $rol->id]);
-          $permiso->save();
-        }
+        $permiso= new Permiso(['seccion_id'=> $seccionId, 'tipo' => $tipo, 'rol_id' => $rol->id]);
+        $permiso->save();
       }
     }
 

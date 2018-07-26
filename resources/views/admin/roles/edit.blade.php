@@ -26,7 +26,7 @@
     <tr>
       <td>{{ $seccion->nombre }}</td>
       @foreach($permisos as $permiso)
-      <td><input name="{{ $seccion->nombre . '-' . $permiso }}" class="form-check-input" type="checkbox" @if(in_array($permiso, $seccion->permisos)) checked @endif></td>
+      <td><input name="{{ $seccion->id . '-' . $permiso }}" class="form-check-input" type="checkbox" @if(in_array($permiso, $seccion->permisos)) checked @endif></td>
       @endforeach
     </tr>
     @endforeach
