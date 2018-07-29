@@ -30,6 +30,13 @@ Route::middleware('adminAuth')->group(function(){
     Route::put('/usuarios/{id}', 'Admin\UsuariosController@update')->name('admin.usuarios.update')->middleware('permiso:usuarios-editar');
     Route::delete('/usuarios/{id}', 'Admin\UsuariosController@destroy')->name('admin.usuarios.destroy')->middleware('permiso:usuarios-eliminar');
 
+    Route::get('/tipoherramientas', 'Admin\TipoHerramientasController@index')->name('admin.tipoHerramientas.index');
+    Route::get('/tipoherramientas/create', 'Admin\TipoHerramientasController@create')->name('admin.tipoHerramientas.create');
+    Route::post('/tipoherramientas', 'Admin\TipoHerramientasController@store')->name('admin.tipoHerramientas.store');
+    Route::get('/tipoherramientas/{id}/edit', 'Admin\TipoHerramientasController@edit')->name('admin.tipoHerramientas.edit');
+    Route::put('/tipoherramientas/{id}', 'Admin\TipoHerramientasController@update')->name('admin.tipoHerramientas.update');
+    Route::delete('/tipoherramientas/{id}', 'Admin\TipoHerramientasController@destroy')->name('admin.tipoHerramientas.destroy');
+
     Route::resource('/roles', 'Admin\RolesController', [
       'names'=> [
         'index'=> 'admin.roles.index',
