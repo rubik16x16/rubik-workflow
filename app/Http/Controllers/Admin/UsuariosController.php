@@ -21,7 +21,8 @@ class UsuariosController extends Controller{
       'usuarios' => str_replace('"', "'", Usuario::all()->load('roles')->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'edit' => route('admin.usuarios.edit', ['id']),
-        'destroy' => route('admin.usuarios.destroy', ['id'])
+        'destroy' => route('admin.usuarios.destroy', ['id']),
+        'create' => route('admin.usuarios.create')
         ]))
     ]);
 

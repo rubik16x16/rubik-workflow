@@ -20,7 +20,12 @@ class RolesController extends Controller{
   public function index(){
 
     return view('admin.roles.index',[
-      'roles' => Rol::all()
+      'roles' => str_replace('"', "'", Rol::all()->load('permisos')->toJson()),
+      'routes' => str_replace('"', "'", json_encode([
+        'edit' => route('admin.roles.edit', ['id']),
+        'destroy' => route('admin.roles.destroy', ['id']),
+        'create' => route('admin.roles.create')
+        ]))
     ]);
 
   }

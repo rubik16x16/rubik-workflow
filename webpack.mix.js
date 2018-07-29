@@ -22,4 +22,5 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/dist/js')
    .sass('resources/assets/sass/app.scss', 'public/dist/css');
 
-mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios')
+mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios');
+mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles');

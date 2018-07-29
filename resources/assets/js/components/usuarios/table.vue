@@ -1,23 +1,26 @@
 <template lang="html">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>email</th>
-        <th>roles</th>
-        <th>estado</th>
-        <th>acciones</th>
+  <div class="usuarios-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>email</th>
+          <th>roles</th>
+          <th>estado</th>
+          <th>acciones</th>
+        </tr>
+      </thead>
+      <tr v-for="(usuario, index) in listUsuarios">
+        <td>{{ usuario.email }}</td>
+        <td><span v-for="rol in usuario.roles">*{{ rol.nombre }}</span></td>
+        <td>{{ usuario.estado }}</td>
+        <td>
+          <a class="btn btn-warning" :href="urlEdit(usuario.id)">Editar</a>
+          <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(usuario.id), index)">Eliminar</a>
+        </td>
       </tr>
-    </thead>
-    <tr v-for="(usuario, index) in listUsuarios">
-      <td>{{ usuario.email }}</td>
-      <td><span v-for="rol in usuario.roles">*{{ rol.nombre }}</span></td>
-      <td>{{ usuario.estado }}</td>
-      <td>
-        <a class="btn btn-warning" :href="urlEdit(usuario.id)">Editar</a>
-        <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(usuario.id), index)">Eliminar</a>
-      </td>
-    </tr>
-  </table>
+    </table>
+    <a class="btn btn-primary" :href="routes.create">Nuevo Usuario</a>
+  </div>
 </template>
 
 <script>
@@ -40,8 +43,6 @@ export default {
       return this.routes.destroy.replace('id', id);
     },
     destroy(route, index){
-
-      alert(route);
 
       axios({
         method: 'DELETE',
