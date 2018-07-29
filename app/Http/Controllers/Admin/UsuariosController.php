@@ -18,7 +18,11 @@ class UsuariosController extends Controller{
   public function index(){
 
     return view('admin.usuarios.index', [
-      'usuarios' => Usuario::all()->load('roles')
+      'usuarios' => str_replace('"', "'", Usuario::all()->load('roles')->toJson()),
+      'routes' => str_replace('"', "'", json_encode([
+        'edit' => route('admin.usuarios.edit', ['id']),
+        'destroy' => route('admin.usuarios.destroy', ['id'])
+        ]))
     ]);
 
   }

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Admin</title>
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/app.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -61,11 +61,9 @@
 
   </div>
 
-  <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-  <script src="{{ asset('js/popper.min.js') }}"></script>
-  <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('js/vue.js') }}"></script>
-  <script src="{{ asset('js/axios.min.js') }}"></script>
-  @yield('scripts')
+  @section('scripts')
+  <script src="{{ asset('dist/js/app.js') }}" ></script>
+  @show
+
 </body>
 </html>

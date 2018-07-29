@@ -11,5 +11,15 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+// mix.webpackConfig({
+//   plugins: [
+//     new CleanWebpackPlugin(['public/dist'])
+//   ]
+// });
+
+mix.js('resources/assets/js/app.js', 'public/dist/js')
+   .sass('resources/assets/sass/app.scss', 'public/dist/css');
+
+mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios')
