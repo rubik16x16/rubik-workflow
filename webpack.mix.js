@@ -25,3 +25,4 @@ mix.js('resources/assets/js/app.js', 'public/dist/js')
 mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios');
 mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles');
 mix.js('resources/assets/js/components/tipoHerramientas/app.js', 'public/dist/js/tipoHerramientas');
+mix.js('resources/assets/js/components/herramientas/app.js', 'public/dist/js/herramientas');
