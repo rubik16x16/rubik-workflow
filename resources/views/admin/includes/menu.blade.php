@@ -11,5 +11,8 @@
   <a class="nav-link" href="{{ route('admin.herramientas.index') }}">Herramientas</a>
 </li>
 <li class="nav-item">
+  <a class="nav-link" href="{{ route('admin.proyectos.index') }}">Proyectos</a>
+</li>
+<li class="nav-item">
   <a class="nav-link" href="{{ route('admin.logout') }}">Logout</a>
 </li>
