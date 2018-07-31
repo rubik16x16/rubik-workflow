@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Usuario;
+
 class UsuariosTableSeeder extends Seeder{
   /**
    * Run the database seeds.
@@ -10,10 +12,25 @@ class UsuariosTableSeeder extends Seeder{
    */
   public function run(){
 
-    DB::table('usuarios')->insert([
-      'email' => 'admin@gmail.com',
-      'clave' => password_hash('admin', PASSWORD_DEFAULT),
-    ]);
+		Usuario::create([
+			'email' => 'admin@gmail.com',
+      'clave' => password_hash('admin', PASSWORD_DEFAULT)
+		]);
+
+		for($i= 1; $i < 10 ; $i++){
+			Usuario::create([
+				'email' => "usuario{$i}@gmail.com",
+				'clave' => password_hash('123', PASSWORD_DEFAULT)
+			]);
+		}
+
+		for($i= 10; $i < 13 ; $i++){
+			Usuario::create([
+				'email' => "usuario{$i}@gmail.com",
+				'clave' => password_hash('123', PASSWORD_DEFAULT),
+				'estado' => false
+			]);
+		}
 
   }
 }

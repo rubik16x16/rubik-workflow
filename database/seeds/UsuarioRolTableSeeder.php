@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\UsuarioRol;
+
 class UsuarioRolTableSeeder extends Seeder{
   /**
    * Run the database seeds.
@@ -10,10 +12,17 @@ class UsuarioRolTableSeeder extends Seeder{
    */
   public function run(){
 
-    DB::table('usuario_rol')->insert([
-      'usuario_id' => 1,
-      'rol_id' => 1
-    ]);
+		UsuarioRol::create([
+			'usuario_id' => 1,
+			'rol_id' => 1
+		]);
+
+		for($i= 2; $i < 14 ; $i++){
+			UsuarioRol::create([
+				'usuario_id' => $i,
+				'rol_id' => 4
+			]);
+		}
 
   }
 }

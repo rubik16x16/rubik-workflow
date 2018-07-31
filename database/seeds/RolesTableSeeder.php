@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Rol;
+
 class RolesTableSeeder extends Seeder{
   /**
    * Run the database seeds.
@@ -10,9 +12,10 @@ class RolesTableSeeder extends Seeder{
    */
   public function run(){
 
-    DB::table('roles')->insert([
-      'nombre' => 'Admin',
-    ]);
+		Rol::create(['nombre' => 'Administrador']);
+		Rol::create(['nombre' => 'Ingeniero']);
+		Rol::create(['nombre' => 'Coordinador']);
+		Rol::create(['nombre' => 'Operario']);
 
   }
 }
