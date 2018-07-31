@@ -10,6 +10,7 @@ use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
 use App\Models\ProyectoTipoHerramienta;
 use App\Models\TipoHerramienta;
+use App\Models\ProyectoHerramienta;
 
 class ProyectosController extends Controller{
   /**
@@ -25,7 +26,7 @@ class ProyectosController extends Controller{
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
         'create' => route('admin.proyectos.create'),
-				'addHerramientas' => route('admin.proyectos.addHerramientas.get', ['id'])
+				'addHerramientas' => route('admin.proyectos.addHerramientas', ['id'])
         ]))
 		]);
 
@@ -169,13 +170,36 @@ class ProyectosController extends Controller{
 
   }
 
-	public function addHerramientasGet(){
+	public function addHerramientas($id){
 
-		return view('admin.proyectos.addHerramientas');
+		$coleccionesHerramientas= collect();
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
+
+		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
+			$coleccionesHerramientas->push([$tipoHerramienta->nombre => $tipoHerramienta->herramientas]);
+		}
+
+		return view('admin.proyectos.addHerramientas', [
+			'proyecto' => $proyecto,
+			'coleccionesHerramientas' => $coleccionesHerramientas
+		]);
 
 	}
 
-	public function addHerramientasPost(){
+	public function storeHerramientas(Request $request , $id){
+
+		$proyecto= Proyecto::find($id);
+
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 11) == 'herramienta'){
+				ProyectoHerramienta::create([
+					'proyecto_id' => $proyecto->id,
+					'herramienta_id' => $valor
+				]);
+			}
+		}
+
+		return redirect(route('admin.proyectos.index'));
 
 	}
 

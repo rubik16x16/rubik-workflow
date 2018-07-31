@@ -21,4 +21,10 @@ class Proyecto extends Model{
 
 	}
 
+	public function herramientas(){
+
+		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta');
+
+	}
+
 }
