@@ -50,6 +50,8 @@ Route::middleware('adminAuth')->group(function(){
     Route::get('/proyectos/{id}/edit', 'Admin\ProyectosController@edit')->name('admin.proyectos.edit');
     Route::put('/proyectos/{id}', 'Admin\ProyectosController@update')->name('admin.proyectos.update');
     Route::delete('/proyectos/{id}', 'Admin\ProyectosController@destroy')->name('admin.proyectos.destroy');
+		Route::get('/proyectos/{id}/addherramientas', 'Admin\ProyectosController@addHerramientasGet')->name('admin.proyectos.addHerramientas.get');
+		Route::post('/proyectos/{id}/addherramientas', 'Admin\ProyectosController@addHerramientasPost')->name('admin.proyectos.addHerramientas.post');
 
     Route::resource('/roles', 'Admin\RolesController', [
       'names'=> [

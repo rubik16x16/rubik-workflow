@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
+use App\Models\ProyectoTipoHerramienta;
+use App\Models\TipoHerramienta;
 
 class ProyectosController extends Controller{
   /**
@@ -22,7 +24,8 @@ class ProyectosController extends Controller{
       'routes' => str_replace('"', "'", json_encode([
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
-        'create' => route('admin.proyectos.create')
+        'create' => route('admin.proyectos.create'),
+				'addHerramientas' => route('admin.proyectos.addHerramientas.get', ['id'])
         ]))
 		]);
 
@@ -36,7 +39,8 @@ class ProyectosController extends Controller{
   public function create(){
 
 		return view('admin.proyectos.create', [
-			'operadores' => $this->operadoresDisponibles()
+			'operadores' => $this->operadoresDisponibles(),
+			'tipoHerramientas' => TipoHerramienta::all()
 		]);
 
   }
@@ -53,6 +57,14 @@ class ProyectosController extends Controller{
 		$proyecto->save();
 
 		foreach($request->all() as $clave => $valor){
+
+			if(substr($clave, 0, 15) == 'tipoHerramienta'){
+				ProyectoTipoHerramienta::create([
+					'proyecto_id' => $proyecto->id,
+					'tipo_herramienta_id' => $valor
+				]);
+			}
+
 			if(substr($clave, 0, 8) == 'operador'){
 				ProyectoUsuario::create([
 					'proyecto_id' => $proyecto->id,
@@ -84,18 +96,24 @@ class ProyectosController extends Controller{
    */
   public function edit($id){
 
-		$proyecto= Proyecto::find($id)->load('operadores');
-		$operadores= $this->operadoresDisponibles();
+		$proyecto= Proyecto::find($id)->load('operadores', 'tipoHerramientas');
 
-		foreach($operadores as $operador){
-			if($proyecto->operadores->contains($operador)){
-				$operador->checked= true;
-			}
+		$operadores= $this->operadoresDisponibles();
+		$tipoHerramientas= TipoHerramienta::all();
+
+		foreach($tipoHerramientas as $tipoHerramienta){
+			$tipoHerramienta->checked= $proyecto->tipoHerramientas->contains($tipoHerramienta) ? true : false;
+		}
+
+		foreach($proyecto->operadores as $operador){
+			$operador->checked= true;
+			$operadores->push($operador);
 		}
 
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
-			'operadores' => $operadores
+			'operadores' => $operadores->sortBy('email'),
+			'tipoHerramientas' =>$tipoHerramientas
 		]);
 
   }
@@ -114,14 +132,24 @@ class ProyectosController extends Controller{
 		$proyecto->save();
 
 		ProyectoUsuario::where('proyecto_id', $proyecto->id)->delete();
+		ProyectoTipoHerramienta::where('proyecto_id', $proyecto->id)->delete();
 
 		foreach($request->all() as $clave => $valor){
+
+			if(substr($clave, 0, 15) == 'tipoHerramienta'){
+				ProyectoTipoHerramienta::create([
+					'proyecto_id' => $proyecto->id,
+					'tipo_herramienta_id' => $valor
+				]);
+			}
+
 			if(substr($clave, 0, 8) == 'operador'){
 				ProyectoUsuario::create([
 					'proyecto_id' => $proyecto->id,
 					'usuario_id' => $valor
 				]);
 			}
+
 		}
 
 		return redirect(route('admin.proyectos.index'));
@@ -140,6 +168,16 @@ class ProyectosController extends Controller{
 		$proyecto->delete();
 
   }
+
+	public function addHerramientasGet(){
+
+		return view('admin.proyectos.addHerramientas');
+
+	}
+
+	public function addHerramientasPost(){
+
+	}
 
 	private function operadoresDisponibles(){
 

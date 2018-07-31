@@ -15,4 +15,10 @@ class Proyecto extends Model{
 
 	}
 
+	public function tipoHerramientas(){
+
+		return $this->belongsToMany('App\Models\TipoHerramienta', 'proyecto_tipo_herramienta');
+
+	}
+
 }
