@@ -36,7 +36,7 @@ class ProyectosController extends Controller{
   public function create(){
 
 		return view('admin.proyectos.create', [
-			'operadores' => $this->operadores()
+			'operadores' => $this->operadoresDisponibles()
 		]);
 
   }
@@ -85,7 +85,7 @@ class ProyectosController extends Controller{
   public function edit($id){
 
 		$proyecto= Proyecto::find($id)->load('operadores');
-		$operadores= $this->operadores();
+		$operadores= $this->operadoresDisponibles();
 
 		foreach($operadores as $operador){
 			if($proyecto->operadores->contains($operador)){
@@ -141,9 +141,18 @@ class ProyectosController extends Controller{
 
   }
 
-	private function operadores(){
+	private function operadoresDisponibles(){
 
-		$operadores= Usuario::all()->load('roles')->reject(function($usuario){
+		$operadoresOcupados= collect();
+		$operadoresDisponibles= collect();
+
+		foreach(Proyecto::all()->load('operadores') as $proyecto){
+			foreach ($proyecto->operadores as $operador) {
+				$operadoresOcupados->push($operador);
+			}
+		}
+
+		$operadoresActivos= Usuario::all()->load('roles')->reject(function($usuario){
 			return $usuario->estado == false;
 		})->filter(function($usuario){
 			$roles= $usuario->roles->map(function($rol){
@@ -152,7 +161,13 @@ class ProyectosController extends Controller{
 			return in_array('Operario', $roles->toArray());
 		});
 
-		return $operadores;
+		foreach($operadoresActivos as $operador){
+			if(!$operadoresOcupados->contains('id', $operador->id)){
+				$operadoresDisponibles->push($operador);
+			}
+		}
+
+		return $operadoresDisponibles;
 
 	}
 }
