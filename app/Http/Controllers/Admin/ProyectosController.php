@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Proyecto;
+use App\Models\Usuario;
+use App\Models\ProyectoUsuario;
 
 class ProyectosController extends Controller{
   /**
@@ -33,7 +35,9 @@ class ProyectosController extends Controller{
    */
   public function create(){
 
-		return view('admin.proyectos.create');
+		return view('admin.proyectos.create', [
+			'operadores' => $this->operadores()
+		]);
 
   }
 
@@ -45,7 +49,18 @@ class ProyectosController extends Controller{
    */
   public function store(Request $request){
 
-		Proyecto::create($request->all());
+		$proyecto= new Proyecto($request->all());
+		$proyecto->save();
+
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 8) == 'operador'){
+				ProyectoUsuario::create([
+					'proyecto_id' => $proyecto->id,
+					'usuario_id' => $valor
+				]);
+			}
+		}
+
 		return redirect(route('admin.proyectos.index'));
 
   }
@@ -69,8 +84,18 @@ class ProyectosController extends Controller{
    */
   public function edit($id){
 
+		$proyecto= Proyecto::find($id)->load('operadores');
+		$operadores= $this->operadores();
+
+		foreach($operadores as $operador){
+			if($proyecto->operadores->contains($operador)){
+				$operador->checked= true;
+			}
+		}
+
 		return view('admin.proyectos.edit', [
-			'proyecto' => Proyecto::find($id)
+			'proyecto' => $proyecto,
+			'operadores' => $operadores
 		]);
 
   }
@@ -87,6 +112,18 @@ class ProyectosController extends Controller{
 		$proyecto= Proyecto::find($id);
 		$proyecto->fill($request->all());
 		$proyecto->save();
+
+		ProyectoUsuario::where('proyecto_id', $proyecto->id)->delete();
+
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 8) == 'operador'){
+				ProyectoUsuario::create([
+					'proyecto_id' => $proyecto->id,
+					'usuario_id' => $valor
+				]);
+			}
+		}
+
 		return redirect(route('admin.proyectos.index'));
 
   }
@@ -103,4 +140,19 @@ class ProyectosController extends Controller{
 		$proyecto->delete();
 
   }
+
+	private function operadores(){
+
+		$operadores= Usuario::all()->load('roles')->reject(function($usuario){
+			return $usuario->estado == false;
+		})->filter(function($usuario){
+			$roles= $usuario->roles->map(function($rol){
+				return $rol->nombre;
+			});
+			return in_array('Operario', $roles->toArray());
+		});
+
+		return $operadores;
+
+	}
 }

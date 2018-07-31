@@ -9,4 +9,10 @@ class Proyecto extends Model{
 	protected $table= 'proyectos';
 	protected $fillable= ['nombre'];
 
+	public function operadores(){
+
+		return $this->belongsToMany('App\Models\Usuario', 'proyecto_usuario');
+
+	}
+
 }
