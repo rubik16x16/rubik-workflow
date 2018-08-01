@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Proyecto;
 use App\Models\Usuario;
+use App\Models\Herramienta;
 use App\Models\ProyectoUsuario;
 use App\Models\ProyectoTipoHerramienta;
 use App\Models\TipoHerramienta;
@@ -172,16 +173,9 @@ class ProyectosController extends Controller{
 
 	public function addHerramientas($id){
 
-		$coleccionesHerramientas= collect();
-		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
-
-		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
-			$coleccionesHerramientas->push([$tipoHerramienta->nombre => $tipoHerramienta->herramientas]);
-		}
-
 		return view('admin.proyectos.addHerramientas', [
-			'proyecto' => $proyecto,
-			'coleccionesHerramientas' => $coleccionesHerramientas
+			'proyecto' => Proyecto::find($id),
+			'coleccionesHerramientas' => $this->coleccionesHerramientasDisponibles($id)
 		]);
 
 	}
@@ -230,6 +224,37 @@ class ProyectosController extends Controller{
 		}
 
 		return $operadoresDisponibles;
+
+	}
+
+	private function coleccionesHerramientasDisponibles($id){
+
+		$herramientasOcupadas= collect();
+		$herramientasDisponibles= collect();
+		$coleccionesHerramientasDisponibles= collect();
+
+		foreach(Proyecto::all()->load('herramientas') as $proyecto){
+			$herramientasOcupadas= $herramientasOcupadas->concat($proyecto->herramientas);
+		}
+
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
+
+		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
+
+			$herramientas= $tipoHerramienta->herramientas;
+
+			foreach ($herramientas as $herramienta) {
+				if(!$herramientasOcupadas->contains('id', $herramienta->id)){
+					$herramientasDisponibles->push($herramienta);
+				}
+			}
+
+			$coleccionesHerramientasDisponibles->push([$tipoHerramienta->nombre => $herramientasDisponibles]);
+			$herramientasDisponibles= collect();
+
+		}
+
+		return $coleccionesHerramientasDisponibles;
 
 	}
 }

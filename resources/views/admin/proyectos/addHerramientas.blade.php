@@ -7,18 +7,18 @@
 <form action="{{ route('admin.proyectos.storeHerramientas', ['id' => $proyecto->id]) }}" method="post">
   {{ csrf_field() }}
 
-	<label>Herramientas</label>
+	<h2>Herramientas</h2>
 
 	@foreach($coleccionesHerramientas as $coleccionHerramientas)
 		@foreach($coleccionHerramientas as $nombre => $herramientas)
 
-		<label>{{ $nombre }}</label>
+		<h3>{{ $nombre }}</h3>
 
 			@foreach($herramientas as $herramienta)
 
 			<div class="form-group form-check">
 		  	<input type="checkbox" class="form-check-input" name="herramienta-{{ $herramienta->id }}" id="herramienta-{{ $herramienta->id }}" value="{{ $herramienta->id }}">
-		  	<label class="form-check-label" for="herramienta-{{ $herramienta->id }}">{{ $herramienta->email }}</label>
+		  	<label class="form-check-label" for="herramienta-{{ $herramienta->id }}">{{ $herramienta->id }}</label>
 			</div>
 
 			@endforeach
