@@ -22,13 +22,16 @@ class ProyectosController extends Controller{
   public function index(){
 
     return view('admin.proyectos.index', [
-			'proyectos' => str_replace('"', "'", Proyecto::all()->toJson()),
+			'proyectos' => str_replace('"', "'", Proyecto::all()->load('herramientas')->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
         'create' => route('admin.proyectos.create'),
-				'addHerramientas' => route('admin.proyectos.addHerramientas', ['id'])
-        ]))
+				'herramientas' => [
+					'create' => route('admin.proyectos.herramientas.create', ['id']),
+					'edit' => route('admin.proyectos.herramientas.edit', ['id'])
+				]
+      ]))
 		]);
 
   }
@@ -171,9 +174,9 @@ class ProyectosController extends Controller{
 
   }
 
-	public function addHerramientas($id){
+	public function createHerramientas($id){
 
-		return view('admin.proyectos.addHerramientas', [
+		return view('admin.proyectos.herramientas.create', [
 			'proyecto' => Proyecto::find($id),
 			'coleccionesHerramientas' => $this->coleccionesHerramientasDisponibles($id)
 		]);
@@ -182,12 +185,53 @@ class ProyectosController extends Controller{
 
 	public function storeHerramientas(Request $request , $id){
 
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 11) == 'herramienta'){
+				ProyectoHerramienta::create([
+					'proyecto_id' => $id,
+					'herramienta_id' => $valor
+				]);
+			}
+		}
+
+		return redirect(route('admin.proyectos.index'));
+
+	}
+
+	public function editHerramientas(Request $request, $id){
+
 		$proyecto= Proyecto::find($id);
+		$coleccionesHerramientasDisponibles= $this->coleccionesHerramientasDisponibles($id);
+
+
+		foreach($coleccionesHerramientasDisponibles as $key => &$coleccionHerramientasDisponibles){
+			foreach($coleccionHerramientasDisponibles as $tipoHerramienta => &$herramientas){
+				$herramientas= $herramientas->concat($proyecto->herramientas->filter(function($herramienta) use ($tipoHerramienta){
+					return $herramienta->tipo->nombre == $tipoHerramienta;
+				}));
+				foreach ($herramientas as $herramienta) {
+					$herramienta->checked= $proyecto->herramientas->contains($herramienta) ? true : false;
+				}
+				$coleccionHerramientasDisponibles[$tipoHerramienta]= $herramientas->sortBy('id');
+			}
+			$coleccionesHerramientasDisponibles[$key] = $coleccionHerramientasDisponibles;
+		}
+
+		return view('admin.proyectos.herramientas.edit', [
+			'proyecto' => $proyecto,
+			'coleccionesHerramientas' => $coleccionesHerramientasDisponibles
+		]);
+
+	}
+
+	public function updateHerramientas(Request $request, $id){
+
+		ProyectoHerramienta::where('proyecto_id', $id)->delete();
 
 		foreach($request->all() as $clave => $valor){
 			if(substr($clave, 0, 11) == 'herramienta'){
 				ProyectoHerramienta::create([
-					'proyecto_id' => $proyecto->id,
+					'proyecto_id' => $id,
 					'herramienta_id' => $valor
 				]);
 			}
