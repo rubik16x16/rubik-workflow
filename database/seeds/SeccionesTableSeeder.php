@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Seccion;
+
 class SeccionesTableSeeder extends Seeder{
   /**
    * Run the database seeds.
@@ -10,9 +12,11 @@ class SeccionesTableSeeder extends Seeder{
    */
   public function run(){
 
-    DB::table('secciones')->insert([
-      'nombre' => 'usuarios'
-    ]);
+		Seccion::create(['nombre' => 'usuarios']);
+		Seccion::create(['nombre' => 'roles']);
+		Seccion::create(['nombre' => 'tipoHerramientas']);
+		Seccion::create(['nombre' => 'herramientas']);
+		Seccion::create(['nombre' => 'proyectos']);
 
   }
 }

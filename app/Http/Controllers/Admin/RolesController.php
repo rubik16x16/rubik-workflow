@@ -11,7 +11,6 @@ use App\Models\Permiso;
 
 class RolesController extends Controller{
 
-  private $permisos= ['lista', 'editar', 'agregar', 'eliminar'];
   /**
    * Display a listing of the resource.
    *
@@ -39,7 +38,6 @@ class RolesController extends Controller{
 
     return view('admin.roles.create', [
       'secciones' => Seccion::all(),
-      'permisos' => $this->permisos
     ]);
 
   }
@@ -59,8 +57,8 @@ class RolesController extends Controller{
       $permiso= explode('-', $clave);
       if(count($permiso) > 1){
         $seccionId= $permiso[0];
-        $tipo= $permiso[1];
-        $permiso= new Permiso(['seccion_id'=> $seccionId, 'tipo' => $tipo, 'rol_id' => $rol->id]);
+        $accionId= $permiso[1];
+        $permiso= new Permiso(['seccion_id'=> $seccionId, 'accion_id' => $accionId, 'rol_id' => $rol->id]);
         $permiso->save();
       }
     }
@@ -87,24 +85,19 @@ class RolesController extends Controller{
    */
   public function edit($id){
 
-    $rol= Rol::find($id)->load('permisos');
-    $secciones= Seccion::all();
-    $seccionPermiso= [];
+		$rol= Rol::find($id);
+		$secciones= Seccion::all()->load('acciones');
+		$permisos= $rol->permisos;
 
-    foreach($secciones as $seccion){
-      foreach($rol->permisos as $permiso){
-        if($permiso->seccion->nombre == $seccion->nombre){
-          $seccionPermiso[]= $permiso->tipo;
-        }
-      }
-      $seccion->permisos= $seccionPermiso;
-      $seccionPermiso= [];
-    }
+		$secciones->each(function($seccion) use($permisos){
+			$seccion->acciones->each(function($accion) use($permisos){
+				$accion->checked= $permisos->contains('accion_id', $accion->id) ? true: false;
+			});
+		});
 
     return view('admin.roles.edit',[
       'rol' => $rol,
-      'secciones' => $secciones,
-      'permisos' => $this->permisos
+      'secciones' => $secciones
     ]);
 
   }
@@ -124,12 +117,12 @@ class RolesController extends Controller{
 
     Permiso::where('rol_id', $id)->delete();
 
-    foreach($request->all() as $clave => $valor){
+		foreach($request->all() as $clave => $valor){
       $permiso= explode('-', $clave);
       if(count($permiso) > 1){
         $seccionId= $permiso[0];
-        $tipo= $permiso[1];
-        $permiso= new Permiso(['seccion_id'=> $seccionId, 'tipo' => $tipo, 'rol_id' => $rol->id]);
+        $accionId= $permiso[1];
+        $permiso= new Permiso(['seccion_id'=> $seccionId, 'accion_id' => $accionId, 'rol_id' => $rol->id]);
         $permiso->save();
       }
     }

@@ -12,25 +12,25 @@
 
   <h2>Permisos</h2>
 
+	@foreach($secciones as $seccion)
   <table class="table">
     <thead>
       <tr>
         <th>seccion</th>
-        <th>lista</th>
-        <th>editar</th>
-        <th>agregar</th>
-        <th>eliminar</th>
+        @foreach($seccion->acciones as $accion)
+				<th>{{ $accion->etiqueta }}</th>
+				@endforeach
       </tr>
     </thead>
-    @foreach($secciones as $seccion)
+
     <tr>
       <td>{{ $seccion->nombre }}</td>
-      @foreach($permisos as $permiso)
-      <td><input name="{{ $seccion->id . '-' . $permiso }}" class="form-check-input" type="checkbox" @if(in_array($permiso, $seccion->permisos)) checked @endif></td>
+      @foreach($seccion->acciones as $accion)
+      <td><input name="{{ $seccion->id . '-' . $accion->id }}" class="form-check-input" type="checkbox" @if($accion->checked) checked @endif></td>
       @endforeach
     </tr>
-    @endforeach
   </table>
+	@endforeach
 
   <button type="submit" class="btn btn-primary">Guardar</button>
 

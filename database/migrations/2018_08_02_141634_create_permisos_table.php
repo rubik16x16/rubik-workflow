@@ -14,13 +14,14 @@ class CreatePermisosTable extends Migration
     public function up()
     {
         Schema::create('permisos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('tipo');
-            $table->unsignedInteger('seccion_id');
-            $table->unsignedInteger('rol_id');
-            $table->foreign('seccion_id')->references('id')->on('secciones')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
+					$table->increments('id');
+					$table->unsignedInteger('seccion_id');
+					$table->unsignedInteger('rol_id');
+					$table->unsignedInteger('accion_id');
+					$table->foreign('seccion_id')->references('id')->on('secciones')->onDelete('cascade')->onUpdate('cascade');
+					$table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+					$table->foreign('accion_id')->references('id')->on('acciones')->onDelete('cascade')->onUpdate('cascade');
+					$table->timestamps();
         });
     }
 

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Seccion;
+use App\Models\Permiso;
+
 class PermisosTableSeeder extends Seeder{
   /**
    * Run the database seeds.
@@ -10,16 +13,11 @@ class PermisosTableSeeder extends Seeder{
    */
   public function run(){
 
-    $tipos= ['lista', 'editar', 'agregar', 'eliminar'];
-    foreach($tipos as $tipo){
+    $seccion= Seccion::find(1)->load('acciones');
 
-      DB::table('permisos')->insert([
-        'tipo' => $tipo,
-        'seccion_id' => 1,
-        'rol_id' => 1
-      ]);
-
-    }
+		foreach ($seccion->acciones as $accion) {
+			Permiso::create(['accion_id' =>$accion->id, 'rol_id' => 1, 'seccion_id' => 1]);
+		}
 
   }
 }

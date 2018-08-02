@@ -14,17 +14,17 @@ class Permiso{
    * @param  \Closure  $next
    * @return mixed
    */
-  public function handle($request, Closure $next, $permiso){
+  public function handle($request, Closure $next, $seccionPermiso){
 
     $admin= Usuario::find($request->session()->get('admin.id'));
     $permisos= $admin->permisos();
-    $permisos= $permisos->map(function($item){
-      return $item->seccion->nombre . '-' . $item->tipo;
-    })->toArray();
+    $permisos= $permisos->map(function($permiso){
+      return $permiso->seccion->nombre . '-' . $permiso->accion->nombre;
+    });
 
-    if(!in_array($permiso, $permisos)){
+    if(!$permisos->contains($seccionPermiso)){
 
-      dd('no tiene permiso');
+      abort(403, 'no tiene permiso');
 
     }
 

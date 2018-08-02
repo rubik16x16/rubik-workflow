@@ -11,4 +11,10 @@ class Seccion extends Model{
 
   public $timestamps= false;
 
+	public function acciones(){
+
+		return $this->hasMany('App\Models\Accion');
+
+	}
+
 }
