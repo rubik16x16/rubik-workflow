@@ -20,8 +20,17 @@ class ProyectosController extends Controller{
    */
   public function index(){
 
+		$proyectos= Proyecto::all()->load('herramientas');
+		$usuario= Usuario::find(session('admin.id'));
+
+		if($usuario->roles->contains('nombre', 'jefedetaller')){
+			$proyectos= $proyectos->reject(function($proyecto){
+				return $proyecto->estado == false;
+			});
+		}
+
     return view('admin.proyectos.index', [
-			'proyectos' => str_replace('"', "'", Proyecto::all()->load('herramientas')->toJson()),
+			'proyectos' => str_replace('"', "'", $proyectos->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
