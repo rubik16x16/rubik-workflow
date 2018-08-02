@@ -35,6 +35,7 @@ class ProyectosController extends Controller{
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
         'create' => route('admin.proyectos.create'),
+				'show' => route('admin.proyectos.show', ['id']),
 				'herramientas' => [
 					'create' => route('admin.proyectos.herramientas.create', ['id']),
 					'edit' => route('admin.proyectos.herramientas.edit', ['id'])
@@ -96,9 +97,14 @@ class ProyectosController extends Controller{
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show($id)
-  {
-      //
+  public function show($id){
+
+		$proyecto= Proyecto::find($id)->load('herramientas', 'tipoHerramientas', 'operadores');
+
+		return view('admin.proyectos.show', [
+			'proyecto' => $proyecto
+		]);
+
   }
 
   /**

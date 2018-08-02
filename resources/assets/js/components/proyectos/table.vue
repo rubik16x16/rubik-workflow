@@ -10,6 +10,7 @@
       <tr v-for="(proyecto, index) in listProyectos">
         <td>{{ proyecto.nombre }}</td>
         <td>
+					<a class="btn btn-secondary" :href="urlShow(proyecto.id)">Ver</a>
           <a class="btn btn-warning" :href="urlEdit(proyecto.id)">Editar</a>
           <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)">Eliminar</a>
 					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0">Asignar herramientas</a>
@@ -34,6 +35,9 @@ export default {
     this.listProyectos= this.proyectos;
   },
   methods:{
+		urlShow(id){
+			return this.routes.show.replace('id', id);
+		},
     urlEdit (id){
       return this.routes.edit.replace('id', id);
     },

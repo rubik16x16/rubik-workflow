@@ -49,6 +49,7 @@ Route::middleware('adminAuth')->group(function(){
     Route::post('/proyectos', 'Admin\ProyectosController@store')->name('admin.proyectos.store');
     Route::get('/proyectos/{id}/edit', 'Admin\ProyectosController@edit')->name('admin.proyectos.edit');
     Route::put('/proyectos/{id}', 'Admin\ProyectosController@update')->name('admin.proyectos.update');
+		Route::get('/proyectos/{id}', 'Admin\ProyectosController@show')->name('admin.proyectos.show');
     Route::delete('/proyectos/{id}', 'Admin\ProyectosController@destroy')->name('admin.proyectos.destroy');
 
 		Route::get('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@createHerramientas')->name('admin.proyectos.herramientas.create');
