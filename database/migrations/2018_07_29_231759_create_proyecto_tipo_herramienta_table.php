@@ -30,6 +30,6 @@ class CreateProyectoTipoHerramientaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proyecto_tipo_herramientas');
+        Schema::dropIfExists('proyecto_tipo_herramienta');
     }
 }
