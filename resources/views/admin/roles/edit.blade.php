@@ -24,7 +24,7 @@
     </thead>
 
     <tr>
-      <td>{{ $seccion->nombre }}</td>
+      <td>{{ $seccion->etiqueta }}</td>
       @foreach($seccion->acciones as $accion)
       <td><input name="{{ $seccion->id . '-' . $accion->id }}" class="form-check-input" type="checkbox" @if($accion->checked) checked @endif></td>
       @endforeach

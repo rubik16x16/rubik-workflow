@@ -13,10 +13,12 @@ class PermisosTableSeeder extends Seeder{
    */
   public function run(){
 
-    $seccion= Seccion::find(1)->load('acciones');
+    $secciones= Seccion::all()->load('acciones');
 
-		foreach ($seccion->acciones as $accion) {
-			Permiso::create(['accion_id' =>$accion->id, 'rol_id' => 1, 'seccion_id' => 1]);
+		foreach ($secciones as $seccion){
+			foreach($seccion->acciones as $accion){
+				Permiso::create(['accion_id' =>$accion->id, 'rol_id' => 1, 'seccion_id' => $seccion->id]);
+			}
 		}
 
   }

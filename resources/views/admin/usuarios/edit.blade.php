@@ -20,7 +20,7 @@
   <div class="form-group">
     @foreach($roles as $rol)
     <div class="form-check form-check-inline">
-      <input class="form-check-input" name="{{ $rol->nombre }}" type="checkbox" id="{{ $rol->nombre }}" value="1" @if($rol->checked) checked @endif>
+      <input class="form-check-input" name="rol-{{ $rol->id }}" type="checkbox" id="rol-{{ $rol->id }}" value="{{ $rol->id }}" @if($rol->checked) checked @endif>
       <label class="form-check-label" for="{{ $rol->nombre }}">{{ $rol->nombre }}</label>
     </div>
     @endforeach

@@ -12,11 +12,11 @@ class SeccionesTableSeeder extends Seeder{
    */
   public function run(){
 
-		Seccion::create(['nombre' => 'usuarios']);
-		Seccion::create(['nombre' => 'roles']);
-		Seccion::create(['nombre' => 'tipoHerramientas']);
-		Seccion::create(['nombre' => 'herramientas']);
-		Seccion::create(['nombre' => 'proyectos']);
+		Seccion::create(['nombre' => 'usuarios', 'etiqueta' => 'Usuarios']);
+		Seccion::create(['nombre' => 'roles', 'etiqueta' => 'Roles']);
+		Seccion::create(['nombre' => 'tipoHerramientas', 'etiqueta' => 'Tipos de Herramientas']);
+		Seccion::create(['nombre' => 'herramientas', 'etiqueta' => 'Herramientas']);
+		Seccion::create(['nombre' => 'proyectos', 'etiqueta' => 'Proyectos']);
 
   }
 }

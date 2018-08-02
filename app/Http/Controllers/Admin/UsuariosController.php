@@ -58,15 +58,14 @@ class UsuariosController extends Controller{
       $usuario->clave= password_hash($request->clave, PASSWORD_DEFAULT);
       $usuario->save();
 
-      foreach(Rol::all() as $rol){
-        if(array_key_exists ($rol->nombre, $request->all())){
-          $usuarioRol= new UsuarioRol([
-            'usuario_id' => $usuario->id,
-            'rol_id' => $rol->id
-          ]);
-          $usuarioRol->save();
-        }
-      }
+			foreach($request->all() as $clave => $valor){
+				if(substr($clave, 0, 3) == 'rol'){
+					UsuarioRol::create([
+						'usuario_id' => $usuario->id,
+						'rol_id' => $valor
+					]);
+				}
+			}
 
       return redirect(route('admin.usuarios.index'));
 
@@ -125,15 +124,14 @@ class UsuariosController extends Controller{
 
     UsuarioRol::where('usuario_id', $id)->delete();
 
-    foreach(Rol::all() as $rol){
-      if(array_key_exists ($rol->nombre, $request->all())){
-        $usuarioRol= new UsuarioRol([
-          'usuario_id' => $usuario->id,
-          'rol_id' => $rol->id
-        ]);
-        $usuarioRol->save();
-      }
-    }
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 3) == 'rol'){
+				UsuarioRol::create([
+					'usuario_id' => $usuario->id,
+					'rol_id' => $valor
+				]);
+			}
+		}
 
     return redirect(route('admin.usuarios.index'));
 
