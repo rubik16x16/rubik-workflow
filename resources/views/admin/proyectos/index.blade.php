@@ -3,7 +3,11 @@
 @section('content')
 
 <div id="app">
-	<proyectos-table :proyectos="{{ $proyectos }}" :routes="{{ $routes }}"></proyectos-table>
+	<proyectos-table
+	:proyectos="{{ $proyectos }}"
+	:routes="{{ $routes }}"
+	:permisos="{{ permisos('proyectos') }}">
+	</proyectos-table>
 </div>
 
 @endsection

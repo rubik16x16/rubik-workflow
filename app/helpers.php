@@ -15,6 +15,18 @@ if (!function_exists('permiso')) {
     }
 
 	  return true;
+	}
+}
+
+if (!function_exists('permisos')) {
+	function permisos($seccion){
+
+		$usuario= App\Models\Usuario::find(session('admin.id'));
+		$usuario->permisos()->each(function($permiso){
+			$permiso->load('seccion', 'accion');
+		});
+
+		return str_replace('"', "'",$usuario->permisos()->toJson());
 
 	}
 }
