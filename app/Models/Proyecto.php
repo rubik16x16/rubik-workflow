@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Proyecto extends Model{
 
 	protected $table= 'proyectos';
-	protected $fillable= ['nombre', 'estado'];
+	protected $fillable= ['nombre', 'estado','nrocta_cliente'];
 
 	public function operadores(){
 

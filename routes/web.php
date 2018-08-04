@@ -107,6 +107,9 @@ Route::middleware('adminAuth')->group(function(){
 		->name('admin.proyectos.index')
 		->middleware('permiso:proyectos-lista');
 
+		 Route::get('/proyectos/sincronizarida/{id}', 'Admin\ProyectosController@sincronizarida')
+		 	->name('admin.proyectos.sincronizarida');
+		 	
     Route::get('/proyectos/create', 'Admin\ProyectosController@create')
 		->name('admin.proyectos.create')
 		->middleware('permiso:proyectos-agregar');

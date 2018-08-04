@@ -11,6 +11,7 @@ use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
 use App\Models\TipoHerramienta;
 use App\Models\ProyectoTipoHerramienta;
+use App\Models\Cliente;
 
 class ProyectosController extends Controller{
   /**
@@ -54,7 +55,8 @@ class ProyectosController extends Controller{
 
 		return view('admin.proyectos.create', [
 			'operadores' => $this->operadoresDisponibles(),
-			'tipoHerramientas' => TipoHerramienta::all()
+			'tipoHerramientas' => TipoHerramienta::all(),
+			'clientes' => Cliente::all()
 		]);
 
   }
@@ -217,5 +219,18 @@ class ProyectosController extends Controller{
 		return $operadoresDisponibles;
 
 	}
+
+
+public function sincronizarida($id){
+
+		$proyecto= Proyecto::find($id)->load('herramientas', 'tipoHerramientas', 'operadores');
+		$datoCliente = Cliente::where('VTMCLH_NROCTA',$proyecto->cliente_id)->get()->first();
+		$nombreCliente = $datoCliente->VTMCLH_NOMBRE;
+		return view('admin.proyectos.sincronizarida', [
+			'proyecto' => $proyecto,'nombreCliente' => $nombreCliente
+		]);
+
+  }
+
 
 }
