@@ -3,12 +3,14 @@
     <table class="table">
       <thead>
         <tr>
-          <th>nombre</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
           <th>acciones</th>
         </tr>
       </thead>
       <tr v-for="(proyecto, index) in listProyectos">
-        <td>{{ proyecto.nombre }}</td>
+        <td>{{ proyecto.fecha }}</td>
+        <td>{{ proyecto.nrocta_cliente }}</td>
         <td>
 					<a class="btn btn-secondary" :href="urlShow(proyecto.id)" v-if="permiso('ver')">Ver</a>
           <a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')">Editar</a>

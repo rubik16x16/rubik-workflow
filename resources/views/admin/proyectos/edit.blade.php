@@ -30,7 +30,17 @@
 	</div>
 
 	@endforeach
-
+ <div class="row">
+      <div class="col-md-12 pad-adjust">
+      	LISTA DE HERRAMIENTAS
+      
+          <div id="listaherramientasApp">
+            <tabla-lista-herramientas :herramientas="{{ $HerramientasPertenecientes }}" :routes="{{ $routes }}">
+            </tabla-lista-herramientas>
+          </div>
+      <script src="{{ asset('dist/js/listaHerramientas/app.js') }}"></script>
+    </div>
+     </div>
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 

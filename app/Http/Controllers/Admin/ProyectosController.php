@@ -29,7 +29,8 @@ class ProyectosController extends Controller{
 				return $proyecto->estado == false;
 			});
 		}
-
+		
+		
     return view('admin.proyectos.index', [
 			'proyectos' => str_replace('"', "'", $proyectos->toJson()),
       'routes' => str_replace('"', "'", json_encode([
@@ -134,7 +135,14 @@ class ProyectosController extends Controller{
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
 			'operadores' => $operadores->sortBy('email'),
-			'tipoHerramientas' =>$tipoHerramientas
+			'tipoHerramientas' =>$tipoHerramientas,
+			'HerramientasPertenecientes'=>$tipoHerramientas->where('checked', '===', true),
+			'routes' => str_replace('"', "'", json_encode([
+        'edit' => route('admin.tipoHerramientas.edit', ['id']),
+        'destroy' => route('admin.tipoHerramientas.destroy', ['id']),
+        'create' => route('admin.tipoHerramientas.create')
+			
+      ]))
 		]);
 
   }

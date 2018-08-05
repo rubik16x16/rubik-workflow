@@ -13,7 +13,7 @@
             <span class="labelformulario1" >CLIENTE</span>
                 <select class="form-control" name="nrocta_cliente" id="nrocta_cliente">
                   @foreach($clientes as $cadacliente)   
-                  <option value="{{ $cadacliente->VTMCLH_NROCTA }}">{{ $cadacliente->VTMCLH_NOMBRE }}</option>
+                  <option value="{{ $cadacliente->VTMCLH_NOMBRE }}">{{ $cadacliente->VTMCLH_NOMBRE }}</option>
                   @endforeach
                 </select>
         </div>
@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-2 col-sm-2 col-xs-2">
                   <span class="labelformulario1">FECHA</span>
-                  <input type="text" class="form-control" name="fecha" id="fecha" placeholder="{{date('d/m/Y')}}" />
+                  <input type="text" class="form-control" name="fecha" id="fecha" placeholder="{{date('d/m/Y')}}" value="{{date('d/m/Y')}}" />
        </div>
       </div>   
      <div class="row ">
@@ -93,31 +93,8 @@
         <input type="text" class="form-control" name="desc_oper" id="desc_oper" placeholder="" />
        </div>
      </div>
-     <p class="labelformulario1">LISTA DE HERRAMIENTAS</p>
-     <div class="row">
-      <div class="col-md-12 pad-adjust">
-      <table border="1">
-        <thead>
-          <th>Nro</th><th>Ext</th><th>Descripción</th><th>Insp</th><th>Prep</th><th>Rec</th><th>Hs.Uso</th><th>Dev</th><th>Serie</th><th>ID</th><th>OD</th><th>Largo</th><th>TopCon</th><th>BottonCon</th><th>Borrar</th>
-        </thead>
-        <tbody>
-          <div id="tablalistaherramientas"></div>
-        </tbody>
-      </table>
-      <button class="btn btn-primary">Agregar Herramienta</button>
-    </div>
-     </div>
-  <div class="row">
-      <div class="col-md-10 pad-adjust">
-        <span class="labelformulario1">OBSERVACIONES</span>
-        <input type="text" class="form-control" name="observa_herramientas" id="observa_herramientas" placeholder="" />
-      </div>
-      <div class="col-md-2 pad-adjust">
-        <span class="labelformulario1">LARGO</span>
-        <input type="text" class="form-control" name="largo_total_herramientas" id="largo_total_herramientas" placeholder="" />
-      </div>
-  </div>
-  <div class="row">
+    
+   <div class="row">
        <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">OD BOLITA</span>
         <input type="text" class="form-control" name="od_bolita" id="od_bolita" placeholder="" />
@@ -188,68 +165,91 @@
     
   </div>
   <div class="row">
-    <div class="col-md-4 col-sm-4 col-xs-4">
+    <div class="col-md-3 col-sm-3 col-xs-3">
       <span class="labelformulario1">CAUDAL</span>
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_caudal_min" id="mdf_caudal_minque " placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_caudal_max" id="mdf_caudal_max" placeholder="" />
       </div>
     </div>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-4">
+    <div class="col-md-3 col-sm-3 col-xs-3">
       <span class="labelformulario1">RPM</span>
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_power" id="mdf_rpm_min" placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_power" id="mdf_rpm_max" placeholder="" />
       </div>
     </div>
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-4">
+    <div class="col-md-3 col-sm-3 col-xs-3">
       <span class="labelformulario1">WOB</span>
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_power" id="mdf_wob_min" placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_power" placeholder="" />
+        <input type="text" class="form-control" name="mdf_power" id="mdf_wob_max" placeholder="" />
       </div>
     </div>
     </div>
-    
-
-	<label>Operadores</label>
-
-	@foreach($operadores as $operador)
-
-	<div class="form-group form-check">
-  	<input type="checkbox" class="form-check-input" name="operador-{{ $operador->id }}" id="operador-{{ $operador->id }}" value="{{ $operador->id }}">
-  	<label class="form-check-label" for="operador-{{ $operador->id }}">{{ $operador->email }}</label>
-	</div>
-
-	@endforeach
-
-	<label>Tipos de Herramientas</label>
-	@foreach($tipoHerramientas as $tipoHerramienta)
-
-	<div class="form-group form-check">
-  	<input type="checkbox" class="form-check-input" name="tipoHerramienta-{{ $tipoHerramienta->id }}" id="tipoHerramienta-{{ $tipoHerramienta->id }}" value="{{ $tipoHerramienta->id }}">
-  	<label class="form-check-label" for="tipoHerramienta-{{ $tipoHerramienta->id }}">{{ $tipoHerramienta->nombre }}</label>
-	</div>
-
-	@endforeach
-
+     <div class="col-md-3 col-sm-3 col-xs-3">
+      <span class="labelformulario1">DIF.PRESION</span>
+      <div class="row">
+      <div class="col-md-2 col-sm-2 col-xs-2">
+        <span class="labelformulario1">MIN</span>
+        <input type="text" class="form-control" name="mdf_power" id="mdf_pres_min" placeholder="" />
+      </div>
+      <div class="col-md-2 col-sm-2 col-xs-2">
+        <span class="labelformulario1">MAX</span>
+        <input type="text" class="form-control" name="mdf_power" id="mdf_pres_max" placeholder="" />
+      </div>
+    </div>
+    </div>
+   </div>
+<div class="row">
+     <div class="col-md-4 col-sm-4 col-xs-4">
+      <span class="labelformulario1">DISEÑO</span>
+      <input type="text" class="form-control" name="diseno" id="diseno" placeholder="Ingeniería de Aplicación" />
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+      <span class="labelformulario1">APROBADO POR</span>
+      <input type="text" class="form-control" name="aprobadopor" id="aprobadorpor" placeholder="Contacto del cliente" />
+    </div>
+    <div class="col-md-4 col-sm-4 col-xs-4">
+      <span class="labelformulario1">FECHA Y MEDIO</span>
+      <input type="text" class="form-control" name="fechaymedio" id="fechaymedio" placeholder="" />
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-3 col-sm-3 col-xs-3">
+      <span class="labelformulario1">RECIBIDO POR</span>
+      <input type="text" class="form-control" name="recibidopor" id="recibidopor" placeholder="Resp. de Operación" />
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <span class="labelformulario1">PREVISTO PARA</span>
+      <input type="text" class="form-control" name="previstopara" id="previstopara" placeholder="fecha y hora" />
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <span class="labelformulario1">PREPARADO POR</span>
+      <input type="text" class="form-control" name="preparadopor" id="preparadopor" placeholder="" />
+    </div>
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <span class="labelformulario1">FECHA Y HORA</span>
+      <input type="text" class="form-control" name="hora" id="hora" placeholder="" />
+    </div>
+  </div>
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
 

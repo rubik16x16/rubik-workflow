@@ -64,6 +64,10 @@ class ActualizarProyecto extends Migration
         $table->string('trailer');
         $table->string('generador');
         $table->string('proveedor');
+        $table->string('fechaymedio');
+        $table->string('observa_herramientas');
+        $table->string('nrotrabajo');
+
     });
     }
 
@@ -125,6 +129,9 @@ class ActualizarProyecto extends Migration
         $table->dropColumn('trailer');
         $table->dropColumn('generador');
         $table->dropColumn('proveedor');        
+        $table->dropColumn('observa_herramientas');
+        $table->dropColumn('nrotrabajo');
+
     });
     }
 }
