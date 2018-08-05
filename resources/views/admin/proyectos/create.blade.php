@@ -183,11 +183,11 @@
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_rpm_min" placeholder="" />
+        <input type="text" class="form-control" name="mdf_rpm_min" id="mdf_rpm_min" placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_rpm_max" placeholder="" />
+        <input type="text" class="form-control" name="mdf_rpm_max" id="mdf_rpm_max" placeholder="" />
       </div>
     </div>
     </div>
@@ -196,11 +196,11 @@
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_wob_min" placeholder="" />
+        <input type="text" class="form-control" name="mdf_wob_min" id="mdf_wob_min" placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_wob_max" placeholder="" />
+        <input type="text" class="form-control" name="mdf_wob_max" id="mdf_wob_max" placeholder="" />
       </div>
     </div>
     </div>
@@ -209,11 +209,11 @@
       <div class="row">
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MIN</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_pres_min" placeholder="" />
+        <input type="text" class="form-control" name="mdf_pres_min" id="mdf_pres_min" placeholder="" />
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2">
         <span class="labelformulario1">MAX</span>
-        <input type="text" class="form-control" name="mdf_power" id="mdf_pres_max" placeholder="" />
+        <input type="text" class="form-control" name="mdf_pres_max" id="mdf_pres_max" placeholder="" />
       </div>
     </div>
     </div>
