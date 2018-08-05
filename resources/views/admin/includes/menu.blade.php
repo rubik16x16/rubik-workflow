@@ -1,28 +1,25 @@
 @if(permiso('usuarios-lista'))
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.usuarios.index') }}">Usuaios</a>
+  <a class="nav-link" href="{{ route('admin.usuarios.index') }}"><i class="fas fa-users"></i> Usuaios</a>
 </li>
 @endif
 @if(permiso('roles-lista'))
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.roles.index') }}">Roles</a>
+  <a class="nav-link" href="{{ route('admin.roles.index') }}"><i class="fas fa-users-cog"></i> Roles</a>
 </li>
 @endif
 @if(permiso('tipoHerramientas-lista'))
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.tipoHerramientas.index') }}">Tipos de Herramientas</a>
+  <a class="nav-link" href="{{ route('admin.tipoHerramientas.index') }}"><i class="fas fa-wrench"></i> Tipos de Herramientas</a>
 </li>
 @endif
 @if(permiso('herramientas-lista'))
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.herramientas.index') }}">Herramientas</a>
+  <a class="nav-link" href="{{ route('admin.herramientas.index') }}"><i class="fas fa-toolbox"></i> Herramientas</a>
 </li>
 @endif
 @if(permiso('proyectos-lista'))
 <li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.proyectos.index') }}">Proyectos</a>
+  <a class="nav-link" href="{{ route('admin.proyectos.index') }}"><i class="fas fa-project-diagram"></i> Proyectos</a>
 </li>
 @endif
-<li class="nav-item">
-  <a class="nav-link" href="{{ route('admin.logout') }}">Logout</a>
-</li>

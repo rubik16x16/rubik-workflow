@@ -1,21 +1,32 @@
 <template lang="html">
   <div class="tipo-herramientas-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>nombre</th>
-          <th>acciones</th>
-        </tr>
-      </thead>
-      <tr v-for="(tipoHerramienta, index) in listTipoHerramientas">
-        <td>{{ tipoHerramienta.nombre }}</td>
-        <td>
-          <a class="btn btn-warning" :href="urlEdit(tipoHerramienta.id)">Editar</a>
-          <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(tipoHerramienta.id), index)">Eliminar</a>
-        </td>
-      </tr>
-    </table>
-    <a class="btn btn-primary" :href="routes.create">Nueva herramienta</a>
+    <div class="card text-center">
+      <div class="card-header">
+        Tipos de herramientas
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-striped table-borderless">
+          <thead class="thead-dark">
+            <tr>
+              <th>nombre</th>
+              <th>acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(tipoHerramienta, index) in listTipoHerramientas">
+              <td>{{ tipoHerramienta.nombre }}</td>
+              <td>
+                <a class="btn btn-warning" :href="urlEdit(tipoHerramienta.id)"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(tipoHerramienta.id), index)"><i class="fas fa-trash-alt"></i></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-muted">
+        <a class="btn btn-primary" :href="routes.create">Nueva herramienta</a>
+      </div>
+    </div>
   </div>
 </template>
 

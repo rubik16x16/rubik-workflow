@@ -7,23 +7,41 @@
 <form action="{{ route('admin.proyectos.herramientas.store', ['id' => $proyecto->id]) }}" method="post">
   {{ csrf_field() }}
 
-	<h2>Herramientas</h2>
+	<h4 class="text-center">Herramientas</h2>
+
+  <div class="row">
 
 	@foreach($coleccionesHerramientas as $coleccionHerramientas)
 		@foreach($coleccionHerramientas as $tipoHerramienta => $herramientas)
 
-		<h3>{{ $tipoHerramienta }}</h3>
+    <div class="col-6">
+      <div class="card">
+        <h5 class="card-header">{{ $tipoHerramienta }}</h5>
+        <div class="card-body table-responsive">
+          <table class="table table-striped table-borderless text-center">
+            <thead class="thead-dark">
+              <th>Herramienta id</th>
+              <th>Herramienta color</th>
+              <th>Asignar</th>
+            </thead>
+            <tbody>
+              @foreach($herramientas as $herramienta)
+              <tr>
+                <td>{{ $herramienta->id }}</td>
+                <td>{{ $herramienta->color }}</td>
+                <td><input type="checkbox" name="herramienta-{{ $herramienta->id }}" value="{{ $herramienta->id }}"></td>
+              </tr>
+        			@endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-			@foreach($herramientas as $herramienta)
-
-			<div class="form-group form-check">
-		  	<input type="checkbox" class="form-check-input" name="herramienta-{{ $herramienta->id }}" id="herramienta-{{ $herramienta->id }}" value="{{ $herramienta->id }}">
-		  	<label class="form-check-label" for="herramienta-{{ $herramienta->id }}">{{ $herramienta->id }}</label>
-			</div>
-
-			@endforeach
 		@endforeach
 	@endforeach
+
+  </div>
 
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>

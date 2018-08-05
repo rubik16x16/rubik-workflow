@@ -1,24 +1,38 @@
 <template lang="html">
   <div class="proyectos-table">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>nombre</th>
-          <th>acciones</th>
-        </tr>
-      </thead>
-      <tr v-for="(proyecto, index) in listProyectos">
-        <td>{{ proyecto.nombre }}</td>
-        <td>
-					<a class="btn btn-secondary" :href="urlShow(proyecto.id)" v-if="permiso('ver')">Ver</a>
-          <a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')">Editar</a>
-          <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)" v-if="permiso('eliminar')">Eliminar</a>
-					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar herramientas</a>
-					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-if="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar herramientas</a>
-        </td>
-      </tr>
-    </table>
-    <a class="btn btn-primary" :href="routes.create" v-if="permiso('agregar')">Nuevo proyecto</a>
+    <div class="card text-center">
+      <div class="card-header">
+        Proyectos
+      </div>
+      <div class="card-body table-responsive">
+        <table class="table table-striped table-borderless">
+          <thead class="thead-dark">
+            <tr>
+              <th>nombre</th>
+              <th>estado</th>
+              <th>acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(proyecto, index) in listProyectos">
+              <td>{{ proyecto.nombre }}</td>
+              <td v-if="proyecto.estado"><span class="badge badge-success">activo</span></td>
+              <td v-else><span class="badge badge-success">finalizado</span></td>
+              <td>
+      					<a class="btn btn-secondary" :href="urlShow(proyecto.id)" v-if="permiso('ver')">Ver</a>
+                <a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')"><i class="fas fa-edit"></i></a>
+                <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)" v-if="permiso('eliminar')"><i class="fas fa-trash-alt"></i></a>
+      					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar herramientas</a>
+      					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-if="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar herramientas</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-muted">
+        <a class="btn btn-primary" :href="routes.create" v-if="permiso('agregar')">Nuevo proyecto</a>
+      </div>
+    </div>
   </div>
 </template>
 
