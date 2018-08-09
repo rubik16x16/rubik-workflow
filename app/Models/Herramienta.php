@@ -6,13 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Herramienta extends Model{
 
+  static $attrsDistinct= [
+    'tipo_herramienta', 'od', 'lg',
+    'sub_tipo_herramienta', 'descripcion',
+    'top_connection', 'bottom_connection'
+  ];
+
   protected $table= 'herramientas';
-  protected $fillable= ['id', 'color', 'tipo_herramienta_id'];
 
-  public function tipo(){
-
-    return $this->belongsTo('App\Models\TipoHerramienta', 'tipo_herramienta_id');
-
-  }
+  protected $fillable= [
+    'tipo_herramienta', 'od', 'lg',
+    'sub_tipo_herramienta', 'descripcion',
+    'top_connection', 'bottom_connection'
+  ];
 
 }

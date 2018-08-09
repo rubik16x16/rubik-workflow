@@ -5,26 +5,57 @@
         Tipos de herramientas
       </div>
       <div class="card-body table-responsive">
+        <h4>Filtros</h4>
+
+        <label for="tipo-herramienta">tipo de herramienta</label>
+        <input type="text" v-model="tipoHerramienta.tipo_herramienta" id="tipo-herramienta">
+
+        <label for="od-herramienta">od de herramienta</label>
+        <input type="text" v-model="tipoHerramienta.od" id="od-herramienta">
+
+        <label for="lg-herramienta">lg de herramienta</label>
+        <input type="text" v-model="tipoHerramienta.lg" id="lg-herramienta">
+
+        <label for="sub-tipo-herramienta">sub-tipo de herramienta</label>
+        <input type="text" v-model="tipoHerramienta.sub_tipo_herramienta" id="sub-tipo-herramienta">
+
+        <label for="descripcion-herramienta">descripcion de herramienta</label>
+        <input type="text" v-model="tipoHerramienta.descripcion" id="descripcion-herramienta">
+
+        <label for="top-connection">top connection</label>
+        <input type="text" v-model="tipoHerramienta.top_connection" id="top-connection">
+
+        <label for="bottom-connection">bottom connection</label>
+        <input type="text" v-model="tipoHerramienta.bottom_connection" id="bottom-connection">
+
+        <button type="button" name="filtrar" @click="filtrar">Filtrar</button>
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
             <tr>
-              <th>nombre</th>
-              <th>acciones</th>
+              <th>tipo_herramienta</th>
+              <th>od</th>
+              <th>lg</th>
+              <th>subtipo herramienta</th>
+              <th>descripcion</th>
+              <th>top connection</th>
+              <th>bottom connection</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(tipoHerramienta, index) in listTipoHerramientas">
-              <td>{{ tipoHerramienta.nombre }}</td>
-              <td>
-                <a class="btn btn-warning" :href="urlEdit(tipoHerramienta.id)"><i class="fas fa-edit"></i></a>
-                <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(tipoHerramienta.id), index)"><i class="fas fa-trash-alt"></i></a>
-              </td>
+            <tr v-for="(tipoHerramienta, index) in tipoHerramientas">
+              <td>{{ tipoHerramienta.tipo_herramienta }}</td>
+              <td>{{ tipoHerramienta.od }}</td>
+              <td>{{ tipoHerramienta.lg }}</td>
+              <td>{{ tipoHerramienta.sub_tipo_herramienta }}</td>
+              <td>{{ tipoHerramienta.descripcion }}</td>
+              <td>{{ tipoHerramienta.top_connection }}</td>
+              <td>{{ tipoHerramienta.bottom_connection }}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="card-footer text-muted">
-        <a class="btn btn-primary" :href="routes.create">Nueva herramienta</a>
+        <paginado :cant-registros="cantRegistros" :registros-por-pagina="registrosPorPagina" @page-click="cambiarVista"></paginado>
       </div>
     </div>
   </div>
@@ -32,35 +63,57 @@
 
 <script>
 
+Vue.component('paginado', require('./paginado'));
+
 export default {
-  props: ['tipoherramientas', 'routes'],
+  props: ['routes'],
   data (){
     return {
-      listTipoHerramientas: null
+      tipoHerramientas: null,
+      pagina: 1,
+      registrosPorPagina: 25,
+      cantRegistros: null,
+      tipoHerramienta: {
+        tipo_herramienta: null,
+        od: null,
+        lg: null,
+        sub_tipo_herramienta: null,
+        descripcion: null,
+        top_connection: null,
+        bottom_connection: null
+      }
     }
   },
   mounted(){
-    this.listTipoHerramientas= this.tipoherramientas;
+
+    this.getData();
+
   },
   methods:{
-    urlEdit (id){
-      return this.routes.edit.replace('id', id);
-    },
-    urlDestroy(id){
-      return this.routes.destroy.replace('id', id);
-    },
-    destroy(route, index){
-
+    getData(){
       axios({
-        method: 'DELETE',
-        url: route,
+        method: 'GET',
+        url: this.routes.index,
+        params: {
+          pagina: this.pagina,
+          registrosPorPagina: this.registrosPorPagina,
+          tipoHerramienta: this.tipoHerramienta
+        },
+        responseType:'json'
       }).then(response => {
-        console.log(response.data);
+        this.tipoHerramientas= response.data.tipoHerramientas;
+        this.cantRegistros= response.data.cantRegistros;
       }).catch(e => {
         console.log(e);
       });
-
-      return this.listTipoHerramientas.splice(index, 1);
+    },
+    cambiarVista(pagina){
+      this.pagina= pagina;
+      this.getData();
+    },
+    filtrar(){
+      this.getData();
+      alert('filtrar');
     }
   }
 }

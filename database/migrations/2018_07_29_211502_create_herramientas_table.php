@@ -14,10 +14,14 @@ class CreateHerramientasTable extends Migration
     public function up()
     {
         Schema::create('herramientas', function (Blueprint $table) {
-            $table->unsignedInteger('id')->primary();
-            $table->string('color');
-            $table->unsignedInteger('tipo_herramienta_id');
-            $table->foreign('tipo_herramienta_id')->references('id')->on('tipo_herramientas')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('pn', 8)->primary();
+            $table->string('tipo_herramienta');
+            $table->string('od');
+            $table->string('lg');
+            $table->string('sub_tipo_herramienta');
+            $table->string('descripcion');
+            $table->string('top_connection');
+            $table->string('bottom_connection');
             $table->timestamps();
         });
     }

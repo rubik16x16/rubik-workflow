@@ -55,26 +55,6 @@ Route::middleware('adminAuth')->group(function(){
 		->name('admin.tipoHerramientas.index')
 		->middleware('permiso:tipoHerramientas-lista');
 
-		Route::get('/tipoherramientas/create', 'Admin\TipoHerramientasController@create')
-		->name('admin.tipoHerramientas.create')
-		->middleware('permiso:tipoHerramientas-agregar');
-
-		Route::post('/tipoherramientas', 'Admin\TipoHerramientasController@store')
-		->name('admin.tipoHerramientas.store')
-		->middleware('permiso:tipoHerramientas-agregar');
-
-		Route::get('/tipoherramientas/{id}/edit', 'Admin\TipoHerramientasController@edit')
-		->name('admin.tipoHerramientas.edit')
-		->middleware('permiso:tipoHerramientas-editar');
-
-		Route::put('/tipoherramientas/{id}', 'Admin\TipoHerramientasController@update')
-		->name('admin.tipoHerramientas.update')
-		->middleware('permiso:tipoHerramientas-editar');
-
-    Route::delete('/tipoherramientas/{id}', 'Admin\TipoHerramientasController@destroy')
-		->name('admin.tipoHerramientas.destroy')
-		->middleware('permiso:tipoHerramientas-eliminar');
-
 		// Herramientas
 
     Route::get('/herramientas', 'Admin\HerramientasController@index')

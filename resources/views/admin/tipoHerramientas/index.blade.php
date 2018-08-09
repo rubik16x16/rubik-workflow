@@ -2,8 +2,9 @@
 
 @section('content')
 
+
 <div id="app">
-  <tipo-herramientas-table :tipoherramientas="{{ $tipoHerramientas }}" :routes="{{ $routes }}"></herramientas-table>
+  <tipo-herramientas-table :routes="{{ $routes }}"></herramientas-table>
 </div>
 
 @endsection

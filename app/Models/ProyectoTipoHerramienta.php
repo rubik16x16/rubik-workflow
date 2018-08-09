@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class ProyectoTipoHerramienta extends Model{
 
 	protected $table= 'proyecto_tipo_herramienta';
-	protected $fillable= ['tipo_herramienta_id', 'proyecto_id'];
+	
+	protected $fillable= [
+		'proyecto_id', 'tipo_herramienta','od',
+		'lg','sub_tipo_herramienta','top_connection',
+		'bottom_connection'
+	];
 
 }
