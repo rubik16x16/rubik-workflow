@@ -32,10 +32,10 @@
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
             <tr>
-              <th>tipo_herramienta</th>
+              <th>tipo de herramienta</th>
               <th>od</th>
               <th>lg</th>
-              <th>subtipo herramienta</th>
+              <th>subtipo de herramienta</th>
               <th>descripcion</th>
               <th>top connection</th>
               <th>bottom connection</th>
@@ -63,7 +63,7 @@
 
 <script>
 
-Vue.component('paginado', require('./paginado'));
+Vue.component('paginado', require('../paginado/paginado'));
 
 export default {
   props: ['routes'],

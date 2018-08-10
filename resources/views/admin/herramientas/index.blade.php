@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="app">
-  <herramientas-table :herramientas="{{ $herramientas }}" :routes="{{ $routes }}"></herramientas-table>
+  <herramientas-table :routes="{{ $routes }}"></herramientas-table>
 </div>
 
 @endsection

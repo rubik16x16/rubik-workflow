@@ -17,8 +17,8 @@ class HerramientasController extends Controller{
   public function index(){
 
     return view('admin.herramientas.index',[
-      'herramientas' => str_replace('"', "'", herramienta::all()->load('tipo')->toJson()),
       'routes' => str_replace('"', "'", json_encode([
+        'index' => route('admin.herramientas.api.index'),
         'edit' => route('admin.herramientas.edit', ['id']),
         'destroy' => route('admin.herramientas.destroy', ['id']),
         'create' => route('admin.herramientas.create')

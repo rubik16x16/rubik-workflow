@@ -15,7 +15,7 @@ class TipoHerramientasController extends Controller{
 
     return view('admin.tipoHerramientas.index', [
       'routes' => str_replace('"', "'", json_encode([
-        'index'=> route('admin.herramientas.api.index')
+        'index'=> route('admin.tipoHerramientas.api.index')
       ]))
     ]);
 

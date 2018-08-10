@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Herramienta;
 use Illuminate\Support\Facades\DB;
 
-class ApiTipoHerramientasController extends Controller{
+class TipoHerramientasController extends Controller{
 
   public function index(Request $request){
 
@@ -26,7 +26,7 @@ class ApiTipoHerramientasController extends Controller{
     $attrsRaw= substr($attrsRaw, 0 , strlen($attrsRaw) -2);
 
     $cantRegistros= DB::table('herramientas');
-    $cantRegistros->select(DB::raw("count(DISTINCT {$attrsRaw} ) as cantRegistros"));
+    $cantRegistros->select(DB::raw("count(DISTINCT {$attrsRaw}) as cantRegistros"));
 
     $herramientas= new Herramienta();
     $herramientas= $herramientas->newQuery();
