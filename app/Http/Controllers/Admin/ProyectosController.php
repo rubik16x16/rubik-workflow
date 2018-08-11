@@ -9,8 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
-use App\Models\TipoHerramienta;
 use App\Models\ProyectoTipoHerramienta;
+use App\Models\Cliente;
+use App\Models\Pozo;
 
 class ProyectosController extends Controller{
   /**
@@ -21,6 +22,7 @@ class ProyectosController extends Controller{
   public function index(){
 
 		$proyectos= Proyecto::all()->load('herramientas');
+  	
 		$usuario= Usuario::find(session('admin.id'));
 
 		if($usuario->roles->contains('nombre', 'jefedetaller')){
@@ -53,8 +55,9 @@ class ProyectosController extends Controller{
   public function create(){
 
 		return view('admin.proyectos.create', [
-			'operadores' => $this->operadoresDisponibles(),
-			'tipoHerramientas' => TipoHerramienta::all()
+			'clientes' => Cliente::all(),
+			'pozos' => Pozo::all()
+			
 		]);
 
   }
@@ -67,25 +70,10 @@ class ProyectosController extends Controller{
    */
   public function store(Request $request){
 
-		$proyecto= new Proyecto($request->all());
+  		$proyecto= new Proyecto($request->all());
 		$proyecto->save();
 
-		foreach($request->all() as $clave => $valor){
-
-			if(substr($clave, 0, 15) == 'tipoHerramienta'){
-				ProyectoTipoHerramienta::create([
-					'proyecto_id' => $proyecto->id,
-					'tipo_herramienta_id' => $valor
-				]);
-			}
-
-			if(substr($clave, 0, 8) == 'operador'){
-				ProyectoUsuario::create([
-					'proyecto_id' => $proyecto->id,
-					'usuario_id' => $valor
-				]);
-			}
-		}
+		
 
 		return redirect(route('admin.proyectos.index'));
 
@@ -115,24 +103,14 @@ class ProyectosController extends Controller{
    */
   public function edit($id){
 
-		$proyecto= Proyecto::find($id)->load('operadores', 'tipoHerramientas');
+		$proyecto= Proyecto::find($id);
 
-		$operadores= $this->operadoresDisponibles();
-		$tipoHerramientas= TipoHerramienta::all();
-
-		foreach($tipoHerramientas as $tipoHerramienta){
-			$tipoHerramienta->checked= $proyecto->tipoHerramientas->contains($tipoHerramienta) ? true : false;
-		}
-
-		foreach($proyecto->operadores as $operador){
-			$operador->checked= true;
-			$operadores->push($operador);
-		}
-
+				
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
-			'operadores' => $operadores->sortBy('email'),
-			'tipoHerramientas' =>$tipoHerramientas
+			'clientes' => Cliente::all(),
+			'pozos' => Pozo::all()
+			
 		]);
 
   }

@@ -8,9 +8,9 @@ class Proyecto extends Model{
 
 	protected $table= 'proyectos';
 	protected $fillable= [
-		'nombre', 'estado','nrocta_cliente', 'locacion','fecha',
-	'servicio','programa_cliente','n_pozo','cia_pu_wo_ct_drilling',
-	'solicito','preparo','siam_casing','libraje','drift','diam_cano_ct',
+		'fecha','nrocta_cliente', 'idlocacion',
+	'idservicio','programa_cliente','idpozo','id_cia_pu_wo_ct_drilling',
+	'solicito','idpreparo','id_siam_casing','id_libraje','drift','diam_cano_ct',
 	'tipo_fluido','o_t_f','cia_trepano','desc_oper','od_bolita','od_pines',
 	'od_presion','sub_de_circulacion','sub_circ_pines','sub_circ_presion',
 	'disco_ruptura','disco_presion','valor_corte','mdf_tipo','mdf_ps',

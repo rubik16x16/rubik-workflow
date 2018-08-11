@@ -8,14 +8,16 @@
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
             <tr>
-              <th>nombre</th>
+          <th>Previsto Para</th>
+          <th>Cliente</th>
               <th>estado</th>
               <th>acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(proyecto, index) in listProyectos">
-              <td>{{ proyecto.nombre }}</td>
+        <td>{{ proyecto.previstopara }}</td>
+        <td>{{ proyecto.nrocta_cliente }}</td>
               <td v-if="proyecto.estado"><span class="badge badge-success">activo</span></td>
               <td v-else><span class="badge badge-success">finalizado</span></td>
               <td>

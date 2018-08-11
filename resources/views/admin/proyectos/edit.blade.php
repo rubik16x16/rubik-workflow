@@ -2,209 +2,173 @@
 
 @section('content')
 
-<form action="{{ route('admin.proyectos.store') }}" method="post">
+<form action="{{ route('admin.proyectos.update', ['id' => $proyecto->id]) }}" method="post">
   {{ csrf_field() }}
-
-  <h3>Informacion General</h3>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-5">
-      <label for="cliente">Cliente</label>
-      <select name="cliente_id" class="form-control" id="cliente"></select>
+  @method('PUT')
+ <h3>Informacion General</h3>
+     <div class="form-row">
+        <div class="form-group col-md-5">
+           <label for="cliente">Cliente</label>
+                <select class="form-control" name="nrocta_cliente" id="nrocta_cliente">
+                  @foreach($clientes as $cadacliente)   
+                  @if ($proyecto->nrocta_cliente == $cadacliente->VTMCLH_NOMBRE) 
+                    <option value="{{ $cadacliente->VTMCLH_NOMBRE }}" selected="selected">{{ $cadacliente->VTMCLH_NOMBRE }}</option>
+                  @else  
+                    <option value="{{ $cadacliente->VTMCLH_NOMBRE }}"> {{ $cadacliente->VTMCLH_NOMBRE }}</option>
+                    @endif
+                  @endforeach
+                </select>
+        </div>
+         <div class="form-group col-md-4">
+                  <label for="locacion">Locación</label>
+                  <select class="form-control" name="idlocacion" id="idlocacion">
+           <option value="0">Seleccione</option>
+                  <option value="1">Locacion 1</option>
+                  <option value="2">Locacion 2</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+        <label for="n_pozo">Nro Pozo</label>
+         <select class="form-control" name="idpozo" id="idpozo">
+                  @foreach($pozos as $cadapozo)   
+                  @if ($proyecto->idpozo == $cadapozo->USR_FCTPZO_CODIGO) 
+                    <option value="{{ $cadapozo->USR_FCTPZO_CODIGO }}" selected="selected">{{ $cadapozo->USR_FCTPZO_CODIGO }}</option>
+                  @else  
+                    <option value="{{ $cadapozo->USR_FCTPZO_CODIGO }}">{{ $cadapozo->USR_FCTPZO_CODIGO }}</option>
+                    @endif
+                  @endforeach
+                </select>
+       </div>
+      </div>   
+     <div class="form-row">
+       <div class="form-group col-md-5">
+     <label for="servicio">Servicios a realizar</label>
+      <select class="form-control" name="idservicio" id="idservicio">
+           <option value="0">Seleccione</option>
+                  <option value="1">Servicio 1</option>
+                  <option value="2">Servicio 2</option>
+          </select>
     </div>
-
-    <div class="form-group col-md-5">
-      <label for="locacion">Locacion</label>
-      <input type="text" class="form-control" id="locacion" placeholder="Locacion">
-    </div>
-
     <div class="form-group col-md-2">
-      <label for="fecha">Fecha</label>
-      <input type="date" class="form-control" id="fecha">
+     <label for="servicio">Lista de Precios</label>
+     <select class="form-control" name="idlistaprecios" id="idlistaprecios">
+           <option value="0">Seleccione</option>
+                  <option value="1">Lista 1</option>
+                  <option value="2">Lista 2</option>
+          </select>
     </div>
+           <div class="form-group col-md-2">
+            <label for="programa_cliente">Programa del Cliente</label>
+            <input type="file" name="programa_cliente" value="programa_cliente" size="80" /> 
 
-  </div>
 
-  <div class="form-row">
 
-    <div class="form-group col-md-6">
-      <label for="servicio">Servicios a realizar</label>
-      <input type="text" class="form-control" id="servicio" placeholder="Servicios a realizar">
     </div>
-
-    <div class="form-group col-md-6">
-      <label for="programa">Programa del cliente</label>
-      <input type="text" class="form-control" id="programa" placeholder="Programa del cliente">
-    </div>
-
-  </div>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-4">
-      <label for="compañia">Compañia de PU/WO/CT/DRILLING</label>
-      <input type="text" class="form-control" id="compañia" placeholder="Compañia de PU/WO/CT/DRILLING">
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="solicitante">Solicitado por</label>
-      <input type="text" class="form-control" id="solicitante" placeholder="Solicitado por">
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="preparador">Preparado por</label>
-      <input type="text" class="form-control" id="preparador" placeholder="Preparado por">
-    </div>
-
-  </div>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-3">
-      <label for="pozo">Nro. Pozo</label>
-      <input type="text" class="form-control" id="pozo" placeholder="Nro pozo">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="pozo">Nro. Hoja de trabajo</label>
-      <input type="text" class="form-control" id="pozo" placeholder="Nro hoja de trabajo">
-    </div>
-
-  </div>
-
-  <h3>Informacion operativa</h3>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-4">
-      <label for="diam.casing">Diam.casing</label>
-      <input type="text" class="form-control" id="diam.casing" placeholder="diam.casing">
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="libraje">Libraje</label>
-      <input type="text" class="form-control" id="libraje" placeholder="Libraje">
-    </div>
-
-    <div class="form-group col-md-4">
-      <label for="drift">Drift</label>
-      <input type="text" class="form-control" id="drift" placeholder="Drift">
-    </div>
-
-  </div>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-3">
-      <label for="diacaño">Dia caño ct</label>
-      <input type="text" class="form-control" id="diacaño" placeholder="diam.casing">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="fluido">Tipo fluido</label>
-      <input type="text" class="form-control" id="fluido" placeholder="Tipo fluido">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="test1">0 | T | F</label>
-      <input type="text" class="form-control" id="test1" placeholder="">
-    </div>
-
-    <div class="form-group col-md-3">
-      <label for="ciatrapano">Cia trapano</label>
-      <input type="text" class="form-control" id="ciatrapano" placeholder="">
-    </div>
-
-  </div>
-
-  <div class="form-group">
-    <label for="descripcion">Descripcion de la operacion</label>
-    <textarea class="form-control" id="descripcion" placeholder="Descripcion de la operacion" rows="5"></textarea>
-  </div>
-
-  <div class="row">
-
-    <div class="col-6">
-      <div class="card text-center">
-        <div class="card-header">
-          Tipos de herramientas
+     </div>
+      <div class="form-row">
+       <div class="form-group col-md-2">
+        <label for="preparo">Operación a realizar</label>
+         <select class="form-control" name="idpreparo" id="idpreparo">
+           <option value="0">Seleccione</option>
+                  <option value="1">Operacion 1</option>
+                  <option value="2">Operacion 2</option>
+          </select>
+        
+        
+       </div>
+       <div class="form-group col-md-4">
+        <label for="cia_pu_wo_ct_drilling">Compañia de pu/wo/ct/drilling</label>
+         <select class="form-control" name="id_cia_pu_wo_ct_drilling" id="id_cia_pu_wo_ct_drilling">
+           <option value="0">Seleccione</option>
+                  <option value="1">Compañia 1</option>
+                  <option value="2">Compañia 2</option>
+          </select>
+        
+       </div>
+       <div class="form-group col-md-2">
+        <label for="solicito">Solicitado por</label>
+        <input type="text" class="form-control" name="solicito" id="solicito" value="{{$proyecto->solicito}}" />
+       </div>
+       <div class="form-group col-md-2">
+        <label for="preparo">Preparado por</label>
+         <select class="form-control" name="idpreparo" id="idpreparo">
+           <option value="0">Seleccione</option>
+                  <option value="1">Ingeniero 1</option>
+                  <option value="2">Ingeniero 2</option>
+          </select>
+        
+        
+       </div>
+       
+     </div>
+     <h3>Informacion operativa</h3>
+     <div class="form-row">
+       <div class="form-group col-md-2">
+        <label for="siam_casing">Diam.Casing</label>
+        <select class="form-control" name="id_siam_casing" id="id_siam_casing">
+           <option value="0">Seleccione</option>
+                  <option value="1">casing 1</option>
+                  <option value="2">casing 2</option>
+          </select>
         </div>
-        <div class="card-body table-responsive" style="height: 200px">
-          <table class="table table-striped table-borderless">
-            <thead class="thead-dark">
-              <th>Tipo de Herramienta</th>
-              <th>Usar</th>
-            </thead>
-            <tbody>
-              @foreach($tipoHerramientas as $tipoHerramienta)
-              <tr>
-                <td>{{ $tipoHerramienta->nombre }}</td>
-                <td><input type="checkbox" name="tipoHerramienta-{{ $tipoHerramienta->id }}" value="{{ $tipoHerramienta->id }}" @if($tipoHerramienta->checked) checked @endif></td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="card text-center">
-        <div class="card-header">
-          Asignar Operadores
-        </div>
-        <div class="card-body table-responsive combo-box" style="height: 200px">
-          <table class="table table-striped table-borderless">
-            <thead class="thead-dark">
-              <th>Email</th>
-              <th>Asignar</th>
-            </thead>
-            <tbody>
-              @foreach($operadores as $operador)
-              <tr>
-                <td>{{ $operador->email }}</td>
-                <td><input type="checkbox" name="operador-{{ $operador->id }}" value="{{ $operador->id }}" @if($operador->checked) checked @endif></td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
+        <div class="form-group col-md-1">
+        <label for="libraje">Libraje</label>
+        <select class="form-control" name="id_libraje" id="id_libraje">
+           <option value="0">Seleccione</option>
+                  <option value="1">Libraje 1</option>
+                  <option value="2">Libraje 2</option>
+          </select>
+       </div>
+        <div class="form-group col-md-1">
+        <label for="drift">Drift</label>
+        <input type="text" class="form-control" name="drift" id="drift" value="{{$proyecto->drift}}" />
+       </div>
+        <div class="form-group col-md-2">
+        <label for="diam_cano_ct">Dia Caño CT</label>
+        <input type="text" class="form-control" name="diam_cano_ct" id="diam_cano_ct" value="{{$proyecto->diam_cano_ct}}" />
+       </div>
+        <div class="form-group col-md-3">
+        <label for="tipo_fluido">Tipo Fluido</label>
+        <input type="text" class="form-control" name="tipo_fluido" id="tipo_fluido" value="{{$proyecto->tipo_fluido}}" />
+       </div>
+        <div class="form-group col-md-1">
+        <label for="o_t_f">0|T|F</label>
+        <input type="text" class="form-control" name="o_t_f" id="o_t_f" value="{{$proyecto->o_t_f}}" />
+       </div>
+        <div class="form-group col-md-2">
+        <label for="cia_trepano">Cia Trapano</label>
+        <input type="text" class="form-control" name="cia_trepano" id="cia_trepano" value="{{$proyecto->cia_trepano}}" />
+       </div>
+        
+     </div>
+     <div class="form-group">
+    <label for="observaciones">Descripción Operativa</label>
+    <textarea class="form-control" id="desc_oper" name="desc_oper" placeholder="Descripción" rows="5">{{$proyecto->desc_oper}}</textarea>
   </div>
 
-  <div class="form-group">
-    <label for="observaciones">Observaciones</label>
-    <textarea class="form-control" id="observaciones" placeholder="Observaciones" rows="5"></textarea>
-  </div>
-
-  <div class="form-row">
-
-    <div class="form-group col-md-3">
-      <label for="largo">Largo</label>
-      <input type="text" class="form-control" id="largo" placeholder="Largo">
+     
+  
+<div class="form-row">
+     <div class="form-group col-md-4">
+      <label for="diseno">Diseño</label>
+      <input type="text" class="form-control" name="diseno" id="diseno" placeholder="Ingeniería de Aplicación" value="{{$proyecto->diseno}}"/>
     </div>
-
-    <div class="form-group col-md-3">
-      <label for="bolita">OD bolita</label>
-      <input type="text" class="form-control" id="bolita" placeholder="Od Bolita">
+    <div class="form-group col-md-4">
+      <label for="aprobadopor">Aprobado por</label>
+      <input type="text" class="form-control" name="aprobadopor" id="aprobadorpor" placeholder="Contacto del cliente" value="{{$proyecto->aprobadopor}}"/>
     </div>
-
-    <div class="form-group col-md-3">
-      <label for="pines-de-corte">Pines de corte</label>
-      <input type="text" class="form-control" id="pines-de-corte" placeholder="Pines de corte">
+   <div class="form-group col-md-3">
+      <label for="previstopara">Previsto para</label>
+      <input type="text" class="form-control" name="previstopara" id="previstopara" placeholder="fecha y hora" value="{{$proyecto->previstopara}}"/>
     </div>
-
-    <div class="form-group col-md-3">
-      <label for="presion">Presion Act.</label>
-      <input type="text" class="form-control" id="presion" placeholder="Presion Act.">
+</div>
+<div class="form-row">
+  <div class="form-group col-md-4">
+      <label for="fechaymedio">Fecha Aprobado y Medio</label>
+      <input type="file" name="fechaymedio" value="fechaymedio" size="80" /> 
     </div>
-
-  </div>
-
-  <button type="submit" class="btn btn-primary">Guardar</button>
+  </div> 
+  <button type="submit" class="btn btn-primary  btn-block">Guardar</button>
 </form>
 
 @endsection
