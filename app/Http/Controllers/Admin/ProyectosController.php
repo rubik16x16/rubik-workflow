@@ -60,6 +60,10 @@ class ProyectosController extends Controller{
    */
   public function create(){
 
+
+
+
+
 		return view('admin.proyectos.create', [
 			'clientes' => Cliente::all(),
 			'pozos' => Pozo::all(),
@@ -67,7 +71,8 @@ class ProyectosController extends Controller{
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
 			'locaciones' => Locacion::all(),
-			'operaciones' => Operacion::all()
+			'operaciones' => Operacion::all(),
+			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 			
 		]);
 
@@ -123,7 +128,8 @@ class ProyectosController extends Controller{
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
 			'locaciones' => Locacion::all(),
-			'operaciones' => Operacion::all()
+			'operaciones' => Operacion::all(),
+			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 			
 		]);
 
@@ -210,4 +216,12 @@ class ProyectosController extends Controller{
 
 	}
 
+private function operadoresIngenierosyCoordinadores(){
+	$operadores = collect();
+	foreach(Usuario::all() as $usuario){
+		if(($usuario->roles->contains('nombre', 'Ingeniero')) or ($usuario->roles->contains('nombre', 'Coordinador')))
+			$operadores->push($usuario);
+	}
+	return $operadores;
+}
 }

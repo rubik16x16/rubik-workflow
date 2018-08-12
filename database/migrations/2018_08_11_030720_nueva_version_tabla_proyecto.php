@@ -25,7 +25,7 @@ class NuevaVersionTablaProyecto extends Migration
          $table->string('idpozo')->nullable();
          $table->string('id_cia_pu_wo_ct_drilling')->nullable();
          $table->string('solicito')->nullable();
-         $table->integer('idpreparo')->nullable();
+         $table->string('idpreparo')->nullable();
          $table->integer('id_siam_casing')->nullable();
          $table->integer('id_libraje')->nullable();
          $table->string('drift')->nullable();

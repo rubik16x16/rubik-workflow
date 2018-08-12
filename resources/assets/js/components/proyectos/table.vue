@@ -2,7 +2,7 @@
   <div class="proyectos-table">
     <div class="card text-center">
       <div class="card-header">
-        Proyectos
+        <a class="btn btn-primary" :href="routes.create" v-if="permiso('agregar')">Nuevo proyecto</a>
       </div>
       <div class="card-body table-responsive">
         <table class="table table-striped table-borderless">
@@ -21,19 +21,16 @@
               <td v-if="proyecto.estado"><span class="badge badge-success">activo</span></td>
               <td v-else><span class="badge badge-success">finalizado</span></td>
               <td>
-      					<a class="btn btn-secondary" :href="urlShow(proyecto.id)" v-if="permiso('ver')">Ver</a>
-                <a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')"><i class="fas fa-edit"></i></a>
+      					<a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')"><i class="fas fa-edit"></i></a>
                 <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)" v-if="permiso('eliminar')"><i class="fas fa-trash-alt"></i></a>
-      					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar herramientas</a>
-      					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-if="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar herramientas</a>
-              </td>
+      					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar Herramientas</a>
+      					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-if="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar Herramientas</a>
+                 </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="card-footer text-muted">
-        <a class="btn btn-primary" :href="routes.create" v-if="permiso('agregar')">Nuevo proyecto</a>
-      </div>
+      
     </div>
   </div>
 </template>
@@ -67,6 +64,7 @@ export default {
 		urlHerramientasEdit(id){
 			return this.routes.herramientas.edit.replace('id', id);
 		},
+   
     destroy(route, index){
 
       axios({

@@ -23,6 +23,7 @@ class AccionesTableSeeder extends Seeder{
 
 		Accion::create(['nombre' => 'asignarHerramientas', 'etiqueta' => 'Asignar Herramientas', 'seccion_id' => 5]);
 		Accion::create(['nombre' => 'editarHerramientas', 'etiqueta' => 'Editar Herramientas', 'seccion_id' => 5]);
+		Accion::create(['nombre' => 'editarOperadores', 'etiqueta' => 'Editar Operadores', 'seccion_id' => 5]);
 
   }
 }

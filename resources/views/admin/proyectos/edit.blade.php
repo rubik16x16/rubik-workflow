@@ -119,8 +119,13 @@
         <label for="preparo">Preparado por</label>
          <select class="form-control" name="idpreparo" id="idpreparo">
            <option value="0">Seleccione</option>
-                  <option value="1">Ingeniero 1</option>
-                  <option value="2">Ingeniero 2</option>
+                  @foreach($ingenieros as $cadaingeniero) 
+                  @if ($proyecto->idpreparo == $cadaingeniero->email)
+                  <option value="{{ $cadaingeniero->email }}" selected="selected">{{ $cadaingeniero->email}}</option>
+                  @else  
+                    <option value="{{ $cadaingeniero->email }}">{{ $cadaingeniero->email }}</option>
+                    @endif
+                  @endforeach
           </select>
         
         

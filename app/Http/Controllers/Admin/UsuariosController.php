@@ -90,6 +90,8 @@ class UsuariosController extends Controller{
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
+  
+
   public function edit($id){
 
     $usuario= Usuario::find($id)->load('roles');
@@ -107,6 +109,7 @@ class UsuariosController extends Controller{
     ]);
 
   }
+
 
   /**
    * Update the specified resource in storage.
