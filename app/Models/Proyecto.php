@@ -8,7 +8,7 @@ class Proyecto extends Model{
 
 	protected $table= 'proyectos';
 	protected $fillable= [
-		'fecha','nrocta_cliente', 'idlocacion',
+		'fecha','nrocta_cliente', 'idlocacion','idlistaprecios','idoperacion',
 	'idservicio','programa_cliente','idpozo','id_cia_pu_wo_ct_drilling',
 	'solicito','idpreparo','id_siam_casing','id_libraje','drift','diam_cano_ct',
 	'tipo_fluido','o_t_f','cia_trepano','desc_oper','od_bolita','od_pines',

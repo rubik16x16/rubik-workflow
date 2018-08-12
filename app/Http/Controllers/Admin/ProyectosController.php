@@ -12,6 +12,12 @@ use App\Models\ProyectoUsuario;
 use App\Models\ProyectoTipoHerramienta;
 use App\Models\Cliente;
 use App\Models\Pozo;
+use App\Models\Servicio;
+use App\Models\CiaPuWo;
+use App\Models\ListaPrecio;
+use App\Models\Locacion;
+use App\Models\Operacion;
+
 
 class ProyectosController extends Controller{
   /**
@@ -56,7 +62,12 @@ class ProyectosController extends Controller{
 
 		return view('admin.proyectos.create', [
 			'clientes' => Cliente::all(),
-			'pozos' => Pozo::all()
+			'pozos' => Pozo::all(),
+			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
+			'ciapuwos' => CiaPuWo::all(),
+			'listaprecios' => ListaPrecio::all(),
+			'locaciones' => Locacion::all(),
+			'operaciones' => Operacion::all()
 			
 		]);
 
@@ -72,8 +83,6 @@ class ProyectosController extends Controller{
 
   		$proyecto= new Proyecto($request->all());
 		$proyecto->save();
-
-		
 
 		return redirect(route('admin.proyectos.index'));
 
@@ -109,7 +118,12 @@ class ProyectosController extends Controller{
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
 			'clientes' => Cliente::all(),
-			'pozos' => Pozo::all()
+			'pozos' => Pozo::all(),
+			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
+			'ciapuwos' => CiaPuWo::all(),
+			'listaprecios' => ListaPrecio::all(),
+			'locaciones' => Locacion::all(),
+			'operaciones' => Operacion::all()
 			
 		]);
 

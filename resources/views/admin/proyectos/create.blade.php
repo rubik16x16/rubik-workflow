@@ -20,8 +20,9 @@
                   <label for="locacion">Locación</label>
                   <select class="form-control" name="idlocacion" id="idlocacion">
            <option value="0">Seleccione</option>
-                  <option value="1">Locacion 1</option>
-                  <option value="2">Locacion 2</option>
+                  @foreach($locaciones as $cadalocacion)   
+                    <option value="{{ $cadalocacion->nombre }}">{{ $cadalocacion->nombre }}</option>
+                  @endforeach
           </select>
         </div>
         <div class="form-group col-md-2">
@@ -39,16 +40,18 @@
      <label for="servicio">Servicios a realizar</label>
       <select class="form-control" name="idservicio" id="idservicio">
            <option value="0">Seleccione</option>
-                  <option value="1">Servicio 1</option>
-                  <option value="2">Servicio 2</option>
+           @foreach($servicios as $cadaservicio)
+             <option value="{{ $cadaservicio->STMATI_DESCRP }}">{{ $cadaservicio->STMATI_DESCRP }}</option>
+           @endforeach
           </select>
     </div>
     <div class="form-group col-md-2">
      <label for="servicio">Lista de Precios</label>
      <select class="form-control" name="idlistaprecios" id="idlistaprecios">
            <option value="0">Seleccione</option>
-                  <option value="1">Lista 1</option>
-                  <option value="2">Lista 2</option>
+                   @foreach($listaprecios as $cadalistaprecio)
+             <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
+           @endforeach
           </select>
     </div>
            <div class="form-group col-md-2">
@@ -62,10 +65,11 @@
      <div class="form-row">
        <div class="form-group col-md-2">
         <label for="preparo">Operación a realizar</label>
-         <select class="form-control" name="idpreparo" id="idpreparo">
+         <select class="form-control" name="idoperacion" id="idoperacion">
            <option value="0">Seleccione</option>
-                  <option value="1">Operacion 1</option>
-                  <option value="2">Operacion 2</option>
+                   @foreach($operaciones as $cadaoperacion)
+             <option value="{{ $cadaoperacion->nombre }}">{{ $cadaoperacion->nombre }}</option>
+           @endforeach
           </select>
         
         
@@ -74,8 +78,9 @@
         <label for="cia_pu_wo_ct_drilling">Compañia de pu/wo/ct/drilling</label>
          <select class="form-control" name="id_cia_pu_wo_ct_drilling" id="id_cia_pu_wo_ct_drilling">
            <option value="0">Seleccione</option>
-                  <option value="1">Compañia 1</option>
-                  <option value="2">Compañia 2</option>
+                 @foreach($ciapuwos as $cadacia)
+             <option value="{{ $cadacia->USR_FCTEQP_DESCRP }}">{{ $cadacia->USR_FCTEQP_DESCRP }}</option>
+           @endforeach
           </select>
         
        </div>
