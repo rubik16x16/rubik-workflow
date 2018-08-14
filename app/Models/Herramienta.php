@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Herramienta extends Model{
 
+  protected $primaryKey= 'pn';
+
   static $attrsDistinct= [
     'tipo_herramienta', 'od', 'lg',
     'sub_tipo_herramienta', 'descripcion',

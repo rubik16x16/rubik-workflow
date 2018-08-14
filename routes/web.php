@@ -113,21 +113,29 @@ Route::middleware('adminAuth')->group(function(){
 
 		// Proyectos -> Herramientas
 
-		Route::get('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@createHerramientas')
+		Route::get('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@create')
 		->name('admin.proyectos.herramientas.create')
 		->middleware('permiso:proyectos-asignarHerramientas');
 
-		Route::post('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@storeHerramientas')
+		Route::post('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@store')
 		->name('admin.proyectos.herramientas.store')
 		->middleware('permiso:proyectos-asignarHerramientas');
 
-		Route::get('/proyectos/{id}/herramientas/edit', 'Admin\ProyectoHerramientasController@editHerramientas')
+		Route::get('/proyectos/{id}/herramientas/edit', 'Admin\ProyectoHerramientasController@edit')
 		->name('admin.proyectos.herramientas.edit')
 		->middleware('permiso:proyectos-editarHerramientas');
 
-		Route::put('/proyectos/{id}/herramientas', 'Admin\ProyectoHerramientasController@updateHerramientas')
+		Route::put('/proyectos/{id}/herramientas', 'Admin\ProyectoHerramientasController@update')
 		->name('admin.proyectos.herramientas.update')
 		->middleware('permiso:proyectos-editarHerramientas');
+
+    // Proyectos -> Operadores
+
+    Route::get('/proyestos/{id}/operadores/create', 'Admin\ProyectoOperadoresController@create')
+    ->name('admin.proyecto.operadores.create');
+
+    Route::post('/proyestos/{id}/operadores/', 'Admin\ProyectoOperadoresController@store')
+    ->name('admin.proyecto.operadores.store');
 
 		// Roles
 

@@ -27,12 +27,6 @@ class Proyecto extends Model{
 
 	}
 
-	public function tipoHerramientas(){
-
-		return $this->belongsToMany('App\Models\TipoHerramienta', 'proyecto_tipo_herramienta');
-
-	}
-
 	public function herramientas(){
 
 		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta');

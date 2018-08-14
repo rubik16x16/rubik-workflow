@@ -22,3 +22,6 @@ Route::get('/admin/tipoherramientas', 'Admin\Api\TipoHerramientasController@inde
 
 Route::get('/admin/herramientas', 'Admin\Api\HerramientasController@index')
   ->name('admin.herramientas.api.index');
+
+Route::get('/admin/operadores', 'Admin\Api\OperadoresController@index')
+  ->name('api.admin.operadores.index');

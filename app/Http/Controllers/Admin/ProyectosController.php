@@ -27,8 +27,8 @@ class ProyectosController extends Controller{
    */
   public function index(){
 
-		$proyectos= Proyecto::all()->load('herramientas');
-  	
+		$proyectos= Proyecto::all()->load('herramientas', 'operadores');
+
 		$usuario= Usuario::find(session('admin.id'));
 
 		if($usuario->roles->contains('nombre', 'jefedetaller')){
@@ -47,7 +47,10 @@ class ProyectosController extends Controller{
 				'herramientas' => [
 					'create' => route('admin.proyectos.herramientas.create', ['id']),
 					'edit' => route('admin.proyectos.herramientas.edit', ['id'])
-				]
+				],
+        'operadores' => [
+          'create' => route('admin.proyecto.operadores.create', ['id'])
+        ]
       ]))
 		]);
 
@@ -60,10 +63,6 @@ class ProyectosController extends Controller{
    */
   public function create(){
 
-
-
-
-
 		return view('admin.proyectos.create', [
 			'clientes' => Cliente::all(),
 			'pozos' => Pozo::all(),
@@ -73,7 +72,7 @@ class ProyectosController extends Controller{
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
-			
+
 		]);
 
   }
@@ -86,7 +85,7 @@ class ProyectosController extends Controller{
    */
   public function store(Request $request){
 
-  		$proyecto= new Proyecto($request->all());
+  	$proyecto= new Proyecto($request->all());
 		$proyecto->save();
 
 		return redirect(route('admin.proyectos.index'));
@@ -119,7 +118,7 @@ class ProyectosController extends Controller{
 
 		$proyecto= Proyecto::find($id);
 
-				
+
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
 			'clientes' => Cliente::all(),
@@ -130,7 +129,7 @@ class ProyectosController extends Controller{
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
-			
+
 		]);
 
   }
@@ -186,42 +185,12 @@ class ProyectosController extends Controller{
 
   }
 
-	private function operadoresDisponibles(){
-
-		$operadoresOcupados= collect();
-		$operadoresDisponibles= collect();
-
-		foreach(Proyecto::all()->load('operadores') as $proyecto){
-			foreach ($proyecto->operadores as $operador) {
-				$operadoresOcupados->push($operador);
-			}
-		}
-
-		$operadoresActivos= Usuario::all()->load('roles')->reject(function($usuario){
-			return $usuario->estado == false;
-		})->filter(function($usuario){
-			$roles= $usuario->roles->map(function($rol){
-				return $rol->nombre;
-			});
-			return in_array('Operario', $roles->toArray());
-		});
-
-		foreach($operadoresActivos as $operador){
-			if(!$operadoresOcupados->contains('id', $operador->id)){
-				$operadoresDisponibles->push($operador);
-			}
-		}
-
-		return $operadoresDisponibles;
-
-	}
-
-private function operadoresIngenierosyCoordinadores(){
-	$operadores = collect();
-	foreach(Usuario::all() as $usuario){
-		if(($usuario->roles->contains('nombre', 'Ingeniero')) or ($usuario->roles->contains('nombre', 'Coordinador')))
-			$operadores->push($usuario);
-	}
-	return $operadores;
-}
+  private function operadoresIngenierosyCoordinadores(){
+  	$operadores = collect();
+  	foreach(Usuario::all() as $usuario){
+  		if(($usuario->roles->contains('nombre', 'Ingeniero')) or ($usuario->roles->contains('nombre', 'Coordinador')))
+  			$operadores->push($usuario);
+  	}
+  	return $operadores;
+  }
 }

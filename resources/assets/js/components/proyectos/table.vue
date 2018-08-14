@@ -24,13 +24,15 @@
       					<a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')"><i class="fas fa-edit"></i></a>
                 <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)" v-if="permiso('eliminar')"><i class="fas fa-trash-alt"></i></a>
       					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar Herramientas</a>
-      					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-if="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar Herramientas</a>
-                 </td>
+      					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-else="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar Herramientas</a>
+                <a class="btn btn-success" :href="routes.operadores.create.replace('id', proyecto.id)" v-if="proyecto.operadores.length == 0">Asignar Operadores</a>
+       					<a class="btn btn-success" href="#" v-else>Editar operadores</a>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -64,7 +66,7 @@ export default {
 		urlHerramientasEdit(id){
 			return this.routes.herramientas.edit.replace('id', id);
 		},
-   
+
     destroy(route, index){
 
       axios({
