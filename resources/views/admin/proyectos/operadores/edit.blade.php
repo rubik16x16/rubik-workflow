@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="operadores-app">
-  <create-operadores :operadores="{{ $operadores }}" :routes="{{ $routes }}"></create-operadores>
+  <edit-operadores :operadores="{{ $operadores }}" :routes="{{ $routes }}"></edit-operadores>
 </div>
 
 @endsection

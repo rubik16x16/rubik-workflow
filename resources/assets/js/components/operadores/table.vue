@@ -1,11 +1,13 @@
 <template lang="html">
-  <div class="operadores-app">
-    <form :action="routes.storeOperadores" id="operadores" method="post">
+  <div class="operadores-disponibles">
+    <form :action="form.action" id="operadores" method="post">
+      <input type="hidden" name="_method" :value="form.method">
       <input type="hidden" name="_token" :value="csrfToken">
       <input type="hidden" name="operadores" v-model="operadoresIds">
     </form>
+
     <div class="operadores-asignados">
-      <span v-for="(operador, index) in operadoresAsignados">{{ operador.email }} <button type="button" @click="quitarOperador(index)">quitar</button></span>
+      <span v-for="(operador, index) in listaAsignados">{{ operador.email }} <button type="button" @click="quitarOperador(index)">quitar</button></span>
     </div>
     <input type="text" name="email" id="email" v-model="operador.email">
     <label for="email">Email</label>
@@ -28,10 +30,10 @@
 
 <script>
 export default {
-  props:['operadores', 'routes'],
+  props:['operadores', 'routes', 'form'],
   data(){
     return {
-      operadoresAsignados: [],
+      listaAsignados: [],
       listaOperadores: null,
       operador: {
         email: null
@@ -39,26 +41,27 @@ export default {
     }
   },
   mounted(){
-    this.listaOperadores= this.operadores;
+    this.listaOperadores= this.operadores.disponibles;
+    this.listaAsignados= this.operadores.asignados;
   },
   methods:{
     agregarOperador(operador){
-      var asignable= this.operadoresAsignados.find(element => {
+      var asignable= this.listaAsignados.find(element => {
         return element.email == operador.email;
       });
 
       if(typeof asignable !== 'undefined'){
         return alert('este operador ya esta asignado')
       }
-      this.operadoresAsignados.push(operador);
+      this.listaAsignados.push(operador);
     },
     quitarOperador(index){
-      this.operadoresAsignados.splice(index, 1);
+      this.listaAsignados.splice(index, 1);
     },
     filtrar(){
       axios({
         method: 'GET',
-        url: this.routes.getRecords,
+        url: this.routes.operadores.get,
         params: this.operador,
         responseType:'json'
       }).then(response => {
@@ -71,7 +74,7 @@ export default {
   computed: {
     operadoresIds(){
       var ids = '';
-      this.operadoresAsignados.forEach(function(operador){
+      this.listaAsignados.forEach(function(operador){
         ids+= operador.id + ':';
       });
       return ids.substr(0, ids.length -1);

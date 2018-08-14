@@ -29,12 +29,17 @@ class ProyectoOperadoresController extends Controller{
     $proyecto= Proyecto::find($id);
 
     return view('admin.proyectos.operadores.create', [
-      'proyecto' => $proyecto,
+      'proyecto' => str_replace('"', "'", $proyecto->toJson()),
       'routes' => str_replace('"', "'", json_encode([
-        'getRecords' => route('api.admin.operadores.index'),
-        'storeOperadores' => route('admin.proyecto.operadores.store', ['id' => $proyecto->id])
+        'operadores' =>[
+          'get' => route('api.admin.operadores.index'),
+          'store' => route('admin.proyecto.operadores.store', ['id' => $proyecto->id]),
+        ]
       ])),
-      'operadores' => str_replace('"', "'", $this->operadoresDisponibles()->toJson())
+      'operadores' => str_replace('"', "'", json_encode([
+        'disponibles' => $this->operadoresDisponibles()->toArray(),
+        'asignados' => []
+      ]))
     ]);
 
   }
@@ -76,9 +81,24 @@ class ProyectoOperadoresController extends Controller{
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function edit($id)
-  {
-      //
+  public function edit($id){
+
+    $proyecto= Proyecto::find($id);
+
+    return view('admin.proyectos.operadores.edit', [
+      'proyecto' => str_replace('"', "'", $proyecto->toJson()),
+      'routes' => str_replace('"', "'", json_encode([
+        'operadores' =>[
+          'get' => route('api.admin.operadores.index'),
+          'update' => route('admin.proyecto.operadores.store', ['id' => $proyecto->id])
+        ]
+      ])),
+      'operadores' => str_replace('"', "'", json_encode([
+        'disponibles' => $this->operadoresDisponibles()->toArray(),
+        'asignados' => $proyecto->operadores->toArray()
+      ]))
+    ]);
+
   }
 
   /**
@@ -88,9 +108,22 @@ class ProyectoOperadoresController extends Controller{
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, $id)
-  {
-      //
+  public function update(Request $request, $id){
+
+    $proyecto= Proyecto::find($id);
+
+    ProyectoUsuario::where('proyecto_id', $proyecto->id)->delete();
+
+    $operadoresIds= explode(':', $request->operadores);
+    foreach ($operadoresIds as $operadorId) {
+      ProyectoUsuario::create([
+        'proyecto_id' => $id,
+        'usuario_id' => $operadorId
+      ]);
+    }
+
+    return redirect(route('admin.proyectos.index'));
+
   }
 
   /**

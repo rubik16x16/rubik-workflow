@@ -131,11 +131,17 @@ Route::middleware('adminAuth')->group(function(){
 
     // Proyectos -> Operadores
 
-    Route::get('/proyestos/{id}/operadores/create', 'Admin\ProyectoOperadoresController@create')
+    Route::get('/proyectos/{id}/operadores/create', 'Admin\ProyectoOperadoresController@create')
     ->name('admin.proyecto.operadores.create');
 
-    Route::post('/proyestos/{id}/operadores/', 'Admin\ProyectoOperadoresController@store')
+    Route::post('/proyectos/{id}/operadores/', 'Admin\ProyectoOperadoresController@store')
     ->name('admin.proyecto.operadores.store');
+
+    Route::get('/proyectos/{id}/operadores/edit', 'Admin\ProyectoOperadoresController@edit')
+    ->name('admin.proyecto.operadores.edit');
+
+    Route::put('/proyectos/{id}/operadores/', 'Admin\ProyectoOperadoresController@update')
+    ->name('admin.proyecto.operadores.update');
 
 		// Roles
 

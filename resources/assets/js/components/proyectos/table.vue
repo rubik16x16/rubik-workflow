@@ -26,7 +26,7 @@
       					<a class="btn btn-success" :href="urlHerramientasCreate(proyecto.id)" v-if="proyecto.herramientas.length == 0 && permiso('asignarHerramientas')">Asignar Herramientas</a>
       					<a class="btn btn-success" :href="urlHerramientasEdit(proyecto.id)" v-else="proyecto.herramientas.length > 0 && permiso('editarHerramientas')">Editar Herramientas</a>
                 <a class="btn btn-success" :href="routes.operadores.create.replace('id', proyecto.id)" v-if="proyecto.operadores.length == 0">Asignar Operadores</a>
-       					<a class="btn btn-success" href="#" v-else>Editar operadores</a>
+       					<a class="btn btn-success" :href="routes.operadores.edit.replace('id', proyecto.id)" v-else>Editar operadores</a>
               </td>
             </tr>
           </tbody>
