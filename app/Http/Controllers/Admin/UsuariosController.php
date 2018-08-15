@@ -71,7 +71,7 @@ class UsuariosController extends Controller{
 
     }
 
-    return redirect(route('admin.usuario.create'));
+    return redirect(route('admin.usuarios.create'));
   }
 
   /**
@@ -90,7 +90,7 @@ class UsuariosController extends Controller{
    * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  
+
 
   public function edit($id){
 

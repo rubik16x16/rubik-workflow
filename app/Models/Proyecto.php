@@ -19,7 +19,9 @@ class Proyecto extends Model{
 	'mdf_pres_max','mdf_pres_min','diseno','recibidopor','aprobadopor',
 	'previstopara','preparadopor','hora','trailer','generador','proveedor'];
 
-
+	public function tipoHerramientas(){
+		return $this->hasMany('App\Models\ProyectoTipoHerramienta');
+	}
 
 	public function operadores(){
 

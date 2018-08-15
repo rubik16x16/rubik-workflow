@@ -12,10 +12,9 @@ class TipoHerramientasController extends Controller{
 
   public function index(Request $request){
 
-    $tipoHerramienta= json_decode($request->query->get('tipoHerramienta'));
-    $registrosPorPagina= $request->query->get('registrosPorPagina');
-    $pagina= $request->query->get('pagina');
-    $saltar= ($pagina - 1) * $registrosPorPagina;
+    if($request->query->get('tipoHerramienta') != NULL){
+      $tipoHerramienta= json_decode($request->query->get('tipoHerramienta'));
+    }
 
     $attrsRaw= '';
 
@@ -25,25 +24,33 @@ class TipoHerramientasController extends Controller{
 
     $attrsRaw= substr($attrsRaw, 0 , strlen($attrsRaw) -2);
 
-    $cantRegistros= DB::table('herramientas');
-    $cantRegistros->select(DB::raw("count(DISTINCT {$attrsRaw}) as cantRegistros"));
-
     $herramientas= new Herramienta();
     $herramientas= $herramientas->newQuery();
-    $herramientas->select(Herramienta::$attrsDistinct)->distinct();
 
     foreach(Herramienta::$attrsDistinct as $attr){
-      if($tipoHerramienta->$attr != null){
-        $cantRegistros->where($attr, $tipoHerramienta->$attr);
-        $herramientas->where($attr, $tipoHerramienta->$attr);
+      $herramientas->groupBy($attr);
+    }
+
+    if(isset($tipoHerramienta)){
+      foreach(Herramienta::$attrsDistinct as $attr){
+        if($tipoHerramienta->$attr != null){
+          switch($attr){
+            case 'lg':
+              $herramientas->where($attr,'like' ,"{$tipoHerramienta->$attr}%");
+            break;
+            case 'od':
+            break;
+              $herramientas->where($attr,'like' ,"{$tipoHerramienta->$attr}%");
+            default:
+              $herramientas->where($attr,'like' ,"%{$tipoHerramienta->$attr}%");
+          }
+        }
       }
     }
 
-    $cantRegistros= $cantRegistros->get()->first()->cantRegistros;
-    $herramientas->take($registrosPorPagina)->skip($saltar);
+    $herramientas->take(25);
 
     return response(json_encode([
-      'cantRegistros' => $cantRegistros,
       'tipoHerramientas' => $herramientas->get()->toArray()
     ]))->header('Content-Type', 'application/json');
 

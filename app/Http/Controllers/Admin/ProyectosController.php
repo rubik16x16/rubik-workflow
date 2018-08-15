@@ -27,7 +27,7 @@ class ProyectosController extends Controller{
    */
   public function index(){
 
-		$proyectos= Proyecto::all()->load('herramientas', 'operadores');
+		$proyectos= Proyecto::all()->load('tipoHerramientas', 'herramientas', 'operadores');
 
 		$usuario= Usuario::find(session('admin.id'));
 
@@ -44,6 +44,10 @@ class ProyectosController extends Controller{
         'destroy' => route('admin.proyectos.destroy', ['id']),
         'create' => route('admin.proyectos.create'),
 				'show' => route('admin.proyectos.show', ['id']),
+        'tipoHerramientas' => [
+					'create' => route('admin.proyecto.tipoHerramientas.create', ['id']),
+					'edit' => route('admin.proyecto.tipoHerramientas.edit', ['id'])
+				],
 				'herramientas' => [
 					'create' => route('admin.proyectos.herramientas.create', ['id']),
 					'edit' => route('admin.proyectos.herramientas.edit', ['id'])

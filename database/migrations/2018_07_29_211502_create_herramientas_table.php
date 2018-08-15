@@ -14,7 +14,7 @@ class CreateHerramientasTable extends Migration
     public function up()
     {
         Schema::create('herramientas', function (Blueprint $table) {
-            $table->string('pn', 8)->primary();
+            $table->string('pn', 12)->primary();
             $table->string('tipo_herramienta');
             $table->string('od');
             $table->string('lg');

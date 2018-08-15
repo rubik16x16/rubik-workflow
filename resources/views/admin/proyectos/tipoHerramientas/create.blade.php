@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="app">
+<div id="proyectos-app">
   <tipo-herramientas-create :routes="{{ $routes }}"></herramientas-table>
 </div>
 

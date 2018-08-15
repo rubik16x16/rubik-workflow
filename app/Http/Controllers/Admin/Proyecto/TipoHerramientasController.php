@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Proyecto;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Proyecto;
 use App\Models\Herramienta;
 use App\Models\ProyectoTipoHerramienta;
 
@@ -46,8 +47,8 @@ class TipoHerramientasController extends Controller
 
       $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
 
-      foreach ($tipoHerramientasPns as $operadorId) {
-        $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientasPns[0])->toArray());
+      foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
+        $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
         $tipoHerramienta->proyecto_id= $id;
         $tipoHerramienta->save();
       }
@@ -73,9 +74,18 @@ class TipoHerramientasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+
+      $proyecto= Proyecto::find($id)->load('tipoHerramientas');
+
+      return view('admin.proyectos.tipoHerramientas.edit', [
+        'routes' => str_replace('"', "'", json_encode([
+          'index'=> route('admin.tipoHerramientas.api.index'),
+          'update'=> route('admin.proyecto.tipoHerramientas.update', ['id'=> $id])
+        ])),
+        'asignados' => str_replace('"', "'", $proyecto->tipoHerramientas->toJson())
+      ]);
+
     }
 
     /**
@@ -85,9 +95,20 @@ class TipoHerramientasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+
+      ProyectoTipoHerramienta::where('proyecto_id', $id)->delete();
+
+      $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
+
+      foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
+        $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
+        $tipoHerramienta->proyecto_id= $id;
+        $tipoHerramienta->save();
+      }
+
+      return redirect(route('admin.proyectos.index'));
+
     }
 
     /**

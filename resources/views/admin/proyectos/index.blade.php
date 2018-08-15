@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div id="app">
+<div id="proyectos-app">
 	<proyectos-table
 	:proyectos="{{ $proyectos }}"
 	:routes="{{ $routes }}"
@@ -14,6 +14,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('dist/js/proyectos/app.js') }}"></script>
+<script src="{{ asset('dist/js/proyectos.js') }}"></script>
 
 @endsection

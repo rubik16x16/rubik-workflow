@@ -8,11 +8,11 @@
         <form :action="form.action" id="tipoHerramientas" method="post">
           <input type="hidden" name="_method" :value="form.method">
           <input type="hidden" name="_token" :value="csrfToken">
-          <input type="text" name="tipoHerramientas" v-model="tipoHerramientasPns">
+          <input type="hidden" name="tipoHerramientas" v-model="tipoHerramientasPns">
         </form>
 
-        <div class="tipoHerramientas-asignados">
-          <span v-for="(tipoHerramienta, index) in asignados">{{ tipoHerramienta.tipo_herramienta }} <button type="button" @click="quitarTipoHerramienta(index)">quitar</button></span>
+        <div class="tipoHerramientas-asignadas">
+          <span v-for="(tipoHerramienta, index) in listaAsignados">{{ tipoHerramienta.tipo_herramienta }} <button type="button" @click="quitarTipoHerramienta(index)">quitar</button></span>
         </div>
         <h4>Filtros</h4>
         <herramientas-filtros @filtrar="filtrar"></herramientas-filtros>
@@ -58,32 +58,33 @@
 Vue.component('herramientas-filtros', require('./filtros'));
 
 export default {
-  props: ['routes', 'form'],
+  props: ['routes', 'form', 'asignados'],
   data (){
     return {
       tipoHerramientas: null,
-      asignados: [],
+      listaAsignados: [],
       tipoHerramienta: null,
     }
   },
   mounted(){
 
+    this.listaAsignados= (typeof this.asignados !== 'undefined') ? this.asignados : [];
     this.getData();
 
   },
   methods:{
     agregarTipoHerramienta(tipoHerramienta){
-      var asignable= this.asignados.find(element => {
+      var asignable= this.listaAsignados.find(element => {
         return element.pn == tipoHerramienta.pn;
       });
 
       if(typeof asignable !== 'undefined'){
         return alert('este tipoHerramienta ya esta asignado')
       }
-      this.asignados.push(tipoHerramienta);
+      this.listaAsignados.push(tipoHerramienta);
     },
     quitarTipoHerramienta(index){
-      this.asignados.splice(index, 1);
+      this.listaAsignados.splice(index, 1);
     },
     getData(){
       axios({
@@ -112,7 +113,7 @@ export default {
   computed:{
     tipoHerramientasPns(){
       var pns = '';
-      this.asignados.forEach(function(tipoHerramienta){
+      this.listaAsignados.forEach(function(tipoHerramienta){
         pns+= tipoHerramienta.pn + ':';
       });
       return pns.substr(0, pns.length -1);
