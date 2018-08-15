@@ -26,6 +26,6 @@ mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuario
 mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles');
 mix.js('resources/assets/js/components/tipoHerramientas/app.js', 'public/dist/js/tipoHerramientas');
 mix.js('resources/assets/js/components/herramientas/app.js', 'public/dist/js/herramientas');
-mix.js('resources/assets/js/components/proyectos/app.js', 'public/dist/js/proyectos');
+mix.js('resources/assets/js/components/proyectos/app.js', 'public/dist/js/proyectos.js');
 
 mix.js('resources/assets/js/components/operadores/app.js', 'public/dist/js/operadores-app.js');

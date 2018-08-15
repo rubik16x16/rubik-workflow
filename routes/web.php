@@ -143,6 +143,20 @@ Route::middleware('adminAuth')->group(function(){
     Route::put('/proyectos/{id}/operadores/', 'Admin\ProyectoOperadoresController@update')
     ->name('admin.proyecto.operadores.update');
 
+    // Proyectos -> Tipos de herramientass
+
+    Route::get('/proyectos/{id}/tipoherramientas/create', 'Admin\Proyecto\TipoHerramientasController@create')
+    ->name('admin.proyecto.tipoHerramientas.create');
+
+    Route::post('/proyectos/{id}/tipoherramientas/', 'Admin\Proyecto\TipoHerramientasController@store')
+    ->name('admin.proyecto.tipoHerramientas.store');
+
+    Route::get('/proyectos/{id}/tipoherramientas/edit', 'Admin\Proyecto\TipoHerramientasController@edit')
+    ->name('admin.proyecto.tipoHerramientas.edit');
+
+    Route::put('/proyectos/{id}/tipoherramientas/', 'Admin\Proyecto\TipoHerramientasController@update')
+    ->name('admin.proyecto.tipoHerramientas.update');
+
 		// Roles
 
 		Route::get('/roles', 'Admin\RolesController@index')
