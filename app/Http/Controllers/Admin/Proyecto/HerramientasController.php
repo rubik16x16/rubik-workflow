@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Proyecto;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,9 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\ProyectoHerramienta;
 
-class ProyectoHerramientasController extends Controller{
+class HerramientasController extends Controller{
 
-	public function createHerramientas($id){
+	public function create($id){
 
 		return view('admin.proyectos.herramientas.create', [
 			'proyecto' => Proyecto::find($id),
@@ -19,7 +19,7 @@ class ProyectoHerramientasController extends Controller{
 
 	}
 
-	public function storeHerramientas(Request $request , $id){
+	public function store(Request $request , $id){
 
 		foreach($request->all() as $clave => $valor){
 			if(substr($clave, 0, 11) == 'herramienta'){
@@ -34,7 +34,7 @@ class ProyectoHerramientasController extends Controller{
 
 	}
 
-	public function editHerramientas(Request $request, $id){
+	public function edit(Request $request, $id){
 
 		$proyecto= Proyecto::find($id);
 		$coleccionesHerramientasDisponibles= $this->coleccionesHerramientasDisponibles($id);
@@ -60,7 +60,7 @@ class ProyectoHerramientasController extends Controller{
 
 	}
 
-	public function updateHerramientas(Request $request, $id){
+	public function update(Request $request, $id){
 
 		ProyectoHerramienta::where('proyecto_id', $id)->delete();
 

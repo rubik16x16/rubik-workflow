@@ -49,8 +49,8 @@ class ProyectosController extends Controller{
 					'edit' => route('admin.proyecto.tipoHerramientas.edit', ['id'])
 				],
 				'herramientas' => [
-					'create' => route('admin.proyectos.herramientas.create', ['id']),
-					'edit' => route('admin.proyectos.herramientas.edit', ['id'])
+					'create' => route('admin.proyecto.herramientas.create', ['id']),
+					'edit' => route('admin.proyecto.herramientas.edit', ['id'])
 				],
         'operadores' => [
           'create' => route('admin.proyecto.operadores.create', ['id']),

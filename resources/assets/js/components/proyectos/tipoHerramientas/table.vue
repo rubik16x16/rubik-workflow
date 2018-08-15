@@ -15,7 +15,8 @@
           <span v-for="(tipoHerramienta, index) in listaAsignados">{{ tipoHerramienta.tipo_herramienta }} <button type="button" @click="quitarTipoHerramienta(index)">quitar</button></span>
         </div>
         <h4>Filtros</h4>
-        <herramientas-filtros @filtrar="filtrar"></herramientas-filtros>
+
+        <tipo-herramientas-filtros @filtrar="filtrar"></tipo-herramientas-filtros>
 
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
@@ -55,7 +56,7 @@
 
 <script>
 
-Vue.component('herramientas-filtros', require('./filtros'));
+Vue.component('tipo-herramientas-filtros', require('./filtros'));
 
 export default {
   props: ['routes', 'form', 'asignados'],

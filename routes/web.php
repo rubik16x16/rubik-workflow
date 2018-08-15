@@ -49,12 +49,6 @@ Route::middleware('adminAuth')->group(function(){
 		->name('admin.usuarios.destroy')
 		->middleware('permiso:usuarios-eliminar');
 
-		//Tipos de Herramientas
-
-    Route::get('/tipoherramientas', 'Admin\TipoHerramientasController@index')
-		->name('admin.tipoHerramientas.index')
-		->middleware('permiso:tipoHerramientas-lista');
-
 		// Herramientas
 
     Route::get('/herramientas', 'Admin\HerramientasController@index')
@@ -111,39 +105,39 @@ Route::middleware('adminAuth')->group(function(){
 		->name('admin.proyectos.destroy')
 		->middleware('permiso:proyectos-eliminar');
 
-		// Proyectos -> Herramientas
+		// Proyecto -> Herramientas
 
-		Route::get('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@create')
-		->name('admin.proyectos.herramientas.create')
+		Route::get('/proyectos/{id}/herramientas/create', 'Admin\Proyecto\HerramientasController@create')
+		->name('admin.proyecto.herramientas.create')
 		->middleware('permiso:proyectos-asignarHerramientas');
 
-		Route::post('/proyectos/{id}/herramientas/create', 'Admin\ProyectoHerramientasController@store')
-		->name('admin.proyectos.herramientas.store')
+		Route::post('/proyectos/{id}/herramientas/create', 'Admin\Proyecto\HerramientasController@store')
+		->name('admin.proyecto.herramientas.store')
 		->middleware('permiso:proyectos-asignarHerramientas');
 
-		Route::get('/proyectos/{id}/herramientas/edit', 'Admin\ProyectoHerramientasController@edit')
-		->name('admin.proyectos.herramientas.edit')
+		Route::get('/proyectos/{id}/herramientas/edit', 'Admin\Proyecto\HerramientasController@edit')
+		->name('admin.proyecto.herramientas.edit')
 		->middleware('permiso:proyectos-editarHerramientas');
 
-		Route::put('/proyectos/{id}/herramientas', 'Admin\ProyectoHerramientasController@update')
+		Route::put('/proyecto/{id}/herramientas', 'Admin\Proyecto\HerramientasController@update')
 		->name('admin.proyectos.herramientas.update')
 		->middleware('permiso:proyectos-editarHerramientas');
 
-    // Proyectos -> Operadores
+    // Proyecto -> Operadores
 
-    Route::get('/proyectos/{id}/operadores/create', 'Admin\ProyectoOperadoresController@create')
+    Route::get('/proyectos/{id}/operadores/create', 'Admin\Proyecto\OperadoresController@create')
     ->name('admin.proyecto.operadores.create');
 
-    Route::post('/proyectos/{id}/operadores/', 'Admin\ProyectoOperadoresController@store')
+    Route::post('/proyectos/{id}/operadores/', 'Admin\Proyecto\OperadoresController@store')
     ->name('admin.proyecto.operadores.store');
 
-    Route::get('/proyectos/{id}/operadores/edit', 'Admin\ProyectoOperadoresController@edit')
+    Route::get('/proyectos/{id}/operadores/edit', 'Admin\Proyecto\OperadoresController@edit')
     ->name('admin.proyecto.operadores.edit');
 
-    Route::put('/proyectos/{id}/operadores/', 'Admin\ProyectoOperadoresController@update')
+    Route::put('/proyectos/{id}/operadores/', 'Admin\Proyecto\OperadoresController@update')
     ->name('admin.proyecto.operadores.update');
 
-    // Proyectos -> Tipos de herramientass
+    // Proyecto -> Tipos de herramientass
 
     Route::get('/proyectos/{id}/tipoherramientas/create', 'Admin\Proyecto\TipoHerramientasController@create')
     ->name('admin.proyecto.tipoHerramientas.create');

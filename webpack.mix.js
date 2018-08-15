@@ -19,13 +19,21 @@ let mix = require('laravel-mix');
 //   ]
 // });
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+mix.webpackConfig({
+  plugins: [
+    new CleanWebpackPlugin(['public/dist'])
+  ]
+});
+
 mix.js('resources/assets/js/app.js', 'public/dist/js')
    .sass('resources/assets/sass/app.scss', 'public/dist/css');
 
-mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios');
-mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles');
-mix.js('resources/assets/js/components/tipoHerramientas/app.js', 'public/dist/js/tipoHerramientas');
-mix.js('resources/assets/js/components/herramientas/app.js', 'public/dist/js/herramientas');
-mix.js('resources/assets/js/components/proyectos/app.js', 'public/dist/js/proyectos.js');
+mix.js('resources/assets/js/components/usuarios/app.js', 'public/dist/js/usuarios-app.js');
+mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles-app.js');
+mix.js('resources/assets/js/components/herramientas/app.js', 'public/dist/js/herramientas-app.js');
 
-mix.js('resources/assets/js/components/operadores/app.js', 'public/dist/js/operadores-app.js');
+mix.js('resources/assets/js/components/proyectos/app.js', 'public/dist/js/proyectos/proyectos-app.js');
+mix.js('resources/assets/js/components/proyectos/operadores/app.js', 'public/dist/js/proyectos/operadores-app.js');
+mix.js('resources/assets/js/components/proyectos/tipoHerramientas/app.js', 'public/dist/js/proyectos/tipo-herramientas-app.js');

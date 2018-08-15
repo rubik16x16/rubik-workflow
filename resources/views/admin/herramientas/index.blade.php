@@ -10,6 +10,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('dist/js/herramientas/app.js') }}"></script>
+<script src="{{ asset('dist/js/herramientas-app.js') }}"></script>
 
 @endsection

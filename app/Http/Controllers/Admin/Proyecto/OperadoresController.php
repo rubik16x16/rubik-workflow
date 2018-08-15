@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Proyecto;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -9,7 +9,7 @@ use App\Models\Proyecto;
 use App\Models\ProyectoUsuario;
 use App\Models\Usuario;
 
-class ProyectoOperadoresController extends Controller{
+class OperadoresController extends Controller{
   /**
    * Display a listing of the resource.
    *

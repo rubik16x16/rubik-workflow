@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="proyectos-app">
+<div id="tipo-herramientas-app">
   <tipo-herramientas-edit :routes="{{ $routes }}" :asignados="{{ $asignados }}"></herramientas-table>
 </div>
 
@@ -11,6 +11,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('dist/js/proyectos.js') }}"></script>
+<script src="{{ asset('dist/js/proyectos/tipo-herramientas-app.js') }}"></script>
 
 @endsection

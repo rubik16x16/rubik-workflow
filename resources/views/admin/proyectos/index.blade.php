@@ -14,6 +14,6 @@
 
 @section('scripts')
 
-<script src="{{ asset('dist/js/proyectos.js') }}"></script>
+<script src="{{ asset('dist/js/proyectos/proyectos-app.js') }}"></script>
 
 @endsection

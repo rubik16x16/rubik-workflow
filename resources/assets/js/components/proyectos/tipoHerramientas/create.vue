@@ -1,5 +1,5 @@
 <template lang="html">
-  <tipo-herramientas-table :form="form" :routes="routes" :asignados="asignados"></tipo-herramientas-table>
+  <tipo-herramientas-table :form="form" :routes="routes"></tipo-herramientas-table>
 </template>
 
 <script>
@@ -7,7 +7,7 @@
 Vue.component('tipo-herramientas-table', require('./table'));
 
 export default {
-  props: ['routes', 'asignados'],
+  props: ['routes'],
   computed: {
     form(){
       return {

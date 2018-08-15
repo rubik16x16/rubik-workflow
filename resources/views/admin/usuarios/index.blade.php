@@ -9,5 +9,5 @@
 @endsection
 
 @section('scripts')
-<script src="{{ asset('dist/js/usuarios/app.js') }}" ></script>
+<script src="{{ asset('dist/js/usuarios-app.js') }}" ></script>
 @endsection
