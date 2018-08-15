@@ -10,14 +10,6 @@ use App\Models\ProyectoUsuario;
 use App\Models\Usuario;
 
 class OperadoresController extends Controller{
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index(){
-
-  }
 
   /**
    * Show the form for creating a new resource.
@@ -32,7 +24,7 @@ class OperadoresController extends Controller{
       'proyecto' => str_replace('"', "'", $proyecto->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'operadores' =>[
-          'get' => route('api.admin.operadores.index'),
+          'get' => route('api.admin.proyecto.operadores.get'),
           'store' => route('admin.proyecto.operadores.store', ['id' => $proyecto->id]),
         ]
       ])),
@@ -65,17 +57,6 @@ class OperadoresController extends Controller{
   }
 
   /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function show($id)
-  {
-      //
-  }
-
-  /**
    * Show the form for editing the specified resource.
    *
    * @param  int  $id
@@ -89,7 +70,7 @@ class OperadoresController extends Controller{
       'proyecto' => str_replace('"', "'", $proyecto->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'operadores' =>[
-          'get' => route('api.admin.operadores.index'),
+          'get' => route('api.admin.proyecto.operadores.get'),
           'update' => route('admin.proyecto.operadores.store', ['id' => $proyecto->id])
         ]
       ])),
@@ -124,17 +105,6 @@ class OperadoresController extends Controller{
 
     return redirect(route('admin.proyectos.index'));
 
-  }
-
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-      //
   }
 
   private function operadoresDisponibles(){

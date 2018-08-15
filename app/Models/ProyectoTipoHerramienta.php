@@ -25,6 +25,9 @@ class ProyectoTipoHerramienta extends Model{
 		$herramientas= new Herramienta();
 		$herramientas= $herramientas->newQuery();
 
+		$herramientas->leftJoin('proyecto_herramienta', 'herramientas.pn', '=', 'proyecto_herramienta.herramienta_pn');
+		$herramientas->whereNull('proyecto_herramienta.herramienta_pn');
+
 		foreach ($fields as $field) {
 			$herramientas->where($field, $this->attributes[$field]);
 		}

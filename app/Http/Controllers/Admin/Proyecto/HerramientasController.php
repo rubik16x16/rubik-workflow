@@ -12,9 +12,13 @@ class HerramientasController extends Controller{
 
 	public function create($id){
 
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
+		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
+			$tipoHerramienta->herramientas= $tipoHerramienta->herramientas();
+		}
+
 		return view('admin.proyectos.herramientas.create', [
-			'proyecto' => Proyecto::find($id),
-			'coleccionesHerramientas' => $this->coleccionesHerramientasDisponibles($id)
+			'proyecto' => $proyecto,
 		]);
 
 	}
@@ -25,7 +29,7 @@ class HerramientasController extends Controller{
 			if(substr($clave, 0, 11) == 'herramienta'){
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_id' => $valor
+					'herramienta_pn' => $valor
 				]);
 			}
 		}
@@ -74,37 +78,6 @@ class HerramientasController extends Controller{
 		}
 
 		return redirect(route('admin.proyectos.index'));
-
-	}
-
-	private function coleccionesHerramientasDisponibles($id){
-
-		$herramientasOcupadas= collect();
-		$herramientasDisponibles= collect();
-		$coleccionesHerramientasDisponibles= collect();
-
-		foreach(Proyecto::all()->load('herramientas') as $proyecto){
-			$herramientasOcupadas= $herramientasOcupadas->concat($proyecto->herramientas);
-		}
-
-		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
-
-		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
-
-			$herramientas= $tipoHerramienta->herramientas;
-
-			foreach ($herramientas as $herramienta) {
-				if(!$herramientasOcupadas->contains('id', $herramienta->id)){
-					$herramientasDisponibles->push($herramienta);
-				}
-			}
-
-			$coleccionesHerramientasDisponibles->push([$tipoHerramienta->nombre => $herramientasDisponibles]);
-			$herramientasDisponibles= collect();
-
-		}
-
-		return $coleccionesHerramientasDisponibles;
 
 	}
 

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="create-operadores">
-    <operadores-table :operadores="operadores" :routes="routes" :form="form"></operadores-table>
+    <operadores-table :operadores="operadores" :routes="routes.operadores" :form="form"></operadores-table>
   </div>
 </template>
 

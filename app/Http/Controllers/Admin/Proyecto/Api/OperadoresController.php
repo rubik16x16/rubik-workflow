@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Api;
+namespace App\Http\Controllers\Admin\Proyecto\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class OperadoresController extends Controller{
 
-  public function index(Request $request){
+  public function get(Request $request){
 
     $rol= Rol::where('nombre', 'Operario')->get()->first();
 

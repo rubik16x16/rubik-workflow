@@ -17,11 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/admin/tipoherramientas', 'Admin\Api\TipoHerramientasController@index')
-  ->name('admin.tipoHerramientas.api.index');
-
 Route::get('/admin/herramientas', 'Admin\Api\HerramientasController@index')
   ->name('admin.herramientas.api.index');
 
-Route::get('/admin/operadores', 'Admin\Api\OperadoresController@index')
-  ->name('api.admin.operadores.index');
+// Proyectos
+
+Route::get('/admin/proyecto/tipoherramientas', 'Admin\Proyecto\Api\TipoHerramientasController@get')
+  ->name('api.admin.proyecto.tipoHerramientas.get');
+
+Route::get('/admin/proyecto/operadores', 'Admin\Proyecto\Api\OperadoresController@get')
+  ->name('api.admin.proyecto.operadores.get');

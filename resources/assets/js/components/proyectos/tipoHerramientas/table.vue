@@ -90,7 +90,7 @@ export default {
     getData(){
       axios({
         method: 'GET',
-        url: this.routes.index,
+        url: this.routes.get,
         params: {
           tipoHerramienta: this.tipoHerramienta
         },

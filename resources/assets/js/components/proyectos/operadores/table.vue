@@ -61,7 +61,7 @@ export default {
     filtrar(){
       axios({
         method: 'GET',
-        url: this.routes.operadores.get,
+        url: this.routes.get,
         params: this.operador,
         responseType:'json'
       }).then(response => {

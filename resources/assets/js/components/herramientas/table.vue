@@ -11,17 +11,15 @@
 
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
-            <tr>
-              <th>tipo de herramienta</th>
-              <th>od</th>
-              <th>lg</th>
-              <th>subtipo de herramienta</th>
-              <th>descripcion</th>
-              <th>top connection</th>
-              <th>bottom connection</th>
-              <th>pn</th>
-              <th>Acciones</th>
-            </tr>
+            <th>tipo de herramienta</th>
+            <th>od</th>
+            <th>lg</th>
+            <th>subtipo de herramienta</th>
+            <th>descripcion</th>
+            <th>top connection</th>
+            <th>bottom connection</th>
+            <th>pn</th>
+            <th>Acciones</th>
           </thead>
           <tbody>
             <tr v-for="(herramienta, index) in herramientas">
