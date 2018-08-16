@@ -13,12 +13,14 @@ class HerramientasController extends Controller{
 	public function create($id){
 
 		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
+		$herramientas= collect();
 		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
-			$tipoHerramienta->herramientas= $tipoHerramienta->herramientas();
+			$herramientas= $herramientas->concat($tipoHerramienta->herramientas());
 		}
 
 		return view('admin.proyectos.herramientas.create', [
 			'proyecto' => $proyecto,
+			'herramientas' => $herramientas
 		]);
 
 	}
@@ -40,26 +42,22 @@ class HerramientasController extends Controller{
 
 	public function edit(Request $request, $id){
 
-		$proyecto= Proyecto::find($id);
-		$coleccionesHerramientasDisponibles= $this->coleccionesHerramientasDisponibles($id);
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas', 'herramientas');
+		$herramientas= $proyecto->herramientas->map(function($herramienta){
+			$herramienta->checked= true;
+			return $herramienta;
+		});
 
-
-		foreach($coleccionesHerramientasDisponibles as $key => &$coleccionHerramientasDisponibles){
-			foreach($coleccionHerramientasDisponibles as $tipoHerramienta => &$herramientas){
-				$herramientas= $herramientas->concat($proyecto->herramientas->filter(function($herramienta) use ($tipoHerramienta){
-					return $herramienta->tipo->nombre == $tipoHerramienta;
-				}));
-				foreach ($herramientas as $herramienta) {
-					$herramienta->checked= $proyecto->herramientas->contains($herramienta) ? true : false;
-				}
-				$coleccionHerramientasDisponibles[$tipoHerramienta]= $herramientas->sortBy('id');
-			}
-			$coleccionesHerramientasDisponibles[$key] = $coleccionHerramientasDisponibles;
+		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
+			$herramientas= $herramientas->concat($tipoHerramienta->herramientas()->map(function($herramienta){
+				$herramienta->checked= false;
+				return $herramienta;
+			}));
 		}
 
 		return view('admin.proyectos.herramientas.edit', [
 			'proyecto' => $proyecto,
-			'coleccionesHerramientas' => $coleccionesHerramientasDisponibles
+			'herramientas' => $herramientas
 		]);
 
 	}
@@ -72,7 +70,7 @@ class HerramientasController extends Controller{
 			if(substr($clave, 0, 11) == 'herramienta'){
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_id' => $valor
+					'herramienta_pn' => $valor
 				]);
 			}
 		}

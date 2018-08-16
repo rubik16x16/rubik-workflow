@@ -22,20 +22,18 @@
         <th>Agregar</th>
       </thead>
       <tbody>
-        @foreach($proyecto->tipoHerramientas as $tipoHerramienta)
-          @foreach($tipoHerramienta->herramientas() as $herramienta)
-            <tr>
-              <td>{{ $herramienta->tipo_herramienta }}</td>
-              <td>{{ $herramienta->od }}</td>
-              <td>{{ $herramienta->lg }}</td>
-              <td>{{ $herramienta->sub_tipo_herramienta }}</td>
-              <td>{{ $herramienta->descripcion }}</td>
-              <td>{{ $herramienta->top_connection }}</td>
-              <td>{{ $herramienta->bottom_connection }}</td>
-              <td>{{ $herramienta->pn }}</td>
-              <td><input type="checkbox" name="herramienta-{{ $herramienta->pn }}" value="{{ $herramienta->pn }}"></td>
-            </tr>
-          @endforeach
+        @foreach($herramientas as $herramienta)
+        <tr>
+          <td>{{ $herramienta->tipo_herramienta }}</td>
+          <td>{{ $herramienta->od }}</td>
+          <td>{{ $herramienta->lg }}</td>
+          <td>{{ $herramienta->sub_tipo_herramienta }}</td>
+          <td>{{ $herramienta->descripcion }}</td>
+          <td>{{ $herramienta->top_connection }}</td>
+          <td>{{ $herramienta->bottom_connection }}</td>
+          <td>{{ $herramienta->pn }}</td>
+          <td><input type="checkbox" name="herramienta-{{ $herramienta->pn }}" value="{{ $herramienta->pn }}"></td>
+        </tr>
         @endforeach
       </tbody>
     </table>
