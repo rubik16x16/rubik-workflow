@@ -69,7 +69,7 @@ class ProyectosController extends Controller{
   public function create(){
 
 		return view('admin.proyectos.create', [
-			'clientes' => Cliente::all(),
+			'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
 			'pozos' => Pozo::all(),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
