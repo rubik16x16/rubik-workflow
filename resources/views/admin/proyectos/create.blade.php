@@ -2,39 +2,12 @@
 
 @section('content')
 
+<div id="proyectos-app">
 <form action="{{ route('admin.proyectos.store') }}" method="post">
   {{ csrf_field() }}
 
   <h3>Informacion General</h3>
-      <div class="form-row">
-        <div class="form-group col-md-5">
-           <label for="cliente">Cliente</label>
-                <select class="form-control" name="nrocta_cliente" id="nrocta_cliente">
-                  <option value="0">Seleccione</option>
-                  @foreach($clientes as $cadacliente)   
-                  <option value="{{ $cadacliente->VTMCLH_NOMBRE }}">{{ $cadacliente->VTMCLH_NOMBRE }}</option>
-                  @endforeach
-                </select>
-        </div>
-        <div class="form-group col-md-4">
-                  <label for="locacion">Locación</label>
-                  <select class="form-control" name="idlocacion" id="idlocacion">
-           <option value="0">Seleccione</option>
-                  @foreach($locaciones as $cadalocacion)   
-                    <option value="{{ $cadalocacion->nombre }}">{{ $cadalocacion->nombre }}</option>
-                  @endforeach
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-        <label for="n_pozo">Nro Pozo</label>
-         <select class="form-control" name="idpozo" id="idpozo">
-           <option value="0">Seleccione</option>
-                  @foreach($pozos as $cadapozo)   
-                    <option value="{{ $cadapozo->USR_FCTPZO_CODIGO }}">{{ $cadapozo->USR_FCTPZO_CODIGO }}</option>
-                  @endforeach
-          </select>
-       </div>
-      </div>   
+    <clientes-field :clientes="{{ $clientes }}"></clientes-field>
      <div class="form-row">
        <div class="form-group col-md-5">
      <label for="servicio">Servicios a realizar</label>
@@ -56,7 +29,7 @@
     </div>
            <div class="form-group col-md-2">
             <label for="programa_cliente">Programa del Cliente</label>
-            <input type="file" name="programa_cliente" value="programa_cliente" size="80" /> 
+            <input type="file" name="programa_cliente" value="programa_cliente" size="80" />
 
 
 
@@ -71,8 +44,8 @@
              <option value="{{ $cadaoperacion->nombre }}">{{ $cadaoperacion->nombre }}</option>
            @endforeach
           </select>
-        
-        
+
+
        </div>
        <div class="form-group col-md-4">
         <label for="cia_pu_wo_ct_drilling">Compañia de pu/wo/ct/drilling</label>
@@ -82,7 +55,7 @@
              <option value="{{ $cadacia->USR_FCTEQP_DESCRP }}">{{ $cadacia->USR_FCTEQP_DESCRP }}</option>
            @endforeach
           </select>
-        
+
        </div>
        <div class="form-group col-md-2">
         <label for="solicito">Solicitado por</label>
@@ -96,10 +69,10 @@
              <option value="{{ $cadaingeniero->email }}">{{ $cadaingeniero->email }}</option>
            @endforeach
           </select>
-        
-        
+
+
        </div>
-       
+
      </div>
      <h3>Informacion operativa</h3>
      <div class="form-row">
@@ -139,15 +112,15 @@
         <label for="cia_trepano">Cia Trapano</label>
         <input type="text" class="form-control" name="cia_trepano" id="cia_trepano" placeholder="" />
        </div>
-        
+
      </div>
      <div class="form-group">
     <label for="observaciones">Descripción Operativa</label>
     <textarea class="form-control" id="desc_oper" name="desc_oper" placeholder="Descripción" rows="5"></textarea>
   </div>
 
-  
- 
+
+
 <div class="form-row">
      <div class="form-group col-md-4">
       <label for="diseno">Diseño</label>
@@ -165,11 +138,19 @@
 <div class="form-row">
   <div class="form-group col-md-4">
       <label for="fechaymedio">Fecha Aprobado y Medio</label>
-      <input type="file" name="fechaymedio" value="fechaymedio" size="80" /> 
+      <input type="file" name="fechaymedio" value="fechaymedio" size="80" />
     </div>
-    
-    
+  </div>
+
+
   <button type="submit" class="btn btn-primary  btn-block">Guardar</button>
 </form>
+</div>
+
+@endsection
+
+@section('scripts')
+
+  <script src="{{ asset('dist/js/proyectos/proyectos-app.js') }}"></script>
 
 @endsection
