@@ -160,10 +160,10 @@ class ProyectosController extends Controller{
 			if(substr($clave, 0, 15) == 'tipoHerramienta'){
 				ProyectoTipoHerramienta::create([
 					'proyecto_id' => $proyecto->id,
-					'tipo_herramienta_id' => $valor
+					'id' => $valor
 				]);
 			}
-
+     
 			if(substr($clave, 0, 8) == 'operador'){
 				ProyectoUsuario::create([
 					'proyecto_id' => $proyecto->id,

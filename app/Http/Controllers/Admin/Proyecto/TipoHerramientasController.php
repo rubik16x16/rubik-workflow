@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Proyecto;
 use App\Models\Herramienta;
 use App\Models\ProyectoTipoHerramienta;
+use App\Models\ProyectoHerramienta;
 
 class TipoHerramientasController extends Controller
 {
@@ -36,10 +37,13 @@ class TipoHerramientasController extends Controller
   public function store(Request $request, $id){
 
     $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
-
+    $posicion = 1;
     foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
-      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
+//      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
+    $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::where('partnumber',$tipoHerramientaPn)->first()->toArray());
       $tipoHerramienta->proyecto_id= $id;
+      $tipoHerramienta->posicion = $posicion;
+      $posicion = $posicion + 1;
       $tipoHerramienta->save();
     }
 
@@ -79,10 +83,13 @@ class TipoHerramientasController extends Controller
     ProyectoTipoHerramienta::where('proyecto_id', $id)->delete();
 
     $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
-
+    $posicion = 1;
     foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
-      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
+      //$tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
+      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::where('partnumber',$tipoHerramientaPn)->first()->toArray());
       $tipoHerramienta->proyecto_id= $id;
+      $tipoHerramienta->posicion = $posicion;
+      $posicion++;
       $tipoHerramienta->save();
     }
 

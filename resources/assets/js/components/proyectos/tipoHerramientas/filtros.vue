@@ -2,26 +2,26 @@
 
   <div class="filtros">
 
-    <label for="tipo-herramienta">tipo de herramienta</label>
-    <input type="text" v-model="tipoHerramienta.tipo_herramienta" id="tipo-herramienta">
+    <label for="tipo-herramienta">Tool</label>
+    <input type="text" v-model="tipoHerramienta.tool" id="tipo-herramienta">
 
-    <label for="od-herramienta">od de herramienta</label>
+    <label for="od-herramienta">OD</label>
     <input type="text" v-model="tipoHerramienta.od" id="od-herramienta">
 
-    <label for="lg-herramienta">lg de herramienta</label>
-    <input type="text" v-model="tipoHerramienta.lg" id="lg-herramienta">
+    <label for="lg-herramienta">LG</label>
+    <input type="text" v-model="tipoHerramienta.largo" id="lg-herramienta">
 
-    <label for="sub-tipo-herramienta">sub-tipo de herramienta</label>
-    <input type="text" v-model="tipoHerramienta.sub_tipo_herramienta" id="sub-tipo-herramienta">
+    <label for="sub-tipo-herramienta">Type</label>
+    <input type="text" v-model="tipoHerramienta.type" id="sub-tipo-herramienta">
 
-    <label for="descripcion-herramienta">descripcion de herramienta</label>
-    <input type="text" v-model="tipoHerramienta.descripcion" id="descripcion-herramienta">
+    <label for="descripcion-herramienta">Descripción</label>
+    <input type="text" v-model="tipoHerramienta.descrip" id="descripcion-herramienta">
 
-    <label for="top-connection">top connection</label>
-    <input type="text" v-model="tipoHerramienta.top_connection" id="top-connection">
+    <label for="top-connection">top connec</label>
+    <input type="text" v-model="tipoHerramienta.top_conec" id="top-connection">
 
-    <label for="bottom-connection">bottom connection</label>
-    <input type="text" v-model="tipoHerramienta.bottom_connection" id="bottom-connection">
+    <label for="bottom-connection">bottom connec</label>
+    <input type="text" v-model="tipoHerramienta.bottom_conec" id="bottom-connection">
 
     <button type="button" name="filtrar" @click="filtrar">Filtrar</button>
 
@@ -34,13 +34,13 @@ export default {
   data(){
     return{
       tipoHerramienta: {
-        tipo_herramienta: null,
+        tool: null,
         od: null,
-        lg: null,
-        sub_tipo_herramienta: null,
-        descripcion: null,
-        top_connection: null,
-        bottom_connection: null
+        largo: null,
+        type: null,
+        descrip: null,
+        top_conec: null,
+        bottom_conec: null
       }
     }
   },

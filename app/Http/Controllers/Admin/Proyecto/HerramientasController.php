@@ -31,7 +31,7 @@ class HerramientasController extends Controller{
 			if(substr($clave, 0, 11) == 'herramienta'){
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_pn' => $valor
+					'herramienta_id' => $valor
 				]);
 			}
 		}
@@ -53,6 +53,7 @@ class HerramientasController extends Controller{
 				$herramienta->checked= false;
 				return $herramienta;
 			}));
+			
 		}
 
 		return view('admin.proyectos.herramientas.edit', [
@@ -70,7 +71,7 @@ class HerramientasController extends Controller{
 			if(substr($clave, 0, 11) == 'herramienta'){
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_pn' => $valor
+					'herramienta_id' => $valor
 				]);
 			}
 		}

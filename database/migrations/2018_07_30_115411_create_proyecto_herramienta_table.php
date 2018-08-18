@@ -15,10 +15,11 @@ class CreateProyectoHerramientaTable extends Migration
     {
         Schema::create('proyecto_herramienta', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('herramienta_pn', 8);
+            $table->unsignedInteger('herramienta_id');
+            $table->integer('posicion');
             $table->unsignedInteger('proyecto_id');
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('herramienta_pn')->references('pn')->on('herramientas')->onDelete('cascade');
+            $table->foreign('herramienta_id')->references('id')->on('herramientas')->onDelete('cascade');
             $table->timestamps();
         });
     }

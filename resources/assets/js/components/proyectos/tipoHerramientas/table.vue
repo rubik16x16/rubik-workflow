@@ -12,7 +12,24 @@
         </form>
 
         <div class="tipoHerramientas-asignadas">
-          <span v-for="(tipoHerramienta, index) in listaAsignados">{{ tipoHerramienta.tipo_herramienta }} <button type="button" @click="quitarTipoHerramienta(index)">quitar</button></span>
+        <table class="table table-striped table-borderless">
+          <thead class="thead-dark">
+          <tr>
+          <th>Pos</th>
+          <th>PN</th>
+          <th>Image</th>
+          <th>E</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(tipoHerramienta, index) in listaAsignados">
+          <td>{{ tipoHerramienta.posicion }}</td>
+           <td>{{ tipoHerramienta.partnumber }}</td>
+           <td></td>
+           <td><button type="button" @click="quitarTipoHerramienta(index)">quitar</button></td>
+           </tr>
+           </tbody>
+        </table>
         </div>
         <h4>Filtros</h4>
 
@@ -21,25 +38,27 @@
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
             <tr>
-              <th>tipo de herramienta</th>
-              <th>od</th>
-              <th>lg</th>
-              <th>subtipo de herramienta</th>
-              <th>descripcion</th>
-              <th>top connection</th>
-              <th>bottom connection</th>
+              <th>Tool</th>
+              <th>OD</th>
+              <th>LG</th>
+              <th>Type</th>
+              <th>Descripción</th>
+              <th>top connec</th>
+              <th>bottom connec</th>
+              <th>PN</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(herramienta, index) in tipoHerramientas">
-              <td>{{ herramienta.tipo_herramienta }}</td>
+              <td>{{ herramienta.tool }}</td>
               <td>{{ herramienta.od }}</td>
-              <td>{{ herramienta.lg }}</td>
-              <td>{{ herramienta.sub_tipo_herramienta }}</td>
-              <td>{{ herramienta.descripcion }}</td>
-              <td>{{ herramienta.top_connection }}</td>
-              <td>{{ herramienta.bottom_connection }}</td>
+              <td>{{ herramienta.largo }}</td>
+              <td>{{ herramienta.type }}</td>
+              <td>{{ herramienta.descrip }}</td>
+              <td>{{ herramienta.top_conec }}</td>
+              <td>{{ herramienta.bottom_conec }}</td>
+              <td>{{ herramienta.partnumber }}</td>
               <td>
                 <button type="button" name="button" @click="agregarTipoHerramienta(herramienta)">Agregar</button>
               </td>
@@ -76,7 +95,7 @@ export default {
   methods:{
     agregarTipoHerramienta(tipoHerramienta){
       var asignable= this.listaAsignados.find(element => {
-        return element.pn == tipoHerramienta.pn;
+        return element.partnumber == tipoHerramienta.partnumber;
       });
 
       if(typeof asignable !== 'undefined'){
@@ -115,7 +134,7 @@ export default {
     tipoHerramientasPns(){
       var pns = '';
       this.listaAsignados.forEach(function(tipoHerramienta){
-        pns+= tipoHerramienta.pn + ':';
+        pns+= tipoHerramienta.partnumber + ':';
       });
       return pns.substr(0, pns.length -1);
     },

@@ -72,7 +72,7 @@ class HerramientasController extends Controller{
   public function edit($id){
 
 		return view('admin.herramientas.edit', [
-			'herramienta' => Herramienta::find($id)->load('tipo'),
+			'herramienta' => Herramienta::find($id)->load('tool'),
 			'tipoHerramientas' => TipoHerramienta::all()
 		]);
 

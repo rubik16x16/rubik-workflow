@@ -11,28 +11,30 @@
 
     <table class="table text-center">
       <thead class="thead-dark">
-        <th>tipo de herramienta</th>
-        <th>od</th>
-        <th>lg</th>
-        <th>subtipo de herramienta</th>
-        <th>descripcion</th>
-        <th>top connection</th>
-        <th>bottom connection</th>
-        <th>pn</th>
+        <th>Tool</th>
+        <th>OD</th>
+        <th>LG</th>
+        <th>Type</th>
+        <th>Descripción</th>
+        <th>top connec</th>
+        <th>bottom connec</th>
+        <th>PN</th>
+        <th>SN</th>
         <th>Agregar</th>
       </thead>
       <tbody>
         @foreach($herramientas as $herramienta)
-        <tr>
-          <td>{{ $herramienta->tipo_herramienta }}</td>
+         <tr>
+          <td>{{ $herramienta->tool }}</td>
           <td>{{ $herramienta->od }}</td>
-          <td>{{ $herramienta->lg }}</td>
-          <td>{{ $herramienta->sub_tipo_herramienta }}</td>
-          <td>{{ $herramienta->descripcion }}</td>
-          <td>{{ $herramienta->top_connection }}</td>
-          <td>{{ $herramienta->bottom_connection }}</td>
-          <td>{{ $herramienta->pn }}</td>
-          <td><input type="checkbox" name="herramienta-{{ $herramienta->pn }}" value="{{ $herramienta->pn }}"></td>
+          <td>{{ $herramienta->largo }}</td>
+          <td>{{ $herramienta->type }}</td>
+          <td>{{ $herramienta->descrip }}</td>
+          <td>{{ $herramienta->top_conec }}</td>
+          <td>{{ $herramienta->bottom_conec }}</td>
+          <td>{{ $herramienta->partnumber }}</td>
+          <td>{{ $herramienta->nroserie }}</td>
+          <td><input type="checkbox" name="herramienta-{{ $herramienta->id }}" value="{{ $herramienta->id }}"></td>
         </tr>
         @endforeach
       </tbody>

@@ -31,14 +31,14 @@ class HerramientasTableSeeder extends Seeder{
                 foreach ($bottomConnections as $bottomConnection) {
 
                   Herramienta::create([
-                    'pn' => "MTR-{$i}",
-                    'tipo_herramienta' => $tipoHerramienta,
+                    'partnumber' => "MTR-{$i}",
+                    'tool' => $tipoHerramienta,
                     'od' => $od,
-                    'lg' => $largo,
-                    'sub_tipo_herramienta' => $subTipoHerramienta,
-                    'descripcion' => $descripcion,
-                    'top_connection' => $topConnection,
-                    'bottom_connection' => $bottomConnection
+                    'largo' => $largo,
+                    'type' => $subTipoHerramienta,
+                    'descrip' => $descripcion,
+                    'top_conec' => $topConnection,
+                    'bottom_conec' => $bottomConnection
                   ]);
 
                   $i++;

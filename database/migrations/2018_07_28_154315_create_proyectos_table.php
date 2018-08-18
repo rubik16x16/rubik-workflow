@@ -16,15 +16,17 @@ class CreateProyectosTable extends Migration
         Schema::create('proyectos', function (Blueprint $table) {
           $table->increments('id');
           $table->string('nrocta_cliente');
-          $table->integer('idlocacion')->nullable();
-          $table->integer('idservicio')->nullable();
+          $table->string('idlocacion')->nullable();
+          $table->string('idservicio')->nullable();
+          $table->string('idoperacion')->nullable();
+          $table->string('idlistaprecio')->nullable();
           $table->string('programa_cliente')->nullable();
           $table->string('idpozo')->nullable();
-          $table->integer('id_cia_pu_wo_ct_drilling')->nullable();
+          $table->string('id_cia_pu_wo_ct_drilling')->nullable();
           $table->string('solicito')->nullable();
-          $table->integer('idpreparo')->nullable();
-          $table->integer('id_siam_casing')->nullable();
-          $table->integer('id_libraje')->nullable();
+          $table->string('idpreparo')->nullable();
+          $table->string('id_siam_casing')->nullable();
+          $table->string('id_libraje')->nullable();
           $table->string('drift')->nullable();
           $table->string('diam_cano_ct')->nullable();
           $table->string('tipo_fluido')->nullable();

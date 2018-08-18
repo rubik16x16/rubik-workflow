@@ -6,21 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Herramienta extends Model{
 
-  protected $primaryKey= 'pn';
+  protected $primaryKey= 'id';
   public $incrementing= false;
 
   static $attrsDistinct= [
-    'tipo_herramienta', 'od', 'lg',
-    'sub_tipo_herramienta', 'descripcion',
-    'top_connection', 'bottom_connection'
+    'tool', 'od', 'largo',
+    'type', 'descrip',
+    'top_conec', 'bottom_conec'
   ];
 
   protected $table= 'herramientas';
 
   protected $fillable= [
-    'tipo_herramienta', 'od', 'lg',
-    'sub_tipo_herramienta', 'descripcion',
-    'top_connection', 'bottom_connection'
+    'tool', 'od', 'largo',
+    'type', 'descrip',
+    'top_conec', 'bottom_conec'
   ];
 
 }

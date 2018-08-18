@@ -10,26 +10,25 @@ class ProyectoTipoHerramienta extends Model{
 
 	protected $table= 'proyecto_tipo_herramienta';
 
-	protected $fillable= [
-		'proyecto_id','pn', 'tipo_herramienta','od',
-		'lg', 'sub_tipo_herramienta', 'descripcion',
-		'top_connection', 'bottom_connection'
-	];
+	protected $fillable= ['proyecto_id','partnumber'];
 
 	public function herramientas(){
 
 		$fields= array_filter($this->getFillable(), function($field){
-			return !in_array($field, ['pn', 'proyecto_id']);
+			return !in_array($field, ['proyecto_id']);
 		});
 
 		$herramientas= new Herramienta();
 		$herramientas= $herramientas->newQuery();
+		$herramientas->select('herramientas.id','herramientas.partnumber','herramientas.tool','herramientas.od','herramientas.largo','herramientas.type','herramientas.descrip','herramientas.top_conec','herramientas.bottom_conec','herramientas.nroserie');
+		$herramientas->leftJoin('proyecto_herramienta', 'herramientas.id', '=', 'proyecto_herramienta.herramienta_id');
+		$herramientas->whereNull('proyecto_herramienta.herramienta_id');
 
-		$herramientas->leftJoin('proyecto_herramienta', 'herramientas.pn', '=', 'proyecto_herramienta.herramienta_pn');
-		$herramientas->whereNull('proyecto_herramienta.herramienta_pn');
 
 		foreach ($fields as $field) {
-			$herramientas->where($field, $this->attributes[$field]);
+			$herramientas->where('herramientas.'.$field, $this->attributes[$field]);
+			
+			
 		}
 
 		return $herramientas->get();
