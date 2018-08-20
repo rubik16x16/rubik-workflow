@@ -17,7 +17,7 @@
           <tbody>
             <tr v-for="(proyecto, index) in listProyectos">
               <td>{{ proyecto.previstopara }}</td>
-              <td>{{ proyecto.nrocta_cliente }}</td>
+              <td>{{ proyecto.cliente.VTMCLH_NOMBRE }}</td>
               <td v-if="proyecto.estado"><span class="badge badge-success">activo</span></td>
               <td v-else><span class="badge badge-success">finalizado</span></td>
               <td>

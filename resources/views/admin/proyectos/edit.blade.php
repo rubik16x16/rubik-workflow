@@ -2,59 +2,21 @@
 
 @section('content')
 
+<div id="proyectos-app">
 <form action="{{ route('admin.proyectos.update', ['id' => $proyecto->id]) }}" method="post">
   {{ csrf_field() }}
   @method('PUT')
  <h3>Informacion General</h3>
-     <div class="form-row">
-        <div class="form-group col-md-5">
-           <label for="cliente">Cliente</label>
-                <select class="form-control" name="nrocta_cliente" id="nrocta_cliente">
-                  @foreach($clientes as $cadacliente)   
-                  @if ($proyecto->nrocta_cliente == $cadacliente->VTMCLH_NOMBRE) 
-                    <option value="{{ $cadacliente->VTMCLH_NOMBRE }}" selected="selected">{{ $cadacliente->VTMCLH_NOMBRE }}</option>
-                  @else  
-                    <option value="{{ $cadacliente->VTMCLH_NOMBRE }}"> {{ $cadacliente->VTMCLH_NOMBRE }}</option>
-                    @endif
-                  @endforeach
-                </select>
-        </div>
-         <div class="form-group col-md-4">
-                  <label for="locacion">Locación</label>
-                  <select class="form-control" name="idlocacion" id="idlocacion">
-           <option value="0">Seleccione</option>
-           @foreach($locaciones as $cadalocacion)   
-                  @if ($proyecto->idlocacion == $cadalocacion->nombre) 
-                    <option value="{{ $cadalocacion->nombre }}" selected="selected">{{ $cadalocacion->nombre }}</option>
-                  @else  
-                    <option value="{{ $cadalocacion->nombre }}">{{ $cadalocacion->nombre }}</option>
-                    @endif
-                  @endforeach
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-        <label for="n_pozo">Nro Pozo</label>
-         <select class="form-control" name="idpozo" id="idpozo">
-          <option value="0">Seleccione</option>
-                  @foreach($pozos as $cadapozo)   
-                  @if ($proyecto->idpozo == $cadapozo->USR_FCTPZO_CODIGO) 
-                    <option value="{{ $cadapozo->USR_FCTPZO_CODIGO }}" selected="selected">{{ $cadapozo->USR_FCTPZO_CODIGO }}</option>
-                  @else  
-                    <option value="{{ $cadapozo->USR_FCTPZO_CODIGO }}">{{ $cadapozo->USR_FCTPZO_CODIGO }}</option>
-                    @endif
-                  @endforeach
-                </select>
-       </div>
-      </div>   
+    <clientes-field :clientes="{{ $clientes }}" :proyecto="{{ $proyectoJson }}"></clientes-field>
      <div class="form-row">
        <div class="form-group col-md-5">
      <label for="servicio">Servicios a realizar</label>
       <select class="form-control" name="idservicio" id="idservicio">
            <option value="0">Seleccione</option>
-            @foreach($servicios as $cadaservicio)   
+            @foreach($servicios as $cadaservicio)
                   @if ($proyecto->idservicio == $cadaservicio->STMATI_DESCRP)
                   <option value="{{ $cadaservicio->STMATI_DESCRP }}" selected="selected">{{ $cadaservicio->STMATI_DESCRP}}</option>
-                  @else  
+                  @else
                     <option value="{{ $cadaservicio->STMATI_DESCRP }}">{{ $cadaservicio->STMATI_DESCRP }}</option>
                     @endif
                   @endforeach
@@ -64,10 +26,10 @@
      <label for="servicio">Lista de Precios</label>
      <select class="form-control" name="idlistaprecios" id="idlistaprecios">
            <option value="0">Seleccione</option>
-                  @foreach($listaprecios as $cadalistaprecio)   
+                  @foreach($listaprecios as $cadalistaprecio)
                   @if ($proyecto->idlistaprecios == $cadalistaprecio->STTLPR_DESCRP)
                   <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}" selected="selected">{{ $cadalistaprecio->STTLPR_DESCRP}}</option>
-                  @else  
+                  @else
                     <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
                     @endif
                   @endforeach
@@ -75,7 +37,7 @@
     </div>
            <div class="form-group col-md-2">
             <label for="programa_cliente">Programa del Cliente</label>
-            <input type="file" name="programa_cliente" value="programa_cliente" size="80" /> 
+            <input type="file" name="programa_cliente" value="programa_cliente" size="80" />
 
 
 
@@ -86,30 +48,30 @@
         <label for="preparo">Operación a realizar</label>
          <select class="form-control" name="idoperacion" id="idoperacion">
            <option value="0">Seleccione</option>
-                 @foreach($operaciones as $cadaoperacion) 
+                 @foreach($operaciones as $cadaoperacion)
                   @if ($proyecto->idoperacion == $cadaoperacion->nombre)
                   <option value="{{ $cadaoperacion->nombre }}" selected="selected">{{ $cadaoperacion->nombre}}</option>
-                  @else  
+                  @else
                     <option value="{{ $cadaoperacion->nombre }}">{{ $cadaoperacion->nombre }}</option>
                     @endif
-                  @endforeach 
+                  @endforeach
           </select>
-        
-        
+
+
        </div>
        <div class="form-group col-md-4">
         <label for="cia_pu_wo_ct_drilling">Compañia de pu/wo/ct/drilling</label>
          <select class="form-control" name="id_cia_pu_wo_ct_drilling" id="id_cia_pu_wo_ct_drilling">
             <option value="0">Seleccione</option>
-                 @foreach($ciapuwos as $cadacia) 
+                 @foreach($ciapuwos as $cadacia)
                   @if ($proyecto->id_cia_pu_wo_ct_drilling == $cadacia->USR_FCTEQP_DESCRP)
                   <option value="{{ $cadacia->USR_FCTEQP_DESCRP }}" selected="selected">{{ $cadacia->USR_FCTEQP_DESCRP}}</option>
-                  @else  
+                  @else
                     <option value="{{ $cadacia->USR_FCTEQP_DESCRP }}">{{ $cadacia->USR_FCTEQP_DESCRP }}</option>
                     @endif
                   @endforeach
           </select>
-        
+
        </div>
        <div class="form-group col-md-2">
         <label for="solicito">Solicitado por</label>
@@ -119,18 +81,18 @@
         <label for="preparo">Preparado por</label>
          <select class="form-control" name="idpreparo" id="idpreparo">
            <option value="0">Seleccione</option>
-                  @foreach($ingenieros as $cadaingeniero) 
+                  @foreach($ingenieros as $cadaingeniero)
                   @if ($proyecto->idpreparo == $cadaingeniero->email)
                   <option value="{{ $cadaingeniero->email }}" selected="selected">{{ $cadaingeniero->email}}</option>
-                  @else  
+                  @else
                     <option value="{{ $cadaingeniero->email }}">{{ $cadaingeniero->email }}</option>
                     @endif
                   @endforeach
           </select>
-        
-        
+
+
        </div>
-       
+
      </div>
      <h3>Informacion operativa</h3>
      <div class="form-row">
@@ -170,15 +132,15 @@
         <label for="cia_trepano">Cia Trapano</label>
         <input type="text" class="form-control" name="cia_trepano" id="cia_trepano" value="{{$proyecto->cia_trepano}}" />
        </div>
-        
+
      </div>
      <div class="form-group">
     <label for="observaciones">Descripción Operativa</label>
     <textarea class="form-control" id="desc_oper" name="desc_oper" placeholder="Descripción" rows="5">{{$proyecto->desc_oper}}</textarea>
   </div>
 
-     
-  
+
+
 <div class="form-row">
      <div class="form-group col-md-4">
       <label for="diseno">Diseño</label>
@@ -196,10 +158,17 @@
 <div class="form-row">
   <div class="form-group col-md-4">
       <label for="fechaymedio">Fecha Aprobado y Medio</label>
-      <input type="file" name="fechaymedio" value="fechaymedio" size="80" /> 
+      <input type="file" name="fechaymedio" value="fechaymedio" size="80" />
     </div>
-  </div> 
+  </div>
   <button type="submit" class="btn btn-primary  btn-block">Guardar</button>
 </form>
+</div>
+
+@endsection
+
+@section('scripts')
+
+  <script src="{{ asset('dist/js/proyectos/proyectos-app.js') }}"></script>
 
 @endsection

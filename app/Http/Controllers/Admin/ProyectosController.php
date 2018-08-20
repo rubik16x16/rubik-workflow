@@ -38,7 +38,7 @@ class ProyectosController extends Controller{
 		}
 
     return view('admin.proyectos.index', [
-			'proyectos' => str_replace('"', "'", $proyectos->toJson()),
+			'proyectos' => str_replace('"', "'", $proyectos->load('cliente')->toJson()),
       'routes' => str_replace('"', "'", json_encode([
         'edit' => route('admin.proyectos.edit', ['id']),
         'destroy' => route('admin.proyectos.destroy', ['id']),
@@ -121,12 +121,12 @@ class ProyectosController extends Controller{
    */
   public function edit($id){
 
-		$proyecto= Proyecto::find($id);
-
+		$proyecto= Proyecto::find($id)->load('locacion', 'pozo', 'cliente', 'cliente.locaciones', 'cliente.locaciones.pozos', 'locacion.pozos');
 
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
-			'clientes' => Cliente::all(),
+      'proyectoJson' => str_replace('"', "'", $proyecto->toJson()),
+			'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
 			'pozos' => Pozo::all(),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
@@ -163,7 +163,7 @@ class ProyectosController extends Controller{
 					'id' => $valor
 				]);
 			}
-     
+
 			if(substr($clave, 0, 8) == 'operador'){
 				ProyectoUsuario::create([
 					'proyecto_id' => $proyecto->id,

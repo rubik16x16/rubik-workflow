@@ -8,7 +8,7 @@ class Proyecto extends Model{
 
 	protected $table= 'proyectos';
 	protected $fillable= [
-		'fecha','nrocta_cliente', 'idlocacion','idlistaprecios','idoperacion',
+		'fecha','nrocta_cliente', 'idlocacion','idlistaprecio','idoperacion',
 	'idservicio','programa_cliente','idpozo','id_cia_pu_wo_ct_drilling',
 	'solicito','idpreparo','id_siam_casing','id_libraje','drift','diam_cano_ct',
 	'tipo_fluido','o_t_f','cia_trepano','desc_oper','od_bolita','od_pines',
@@ -32,6 +32,24 @@ class Proyecto extends Model{
 	public function herramientas(){
 
 		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta');
+
+	}
+
+	public function cliente(){
+
+		return $this->belongsTo('App\Models\Cliente', 'nrocta_cliente');
+
+	}
+
+	public function locacion(){
+
+		return $this->belongsTo('App\Models\Locacion', 'idlocacion');
+
+	}
+
+	public function pozo(){
+
+		return $this->belongsTo('App\Models\Pozo', 'idpozo');
 
 	}
 
