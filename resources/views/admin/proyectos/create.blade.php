@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="proyectos-app">
-<form action="{{ route('admin.proyectos.store') }}" method="post">
+<form action="{{ route('admin.proyectos.store') }}" method="post" enctype="multipart/form-data">
   {{ csrf_field() }}
 
   <h3>Informacion General</h3>

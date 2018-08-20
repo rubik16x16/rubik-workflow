@@ -17,7 +17,7 @@ class Proyecto extends Model{
 	'mdf_torque','mdf_overpull','mdf_backreaming','mdf_power','mdf_caudal_max',
 	'mdf_caudal_min','mdf_rpm_max','mdf_rpm_min','mdf_wob_max','mdf_wob_min',
 	'mdf_pres_max','mdf_pres_min','diseno','recibidopor','aprobadopor',
-	'previstopara','preparadopor','hora','trailer','generador','proveedor'];
+	'previstopara','preparadopor','hora','trailer','generador','proveedor', 'fechaymedio'];
 
 	public function tipoHerramientas(){
 		return $this->hasMany('App\Models\ProyectoTipoHerramienta');

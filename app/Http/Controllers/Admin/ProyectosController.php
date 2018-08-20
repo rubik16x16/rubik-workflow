@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 
 use App\Models\Proyecto;
@@ -90,7 +91,15 @@ class ProyectosController extends Controller{
    */
   public function store(Request $request){
 
-  	$proyecto= new Proyecto($request->all());
+    $documentos= ['programa_cliente', 'fechaymedio'];
+    $proyecto= new Proyecto($request->request->all());
+
+    foreach ($documentos as $documento) {
+      if($request->hasFile($documento)){
+        $proyecto->$documento= $request->file($documento)->store('documentos', 'public');
+      }
+    }
+    
 		$proyecto->save();
 
 		return redirect(route('admin.proyectos.index'));
@@ -148,30 +157,27 @@ class ProyectosController extends Controller{
    */
   public function update(Request $request, $id){
 
-		$proyecto= Proyecto::find($id);
-		$proyecto->fill($request->all());
+    $documentos= ['programa_cliente', 'fechaymedio'];
+
+    $proyecto= Proyecto::find($id);
+
+    foreach ($documentos as $documento) {
+      if($proyecto->$documento != NULL){
+        if($request->hasFile($documento)){
+          if(Storage::disk('public')->exists($proyecto->$documento)){
+            Storage::disk('public')->delete($proyecto->$documento);
+          }
+          $proyecto->$documento= $request->file($documento)->store('documentos', 'public');
+        }
+      }else{
+        if($request->hasFile($documento)){
+          $proyecto->$documento= $request->file($documento)->store('documentos', 'public');
+        }
+      }
+    }
+
+    $proyecto->fill($request->request->all());
 		$proyecto->save();
-
-		ProyectoUsuario::where('proyecto_id', $proyecto->id)->delete();
-		ProyectoTipoHerramienta::where('proyecto_id', $proyecto->id)->delete();
-
-		foreach($request->all() as $clave => $valor){
-
-			if(substr($clave, 0, 15) == 'tipoHerramienta'){
-				ProyectoTipoHerramienta::create([
-					'proyecto_id' => $proyecto->id,
-					'id' => $valor
-				]);
-			}
-
-			if(substr($clave, 0, 8) == 'operador'){
-				ProyectoUsuario::create([
-					'proyecto_id' => $proyecto->id,
-					'usuario_id' => $valor
-				]);
-			}
-
-		}
 
 		return redirect(route('admin.proyectos.index'));
 

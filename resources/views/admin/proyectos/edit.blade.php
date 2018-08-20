@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="proyectos-app">
-<form action="{{ route('admin.proyectos.update', ['id' => $proyecto->id]) }}" method="post">
+<form action="{{ route('admin.proyectos.update', ['id' => $proyecto->id]) }}" method="post" enctype="multipart/form-data">
   {{ csrf_field() }}
   @method('PUT')
  <h3>Informacion General</h3>
