@@ -8,7 +8,7 @@ class Proyecto extends Model{
 
 	protected $table= 'proyectos';
 	protected $fillable= [
-		'fecha','nrocta_cliente', 'idlocacion','idlistaprecio','idoperacion',
+		'fecha','nrocta_cliente', 'idlocacion','idlistaprecios','idoperacion',
 	'idservicio','programa_cliente','idpozo','id_cia_pu_wo_ct_drilling',
 	'solicito','idpreparo','id_siam_casing','id_libraje','drift','diam_cano_ct',
 	'tipo_fluido','o_t_f','cia_trepano','desc_oper','od_bolita','od_pines',
@@ -37,7 +37,7 @@ class Proyecto extends Model{
 
 	public function cliente(){
 
-		return $this->belongsTo('App\Models\Cliente', 'nrocta_cliente');
+		return $this->belongsTo('App\Models\Cliente', 'nrocta_cliente')->select("VTMCLH_NROCTA","VTMCLH_NOMBRE");
 
 	}
 
@@ -49,7 +49,7 @@ class Proyecto extends Model{
 
 	public function pozo(){
 
-		return $this->belongsTo('App\Models\Pozo', 'idpozo');
+		return $this->belongsTo('App\Models\Pozo', 'idpozo')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id2");
 
 	}
 

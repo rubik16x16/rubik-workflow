@@ -16,4 +16,8 @@ class Cliente extends Model{
     return $this->hasMany('App\Models\Locacion', 'nrocta_cliente');
   }
 
+  public function listasdeprecios(){
+    return $this->hasMany('App\Models\ListaPrecio', 'USR_STTLPR_CLIE')->select("STTLPR_CODLIS","STTLPR_DESCRP","USR_STTLPR_CLIE");
+  }
+
 }

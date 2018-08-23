@@ -98,7 +98,12 @@
        </div>
         <div class="form-group col-md-2">
         <label for="diam_cano_ct">Dia Caño CT</label>
-        <input type="text" class="form-control" name="diam_cano_ct" id="diam_cano_ct" placeholder="" />
+         <select class="form-control" name="diam_cano_ct" id="diam_cano_ct">
+           <option value="0">Seleccione</option>
+                 @foreach($ctdatos as $cadact)
+             <option value="{{ $cadact->valor }}">{{ $cadact->valor }}</option>
+           @endforeach
+          </select>
        </div>
         <div class="form-group col-md-3">
         <label for="tipo_fluido">Tipo Fluido</label>

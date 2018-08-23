@@ -18,6 +18,7 @@ use App\Models\CiaPuWo;
 use App\Models\ListaPrecio;
 use App\Models\Locacion;
 use App\Models\Operacion;
+use App\Models\CTData;
 
 
 class ProyectosController extends Controller{
@@ -69,14 +70,15 @@ class ProyectosController extends Controller{
    */
   public function create(){
 
+//dd(Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->where("VTMCLH_NROCTA","CAPSA")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios'));
 		return view('admin.proyectos.create', [
-			'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
-			'pozos' => Pozo::all(),
+			'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios')->toJson(),
+        //'clientes' => str_replace('"', "'", Cliente::take(80)->get()->load('locaciones', 'locaciones.pozos')->toJson()),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
-			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
+      'ctdatos' => CTData::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 
 		]);
@@ -135,13 +137,15 @@ class ProyectosController extends Controller{
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
       'proyectoJson' => str_replace('"', "'", $proyecto->toJson()),
-			'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
+        'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos')->toJson(),
+			//'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
 			'pozos' => Pozo::all(),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
+      'ctdatos' => CTData::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 
 		]);
