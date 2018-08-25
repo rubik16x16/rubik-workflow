@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-
+use App\Http\Resources\Project as ProyectoResource;
 
 use App\Models\Proyecto;
 use App\Models\Usuario;
@@ -132,12 +132,12 @@ class ProyectosController extends Controller{
    */
   public function edit($id){
 
-		$proyecto= Proyecto::find($id)->load('locacion', 'pozo', 'cliente', 'cliente.locaciones', 'cliente.locaciones.pozos', 'locacion.pozos');
+		$proyecto= Proyecto::find($id)->load('locacion', 'pozo', 'cliente', 'cliente.locaciones', 'cliente.locaciones.pozos', 'locacion.pozos','cliente.listasdeprecios','listadeprecios');
 
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
       'proyectoJson' => str_replace('"', "'", $proyecto->toJson()),
-        'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos')->toJson(),
+        'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios')->toJson(),
 			//'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
 			'pozos' => Pozo::all(),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
@@ -208,4 +208,13 @@ class ProyectosController extends Controller{
   	}
   	return $operadores;
   }
+
+  public function listar($id){
+  
+   return new ProyectoResource(Proyecto::where("tablet_imei",$id)->first());
+    /*return new UserResource(Usuario::select('id','email as username','clave as password')
+        ->with(['roles' => function($query){ 
+            $query->select('rol_id');
+        }])->get());
+  */}
 }

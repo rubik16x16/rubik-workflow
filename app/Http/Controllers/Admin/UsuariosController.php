@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Resources\Users as UserResource;
 use App\Models\Usuario;
 use App\Models\Rol;
 use App\Models\UsuarioRol;
@@ -152,4 +152,14 @@ class UsuariosController extends Controller{
     $usuario->delete();
 
   }
+
+   public function listar(){
+  
+   return new UserResource(Usuario::select('id','name','email as username','clave as password')->get());
+    /*return new UserResource(Usuario::select('id','email as username','clave as password')
+        ->with(['roles' => function($query){ 
+            $query->select('rol_id');
+        }])->get());
+  */}
+
 }

@@ -18,15 +18,7 @@
            @endforeach
           </select>
     </div>
-    <div class="form-group col-md-2">
-     <label for="servicio">Lista de Precios</label>
-     <select class="form-control" name="idlistaprecios" id="idlistaprecios">
-           <option value="0">Seleccione</option>
-                   @foreach($listaprecios as $cadalistaprecio)
-             <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
-           @endforeach
-          </select>
-    </div>
+    
            <div class="form-group col-md-2">
             <label for="programa_cliente">Programa del Cliente</label>
             <input type="file" name="programa_cliente" value="programa_cliente" size="80" />

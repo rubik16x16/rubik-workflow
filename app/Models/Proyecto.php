@@ -17,7 +17,7 @@ class Proyecto extends Model{
 	'mdf_torque','mdf_overpull','mdf_backreaming','mdf_power','mdf_caudal_max',
 	'mdf_caudal_min','mdf_rpm_max','mdf_rpm_min','mdf_wob_max','mdf_wob_min',
 	'mdf_pres_max','mdf_pres_min','diseno','recibidopor','aprobadopor',
-	'previstopara','preparadopor','hora','trailer','generador','proveedor', 'fechaymedio'];
+	'previstopara','preparadopor','hora','trailer','generador','proveedor', 'fechaymedio','tablet_imei'];
 
 	public function tipoHerramientas(){
 		return $this->hasMany('App\Models\ProyectoTipoHerramienta');
@@ -31,7 +31,18 @@ class Proyecto extends Model{
 
 	public function herramientas(){
 
-		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta');
+		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta')->OrderBy("posicion","asc");
+
+	}
+
+	public function herramientasmano(){
+
+		return $this->belongsToMany('App\Models\HerramientaMano', 'proyecto_herramienta_mano')->select('proyecto_herramienta_mano.id','nombre','estado');
+
+	}
+	public function vehiculorequisitos(){
+
+		return $this->belongsToMany('App\Models\VehiculoRequisito', 'proyecto_vehiculo_requisito')->select('proyecto_vehiculo_requisito.id','nombre','estado');
 
 	}
 
@@ -44,6 +55,12 @@ class Proyecto extends Model{
 	public function locacion(){
 
 		return $this->belongsTo('App\Models\Locacion', 'idlocacion');
+
+	}
+
+	public function listadeprecios(){
+
+		return $this->belongsTo('App\Models\ListaPrecio', 'idlistaprecios');
 
 	}
 

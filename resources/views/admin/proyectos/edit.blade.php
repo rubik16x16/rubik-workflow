@@ -27,10 +27,10 @@
      <select class="form-control" name="idlistaprecios" id="idlistaprecios">
            <option value="0">Seleccione</option>
                   @foreach($listaprecios as $cadalistaprecio)
-                  @if ($proyecto->idlistaprecios == $cadalistaprecio->STTLPR_DESCRP)
-                  <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}" selected="selected">{{ $cadalistaprecio->STTLPR_DESCRP}}</option>
+                  @if (trim($proyecto->idlistaprecios) == trim($cadalistaprecio->STTLPR_CODLIS))
+                  <option value="{{ $cadalistaprecio->STTLPR_CODLIS }}" selected="selected">{{ $cadalistaprecio->STTLPR_DESCRP}}</option>
                   @else
-                    <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
+                    <option value="{{ $cadalistaprecio->STTLPR_CODLIS }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
                     @endif
                   @endforeach
           </select>

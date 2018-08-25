@@ -45,7 +45,7 @@
       {{ csrf_field() }}
             <div class="panel panel-body login-form">
               <div class="text-center">
-                <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                <div class="far fa-user-circle"><i class="far fa-user-circle"></i></div>
                 <h5 class="content-group">Acceso al Sistema <small class="display-block">Ingrese sus credenciales</small></h5>
               </div>
 

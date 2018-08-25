@@ -42,6 +42,7 @@ class CreateProyectosTable extends Migration
           $table->string('trailer')->nullable();
           $table->string('generador')->nullable();
           $table->string('proveedor')->nullable();
+          $table->string('tablet_imei')->nullable();
           $table->integer('estado')->default(1);    
           $table->timestamps();
         });
