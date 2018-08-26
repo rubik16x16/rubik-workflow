@@ -18,8 +18,13 @@
             <tr v-for="(proyecto, index) in listProyectos">
               <td>{{ proyecto.previstopara }}</td>
               <td>{{ proyecto.cliente.VTMCLH_NOMBRE }}</td>
-              <td v-if="proyecto.estado"><span class="badge badge-success">activo</span></td>
-              <td v-else><span class="badge badge-success">finalizado</span></td>
+              <td v-if="proyecto.estado==1"><span class="badge badge-success">Ing</span></td>
+              <td v-if="proyecto.estado==2"><span class="badge badge-success">JT</span></td>
+              <td v-if="proyecto.estado==3"><span class="badge badge-success">Oper</span></td>
+              <td v-if="proyecto.estado==4"><span class="badge badge-success">Loc</span></td>
+              <td v-if="proyecto.estado==5"><span class="badge badge-success">Vue</span></td>
+              <td v-if="proyecto.estado==6"><span class="badge badge-success">Arch</span></td>
+              <td v-if="proyecto.estado==7"><span class="badge badge-success">Canc</span></td>
               <td>
       					<a class="btn btn-warning" :href="urlEdit(proyecto.id)" v-if="permiso('editar')"><i class="fas fa-edit"></i></a>
                 <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(proyecto.id), index)" v-if="permiso('eliminar')"><i class="fas fa-trash-alt"></i></a>

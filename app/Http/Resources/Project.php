@@ -15,7 +15,9 @@ class Project extends JsonResource
     public function toArray($request)
     {
 
+      
         $herramientas_principales = $this->load('herramientas')->herramientas;
+
        $listaherramientasprincipales = array();
        foreach ($herramientas_principales as  $cadaherramienta){
                  $listaherramientasprincipales[] = $cadaherramienta;
@@ -39,6 +41,31 @@ class Project extends JsonResource
                  $listarequisitos[] = $cadarequisito;
        }
 
+if ($request->is('api/project/soloprincipales/*')) {
+      
+      $proyecto = [
+          'herramientas_principales ' => $listaherramientasprincipales
+      ]; 
+
+      }
+else
+if ($request->is('api/project/solosecundarias/*')) {
+      
+      $proyecto = [
+          'herramientas_backup ' => $listaherramientassecundarias      
+      ]; 
+
+      }
+else 
+if ($request->is('api/project/solodemano/*')) {
+      
+      $proyecto = [
+          'herramientas_mano' => $listaherramientasmano
+      ]; 
+
+      }
+else 
+ {
         $proyecto = [
          'project' => [
         
@@ -72,7 +99,7 @@ class Project extends JsonResource
     'vehiculo' => $listarequisitos
      ];
        
-
+}
         return $proyecto;
 
          

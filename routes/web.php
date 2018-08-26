@@ -119,6 +119,11 @@ Route::middleware('adminAuth')->group(function(){
 		->name('admin.proyecto.herramientas.edit')
 		->middleware('permiso:proyectos-editarHerramientas');
 
+		Route::get('/proyectos/{id}/herramientas/check', 'Admin\Proyecto\HerramientasController@check')
+		->name('admin.proyecto.herramientas.check')
+		->middleware('permiso:proyectos-editarHerramientas');
+
+
 		Route::put('/proyecto/{id}/herramientas', 'Admin\Proyecto\HerramientasController@update')
 		->name('admin.proyectos.herramientas.update')
 		->middleware('permiso:proyectos-editarHerramientas');

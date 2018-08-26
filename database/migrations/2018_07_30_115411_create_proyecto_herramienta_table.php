@@ -17,6 +17,9 @@ class CreateProyectoHerramientaTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('herramienta_id');
             $table->integer('posicion');
+            $table->integer('inspec');
+            $table->integer('prep');
+            $table->integer('rec');
             $table->unsignedInteger('proyecto_id');
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('herramienta_id')->references('id')->on('herramientas')->onDelete('cascade');

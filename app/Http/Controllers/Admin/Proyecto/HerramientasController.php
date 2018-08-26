@@ -63,6 +63,55 @@ class HerramientasController extends Controller{
 
 	}
 
+public function check(Request $request, $id){
+
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas', 'herramientas');
+		$proyectoherramientas = ProyectoHerramienta::where("proyecto_id",$id)->get()->load('herramientas');
+
+function flatten($array) {
+    $result = [];
+    $indice = 0;
+    foreach ($array as $item) {
+    	$result[$indice]['inspec'] = $item->inspec;
+    	$result[$indice]['prep'] = $item->prep;
+    	$arreglo = $item->herramientas->toArray()[0]; 
+    	foreach ($arreglo as $key => $value)
+    		$result[$indice][$key] = $value;
+    	
+    	$indice++;
+    	
+    }
+return collect($result);
+}
+
+
+$herramientas = flatten($proyectoherramientas);		
+
+				return view('admin.proyectos.herramientas.check', [
+			'proyecto' => $proyecto,
+			'herramientas' => $herramientas
+		]);
+
+	}
+
+public function updatecheck(Request $request, $id){
+
+		ProyectoHerramienta::where('proyecto_id', $id)->delete();
+
+		foreach($request->all() as $clave => $valor){
+			if(substr($clave, 0, 11) == 'herramienta'){
+				ProyectoHerramienta::create([
+					'proyecto_id' => $id,
+					'herramienta_id' => $valor
+				]);
+			}
+		}
+
+		return redirect(route('admin.proyectos.index'));
+
+	}
+	
+
 	public function update(Request $request, $id){
 
 		ProyectoHerramienta::where('proyecto_id', $id)->delete();

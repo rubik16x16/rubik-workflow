@@ -11,6 +11,7 @@ use App\Models\Proyecto;
 use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
 use App\Models\ProyectoTipoHerramienta;
+use App\Models\ProyectoEstado;
 use App\Models\Cliente;
 use App\Models\Pozo;
 use App\Models\Servicio;
@@ -19,6 +20,7 @@ use App\Models\ListaPrecio;
 use App\Models\Locacion;
 use App\Models\Operacion;
 use App\Models\CTData;
+
 
 
 class ProyectosController extends Controller{
@@ -70,15 +72,14 @@ class ProyectosController extends Controller{
    */
   public function create(){
 
-//dd(Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->where("VTMCLH_NROCTA","CAPSA")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios'));
 		return view('admin.proyectos.create', [
 			'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios')->toJson(),
-        //'clientes' => str_replace('"', "'", Cliente::take(80)->get()->load('locaciones', 'locaciones.pozos')->toJson()),
-			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
+      'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
 			'operaciones' => Operacion::all(),
       'ctdatos' => CTData::all(),
+      'estados' => ProyectoEstado::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 
 		]);
@@ -146,6 +147,7 @@ class ProyectosController extends Controller{
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
       'ctdatos' => CTData::all(),
+      'estados' => ProyectoEstado::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 
 		]);
@@ -217,4 +219,48 @@ class ProyectosController extends Controller{
             $query->select('rol_id');
         }])->get());
   */}
+
+  public function chequearprincipales(Request $request, $imei){
+
+    $proyecto = Proyecto::where("tablet_imei",$imei)->first();
+    $herramientas_principales = $proyecto->load('herramientas')->herramientas;
+    foreach ($herramientas_principales as  $cadaherramienta){
+                 $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
+       }  
+    
+    $proyecto->fill($request->request->all());
+    $proyecto->save();
+    
+    return response()->json(null, 201);
+  }
+
+public function chequearsecundarias(Request $request, $imei){
+
+    $proyecto = Proyecto::where("tablet_imei",$imei)->first();
+   $herramientas_secundarias = $this->load('herramientas')->herramientas;
+    foreach ($herramientas_secundarias as  $cadaherramienta){
+                 $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
+       }  
+    
+    $proyecto->fill($request->request->all());
+    $proyecto->save();
+    
+    return response()->json(null, 201);
+  }
+
+public function chequeardemano(Request $request, $imei){
+
+    $proyecto = Proyecto::where("tablet_imei",$imei)->first();
+   $herramientas_mano = $this->load('herramientasmano')->herramientasmano;
+    foreach ($herramientas_mano as  $cadaherramienta){
+                 $proyecto->herramientasmano->cadaherramienta->estado = $request->herramientasmano->cadaherramienta->estado;
+       }  
+    
+    $proyecto->fill($request->request->all());
+    $proyecto->save();
+    
+    return response()->json(null, 201);
+  }
+  
+
 }

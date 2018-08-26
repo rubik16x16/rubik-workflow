@@ -17,7 +17,7 @@ class Proyecto extends Model{
 	'mdf_torque','mdf_overpull','mdf_backreaming','mdf_power','mdf_caudal_max',
 	'mdf_caudal_min','mdf_rpm_max','mdf_rpm_min','mdf_wob_max','mdf_wob_min',
 	'mdf_pres_max','mdf_pres_min','diseno','recibidopor','aprobadopor',
-	'previstopara','preparadopor','hora','trailer','generador','proveedor', 'fechaymedio','tablet_imei'];
+	'previstopara','preparadopor','hora','trailer','generador','proveedor', 'fechaymedio','tablet_imei','estado'];
 
 	public function tipoHerramientas(){
 		return $this->hasMany('App\Models\ProyectoTipoHerramienta');
@@ -64,6 +64,7 @@ class Proyecto extends Model{
 
 	}
 
+	
 	public function pozo(){
 
 		return $this->belongsTo('App\Models\Pozo', 'idpozo')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id2");

@@ -21,7 +21,7 @@
       </ul>
       <div class="dropdown">
         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ session('admin.email') }}
+          {{ session('admin.name') }}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="{{ route('admin.logout') }}">Salir</a>
