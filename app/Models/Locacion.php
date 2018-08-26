@@ -10,7 +10,7 @@ class Locacion extends Model{
   protected $connection = "sqlserver";
 
   public function pozos(){
-    return $this->hasMany('App\Models\Pozo', 'locacion_id2')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id2");
+    return $this->hasMany('App\Models\Pozo', 'locacion_id')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id");
   }
 
 }
