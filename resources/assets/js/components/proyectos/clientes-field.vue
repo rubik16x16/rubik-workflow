@@ -10,7 +10,7 @@
 			</template>
     </select>
 	</div>
-	<div class="form-group col-md-4">
+	<div class="form-group col-md-3">
 		<label for="locacion">Locación</label>
 		<select class="form-control locaciones" name="idlocacion" id="idlocacion">
       <option value="0" selected>Seleccione</option>
@@ -30,6 +30,17 @@
 			</template>
     </select>
 	</div>
+<div class="form-group col-md-2">
+		<label for="idlistaprecios">Lista Precios</label>
+		<select class="form-control listasdeprecios" name="idlistaprecios" id="idlistaprecios">
+      <option value="0" selected>Seleccione</option>
+			<template v-for="precio in listasdeprecios">
+				<option v-if="precioSelected(precio)" :value="precio.STTLPR_CODLIS" selected>
+				{{ precio.STTLPR_DESCRP }}</option>
+				<option v-else :value="precio.STTLPR_CODLIS">{{ precio.STTLPR_DESCRP }}</option>
+			</template>
+    </select>
+	</div>	
 </div>
 </template>
 
@@ -48,6 +59,9 @@ export default {
     locaciones(){
       return this.clienteActual != null ? this.clienteActual.locaciones : [];
     },
+    listasdeprecios(){
+      return this.clienteActual != null ? this.clienteActual.listasdeprecios : [];
+    },
     pozos(){
       return this.locacionActual != null ? this.locacionActual.pozos : [];
     }
@@ -56,7 +70,7 @@ export default {
 		if(typeof this.proyecto != 'undefined'){
 			this.clienteActual= this.proyecto.cliente;
 			this.locacionActual= this.proyecto.locacion;
-		}
+			}
 	},
 	updated(){
 		for(let i = 0 ; i < this.reset.length; i++){
@@ -68,7 +82,7 @@ export default {
 		cambiarCliente(cliente){
 			this.clienteActual= cliente;
 			this.locacionActual= null;
-			this.reset= ['locaciones', 'pozos'];
+			this.reset= ['locaciones', 'pozos','listasdeprecios'];
 		},
 		cambiarLocacion(locacion){
 			this.locacionActual= locacion;
@@ -91,7 +105,13 @@ export default {
 				return this.proyecto.locacion.id == locacion.id ? true : false;
 			}
 			return false;
-		}
+		},
+		precioSelected(precio){
+			if(typeof this.proyecto != 'undefined'){
+				return this.proyecto.idlistaprecios == precio.STTLPR_CODLIS ? true : false;
+			}
+			return false;
+		},
 	}
 }
 </script>

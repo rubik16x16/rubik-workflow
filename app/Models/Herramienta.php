@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Herramienta extends Model{
 
-  static $attrsDistinct= [
+    static $attrsDistinct= [
     'tool', 'od', 'largo',
     'type', 'descrip',
     'top_conec', 'bottom_conec'

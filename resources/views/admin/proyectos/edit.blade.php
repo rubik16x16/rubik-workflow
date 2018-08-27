@@ -9,7 +9,7 @@
  <h3>Informacion General</h3>
     <clientes-field :clientes="{{ $clientes }}" :proyecto="{{ $proyectoJson }}"></clientes-field>
      <div class="form-row">
-       <div class="form-group col-md-5">
+       <div class="form-group col-md-4">
      <label for="servicio">Servicios a realizar</label>
       <select class="form-control" name="idservicio" id="idservicio">
            <option value="0">Seleccione</option>
@@ -22,29 +22,7 @@
                   @endforeach
           </select>
     </div>
-    <div class="form-group col-md-2">
-     <label for="servicio">Lista de Precios</label>
-     <select class="form-control" name="idlistaprecios" id="idlistaprecios">
-           <option value="0">Seleccione</option>
-                  @foreach($listaprecios as $cadalistaprecio)
-                  @if ($proyecto->idlistaprecios == $cadalistaprecio->STTLPR_DESCRP)
-                  <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}" selected="selected">{{ $cadalistaprecio->STTLPR_DESCRP}}</option>
-                  @else
-                    <option value="{{ $cadalistaprecio->STTLPR_DESCRP }}">{{ $cadalistaprecio->STTLPR_DESCRP }}</option>
-                    @endif
-                  @endforeach
-          </select>
-    </div>
-           <div class="form-group col-md-2">
-            <label for="programa_cliente">Programa del Cliente</label>
-            <input type="file" name="programa_cliente" value="programa_cliente" size="80" />
-
-
-
-    </div>
-     </div>
-      <div class="form-row">
-       <div class="form-group col-md-2">
+     <div class="form-group col-md-4">
         <label for="preparo">Operación a realizar</label>
          <select class="form-control" name="idoperacion" id="idoperacion">
            <option value="0">Seleccione</option>
@@ -59,6 +37,16 @@
 
 
        </div>
+          <div class="form-group col-md-2">
+            <label for="programa_cliente">Programa del Cliente</label>
+            <input type="file" name="programa_cliente" value="programa_cliente" size="80" />
+
+
+
+    </div>
+     </div>
+      <div class="form-row">
+      
        <div class="form-group col-md-4">
         <label for="cia_pu_wo_ct_drilling">Compañia de pu/wo/ct/drilling</label>
          <select class="form-control" name="id_cia_pu_wo_ct_drilling" id="id_cia_pu_wo_ct_drilling">
@@ -82,17 +70,20 @@
          <select class="form-control" name="idpreparo" id="idpreparo">
            <option value="0">Seleccione</option>
                   @foreach($ingenieros as $cadaingeniero)
-                  @if ($proyecto->idpreparo == $cadaingeniero->email)
-                  <option value="{{ $cadaingeniero->email }}" selected="selected">{{ $cadaingeniero->email}}</option>
+                  @if ($proyecto->idpreparo == $cadaingeniero->id)
+                  <option value="{{ $cadaingeniero->id }}" selected="selected">{{ $cadaingeniero->name}}</option>
                   @else
-                    <option value="{{ $cadaingeniero->email }}">{{ $cadaingeniero->email }}</option>
+                    <option value="{{ $cadaingeniero->id }}">{{ $cadaingeniero->name }}</option>
                     @endif
                   @endforeach
           </select>
 
 
        </div>
-
+<div class="form-group col-md-2">
+      <label for="fechaymedio">Fecha Aprobado y Medio</label>
+      <input type="file" name="fechaymedio" value="fechaymedio" size="80" />
+    </div>
      </div>
      <h3>Informacion operativa</h3>
      <div class="form-row">
@@ -128,11 +119,11 @@
         <input type="text" class="form-control" name="tipo_fluido" id="tipo_fluido" value="{{$proyecto->tipo_fluido}}" />
        </div>
         <div class="form-group col-md-1">
-        <label for="o_t_f">0|T|F</label>
+        <label for="o_t_f">∅|T|F</label>
         <input type="text" class="form-control" name="o_t_f" id="o_t_f" value="{{$proyecto->o_t_f}}" />
        </div>
         <div class="form-group col-md-2">
-        <label for="cia_trepano">Cia Trapano</label>
+        <label for="cia_trepano">Cia Trepano</label>
         <input type="text" class="form-control" name="cia_trepano" id="cia_trepano" value="{{$proyecto->cia_trepano}}" />
        </div>
 
@@ -145,11 +136,11 @@
 
 
 <div class="form-row">
-     <div class="form-group col-md-4">
+     <div class="form-group col-md-3">
       <label for="diseno">Diseño</label>
       <input type="text" class="form-control" name="diseno" id="diseno" placeholder="Ingeniería de Aplicación" value="{{$proyecto->diseno}}"/>
     </div>
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label for="aprobadopor">Aprobado por</label>
       <input type="text" class="form-control" name="aprobadopor" id="aprobadorpor" placeholder="Contacto del cliente" value="{{$proyecto->aprobadopor}}"/>
     </div>
@@ -157,13 +148,23 @@
       <label for="previstopara">Previsto para</label>
       <input type="text" class="form-control" name="previstopara" id="previstopara" placeholder="fecha y hora" value="{{$proyecto->previstopara}}"/>
     </div>
+     <div class="form-group col-md-2">
+        <label for="diam_cano_ct">Estado</label>
+         <select class="form-control" name="estado" id="estado">
+           <option value="0">Seleccione</option>
+                 @foreach($estados as $cadaestado)
+                  @if ($proyecto->estado == $cadaestado->id)
+                  <option value="{{ $cadaestado->id }}" selected="selected">{{ $cadaestado->nombre}}</option>
+                  @else
+                    <option value="{{ $cadaestado->id }}">{{ $cadaestado->nombre }}</option>
+                    @endif
+                  @endforeach
+          </select>
+        
+       </div>
+
 </div>
-<div class="form-row">
-  <div class="form-group col-md-4">
-      <label for="fechaymedio">Fecha Aprobado y Medio</label>
-      <input type="file" name="fechaymedio" value="fechaymedio" size="80" />
-    </div>
-  </div>
+
   <button type="submit" class="btn btn-primary  btn-block">Guardar</button>
 </form>
 </div>

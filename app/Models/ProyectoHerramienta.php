@@ -9,4 +9,9 @@ class ProyectoHerramienta extends Model{
 	protected $table= 'proyecto_herramienta';
 	protected $fillable= ['herramienta_id', 'proyecto_id'];
 
+
+public function Herramientas(){
+		return $this->hasMany('App\Models\Herramienta','id');
+	}
+
 }

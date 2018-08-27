@@ -6,19 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Acceso WebApp</title>
   <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.css') }}">
-  
-
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/icons/icomoon/styles.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/colors.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/icons/icomoon/styles.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
 </head>
   <body class="login-container">
 
   <!-- Main navbar -->
   <div class="navbar navbar-inverse">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.php"><img src="{{ asset('dist/images/logo_light.png')}}" alt=""></a>
-
-      <ul class="nav navbar-nav pull-right visible-xs-block">
+        <ul class="nav navbar-nav pull-right visible-xs-block">
         <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
       </ul>
     </div>
@@ -69,7 +69,7 @@
 
              
                <div class="text-center">
-                <img src="{{ asset('dist/images/logo_dark.png')}}" width="50%">
+                <img src="{{ asset('assets/images/logo_dark.png')}}" width="50%">
               </div>
             </div>
           </form>
