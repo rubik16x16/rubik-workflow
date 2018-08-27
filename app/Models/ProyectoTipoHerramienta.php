@@ -10,7 +10,7 @@ class ProyectoTipoHerramienta extends Model{
 
 	protected $table= 'proyecto_tipo_herramienta';
 
-	protected $fillable= ['proyecto_id','herramienta_id'];
+	protected $fillable= ['proyecto_id', 'herramienta_id', 'posicion'];
 
 	public function herramientas(){
 
