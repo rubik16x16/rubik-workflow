@@ -105,7 +105,7 @@ class ProyectosController extends Controller{
         $proyecto->$documento= $request->file($documento)->store('documentos', 'public');
       }
     }
-    
+
 		$proyecto->save();
 
 		return redirect(route('admin.proyectos.index'));
@@ -149,8 +149,6 @@ class ProyectosController extends Controller{
 			'listaprecios' => ListaPrecio::all(),
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
-      'ctdatos' => CTData::all(),
-      'estados' => ProyectoEstado::all(),
 			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
 
 		]);
@@ -215,10 +213,10 @@ class ProyectosController extends Controller{
   }
 
   public function listar($id){
-  
+
    return new ProyectoResource(Proyecto::where("tablet_imei",$id)->first());
     /*return new UserResource(Usuario::select('id','email as username','clave as password')
-        ->with(['roles' => function($query){ 
+        ->with(['roles' => function($query){
             $query->select('rol_id');
         }])->get());
   */}
@@ -229,11 +227,11 @@ class ProyectosController extends Controller{
     $herramientas_principales = $proyecto->load('herramientas')->herramientas;
     foreach ($herramientas_principales as  $cadaherramienta){
                  $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
-       }  
-    
+       }
+
     $proyecto->fill($request->request->all());
     $proyecto->save();
-    
+
     return response()->json(null, 201);
   }
 
@@ -243,11 +241,11 @@ public function chequearsecundarias(Request $request, $imei){
    $herramientas_secundarias = $this->load('herramientas')->herramientas;
     foreach ($herramientas_secundarias as  $cadaherramienta){
                  $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
-       }  
-    
+       }
+
     $proyecto->fill($request->request->all());
     $proyecto->save();
-    
+
     return response()->json(null, 201);
   }
 
@@ -257,13 +255,13 @@ public function chequeardemano(Request $request, $imei){
    $herramientas_mano = $this->load('herramientasmano')->herramientasmano;
     foreach ($herramientas_mano as  $cadaherramienta){
                  $proyecto->herramientasmano->cadaherramienta->estado = $request->herramientasmano->cadaherramienta->estado;
-       }  
-    
+       }
+
     $proyecto->fill($request->request->all());
     $proyecto->save();
-    
+
     return response()->json(null, 201);
   }
-  
+
 
 }
