@@ -17,7 +17,7 @@ class Project extends JsonResource
 
       
         $herramientas_principales = $this->load('herramientas')->herramientas;
-
+dd($herramientas_principales);
        $listaherramientasprincipales = array();
        foreach ($herramientas_principales as  $cadaherramienta){
                  $listaherramientasprincipales[] = $cadaherramienta;
