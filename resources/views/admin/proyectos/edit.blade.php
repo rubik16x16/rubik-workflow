@@ -120,15 +120,8 @@
         <label for="diam_cano_ct">Dia Caño CT</label>
          <select class="form-control" name="diam_cano_ct" id="diam_cano_ct">
            <option value="0">Seleccione</option>
-                 @foreach($ctdatos as $cadadato)
-                  @if ($proyecto->diam_cano_ct == $cadadato->valor)
-                  <option value="{{ $cadadato->valor }}" selected="selected">{{ $cadadato->valor}}</option>
-                  @else
-                    <option value="{{ $cadadato->valor }}">{{ $cadadato->valor }}</option>
-                    @endif
-                  @endforeach
           </select>
-        
+
        </div>
         <div class="form-group col-md-3">
         <label for="tipo_fluido">Tipo Fluido</label>

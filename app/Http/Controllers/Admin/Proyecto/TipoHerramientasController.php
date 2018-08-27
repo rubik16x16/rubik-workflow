@@ -36,14 +36,14 @@ class TipoHerramientasController extends Controller
    */
   public function store(Request $request, $id){
 
-    $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
+    $tipoHerramientasIds= explode(':', $request->tipoHerramientas);
     $posicion = 1;
-    foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
-//      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
-    $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::where('partnumber',$tipoHerramientaPn)->first()->toArray());
-      $tipoHerramienta->proyecto_id= $id;
-      $tipoHerramienta->posicion = $posicion;
-      $posicion = $posicion + 1;
+    foreach ($tipoHerramientasIds as $tipoHerramientaId) {
+      $tipoHerramienta= new ProyectoTipoHerramienta([
+        'proyecto_id' => $id,
+        'herramienta_id' => $tipoHerramientaId,
+        'posicion' => $posicion++
+      ]);
       $tipoHerramienta->save();
     }
 
@@ -59,14 +59,18 @@ class TipoHerramientasController extends Controller
    */
   public function edit($id){
 
-    $proyecto= Proyecto::find($id)->load('tipoHerramientas');
+    $proyecto= Proyecto::find($id)->load('tipoHerramientas', 'tipoHerramientas.herramienta');
+
+    $asignados= $proyecto->tipoHerramientas->map(function($tipoHerramienta){
+      return $tipoHerramienta->herramienta;
+    });
 
     return view('admin.proyectos.tipoHerramientas.edit', [
       'routes' => str_replace('"', "'", json_encode([
         'get'=> route('api.admin.proyecto.tipoHerramientas.get'),
         'update'=> route('admin.proyecto.tipoHerramientas.update', ['id'=> $id])
       ])),
-      'asignados' => str_replace('"', "'", $proyecto->tipoHerramientas->toJson())
+      'asignados' => str_replace('"', "'", $asignados->toJson())
     ]);
 
   }
@@ -82,15 +86,17 @@ class TipoHerramientasController extends Controller
 
     ProyectoTipoHerramienta::where('proyecto_id', $id)->delete();
 
-    $tipoHerramientasPns= explode(':', $request->tipoHerramientas);
-    $posicion = 1;
-    foreach ($tipoHerramientasPns as $tipoHerramientaPn) {
-      //$tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::find($tipoHerramientaPn)->toArray());
-      $tipoHerramienta= new ProyectoTipoHerramienta(Herramienta::where('partnumber',$tipoHerramientaPn)->first()->toArray());
-      $tipoHerramienta->proyecto_id= $id;
-      $tipoHerramienta->posicion = $posicion;
-      $posicion++;
-      $tipoHerramienta->save();
+    if($request->tipoHerramientas != NULL){
+      $tipoHerramientasIds= explode(':', $request->tipoHerramientas);
+      $posicion = 1;
+      foreach ($tipoHerramientasIds as $tipoHerramientaId) {
+        $tipoHerramienta= new ProyectoTipoHerramienta([
+          'proyecto_id' => $id,
+          'herramienta_id' => $tipoHerramientaId,
+          'posicion' => $posicion++
+        ]);
+        $tipoHerramienta->save();
+      }
     }
 
     return redirect(route('admin.proyectos.index'));

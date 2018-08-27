@@ -34,7 +34,7 @@ return [
 
     'connections' => [
 
-       
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -53,11 +53,11 @@ return [
 
         'sqlserver' => [
             'driver' => 'sqlsrv',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'cwSGCRASA'),
-            'username' => env('DB_USERNAME', 'usuario'),
-            'password' => env('DB_PASSWORD', '11223344'),
+            'host' => env('SQLSRV_DB_HOST', 'localhost'),
+            'port' => env('SQLSRV_DB_PORT', '1433'),
+            'database' => env('SQLSRV_DB_DATABASE', 'cwSGCRASA'),
+            'username' => env('SQLSRV_DB_USERNAME', 'usuario'),
+            'password' => env('SQLSRV_DB_PASSWORD', '11223344'),
             'charset' => 'utf8',
             'prefix' => '',
         ],

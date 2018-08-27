@@ -100,9 +100,6 @@
         <label for="diam_cano_ct">Dia Caño CT</label>
          <select class="form-control" name="diam_cano_ct" id="diam_cano_ct">
            <option value="0">Seleccione</option>
-                 @foreach($ctdatos as $cadact)
-             <option value="{{ $cadact->valor }}">{{ $cadact->valor }}</option>
-           @endforeach
           </select>
        </div>
         <div class="form-group col-md-3">
