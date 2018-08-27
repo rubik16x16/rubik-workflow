@@ -6,12 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Acceso WebApp</title>
   <link rel="stylesheet" href="{{ asset('dist/css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/components.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.css') }}">
-  <link rel="stylesheet" href="{{ asset('dist/assets/css/icons/icomoon/styles.css')}}">
-  <link rel="stylesheet" href="{{ asset('dist/assets/css/colors.css')}}">
-  <link rel="stylesheet" href="{{ asset('dist/assets/css/icons/icomoon/styles.css')}}">
-  <link rel="stylesheet" href="{{ asset('dist/assets/css/core.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/icons/icomoon/styles.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/colors.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/icons/icomoon/styles.css')}}">
+  <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}">
 </head>
   <body class="login-container">
 
@@ -69,7 +69,7 @@
 
              
                <div class="text-center">
-                <img src="{{ asset('dist/images/logo_dark.png')}}" width="50%">
+                <img src="{{ asset('assets/images/logo_dark.png')}}" width="50%">
               </div>
             </div>
           </form>

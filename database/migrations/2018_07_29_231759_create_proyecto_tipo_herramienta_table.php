@@ -15,7 +15,7 @@ class CreateProyectoTipoHerramientaTable extends Migration
     {
         Schema::create('proyecto_tipo_herramienta', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('partnumber');
+            $table->unsignedInteger('herramienta_id');
             $table->integer('posicion');
             $table->unsignedInteger('proyecto_id');
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade')->onUpdate('cascade');

@@ -20,6 +20,8 @@ use App\Models\ListaPrecio;
 use App\Models\Locacion;
 use App\Models\Operacion;
 use App\Models\CTData;
+use App\Models\ProyectoCasing;
+use App\Models\ProyectoCasingDatos;
 
 
 
@@ -80,7 +82,8 @@ class ProyectosController extends Controller{
 			'operaciones' => Operacion::all(),
       'ctdatos' => CTData::all(),
       'estados' => ProyectoEstado::all(),
-			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
+			'ingenieros' => $this->operadoresIngenierosyCoordinadores(),
+      'casing' => ProyectoCasing::all()->load('casingdatos')->toJson()
 
 		]);
 

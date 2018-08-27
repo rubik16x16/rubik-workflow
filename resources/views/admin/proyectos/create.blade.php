@@ -68,28 +68,10 @@
     </div>
      </div>
      <h3>Informacion operativa</h3>
-     <div class="form-row">
-       <div class="form-group col-md-2">
-        <label for="siam_casing">Diam.Casing</label>
-        <select class="form-control" name="id_siam_casing" id="id_siam_casing">
-           <option value="0">Seleccione</option>
-                  <option value="1">casing 1</option>
-                  <option value="2">casing 2</option>
-          </select>
-        </div>
-        <div class="form-group col-md-1">
-        <label for="libraje">Libraje</label>
-        <select class="form-control" name="id_libraje" id="id_libraje">
-           <option value="0">Seleccione</option>
-                  <option value="1">Libraje 1</option>
-                  <option value="2">Libraje 2</option>
-          </select>
-       </div>
-        <div class="form-group col-md-1">
-        <label for="drift">Drift</label>
-        <input type="text" class="form-control" name="drift" id="drift" placeholder="" />
-       </div>
-        <div class="form-group col-md-2">
+     
+      <casing-field :casing="{{ $casing }}"></casing-field>
+      <div class="form-row">
+         <div class="form-group col-md-2">
         <label for="diam_cano_ct">Dia Caño CT</label>
          <select class="form-control" name="diam_cano_ct" id="diam_cano_ct">
            <option value="0">Seleccione</option>

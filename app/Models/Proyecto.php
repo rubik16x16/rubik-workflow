@@ -67,7 +67,7 @@ class Proyecto extends Model{
 	
 	public function pozo(){
 
-		return $this->belongsTo('App\Models\Pozo', 'idpozo')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id2");
+		return $this->belongsTo('App\Models\Pozo', 'idpozo')->select("USR_FCTPZO_CODIGO","USR_FCTPZO_DESCRP","locacion_id");
 
 	}
 
