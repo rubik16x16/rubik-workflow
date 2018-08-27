@@ -8,32 +8,36 @@
         <form :action="form.action" id="tipoHerramientas" method="post">
           <input type="hidden" name="_method" :value="form.method">
           <input type="hidden" name="_token" :value="csrfToken">
-          <input type="hidden" name="tipoHerramientas" v-model="tipoHerramientasPns">
+          <input type="hidden" name="tipoHerramientas" v-model="tipoHerramientasIds">
         </form>
 
         <div class="tipoHerramientas-asignadas">
-        <table class="table table-striped table-borderless">
-          <thead class="thead-dark">
-          <tr>
-          <th>Pos</th>
-          <th>PN</th>
-          <th>Image</th>
-          <th>E</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(tipoHerramienta, index) in listaAsignados">
-          <td>{{ tipoHerramienta.posicion }}</td>
-           <td>{{ tipoHerramienta.partnumber }}</td>
-           <td></td>
-           <td><button type="button" @click="quitarTipoHerramienta(index)">quitar</button></td>
-           </tr>
-           </tbody>
-        </table>
+          <table class="table table-striped table-borderless">
+            <thead class="thead-dark">
+              <th>Tool</th>
+              <th>OD</th>
+              <th>LG</th>
+              <th>Type</th>
+              <th>Descripción</th>
+              <th>top connec</th>
+              <th>bottom connec</th>
+              <th>Acciones</th>
+            </thead>
+            <tbody>
+              <tr v-for="(tipoHerramienta, index) in listaAsignados">
+                <td>{{ tipoHerramienta.tool }}</td>
+                <td>{{ tipoHerramienta.od }}</td>
+                <td>{{ tipoHerramienta.largo }}</td>
+                <td>{{ tipoHerramienta.type }}</td>
+                <td>{{ tipoHerramienta.descrip }}</td>
+                <td>{{ tipoHerramienta.top_conec }}</td>
+                <td>{{ tipoHerramienta.bottom_conec }}</td>
+                <td><button class="btn btn-danger" type="button" @click="quitarTipoHerramienta(index)">quitar</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <h4>Filtros</h4>
-
-        <tipo-herramientas-filtros @filtrar="filtrar"></tipo-herramientas-filtros>
 
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
@@ -45,11 +49,11 @@
               <th>Descripción</th>
               <th>top connec</th>
               <th>bottom connec</th>
-              <th>PN</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
+            <tipo-herramientas-filtros @filtrar="filtrar"></tipo-herramientas-filtros>
             <tr v-for="(herramienta, index) in tipoHerramientas">
               <td>{{ herramienta.tool }}</td>
               <td>{{ herramienta.od }}</td>
@@ -58,16 +62,15 @@
               <td>{{ herramienta.descrip }}</td>
               <td>{{ herramienta.top_conec }}</td>
               <td>{{ herramienta.bottom_conec }}</td>
-              <td>{{ herramienta.partnumber }}</td>
               <td>
-                <button type="button" name="button" @click="agregarTipoHerramienta(herramienta)">Agregar</button>
+                <button class="btn btn-success" type="button" name="button" @click="agregarTipoHerramienta(herramienta)">Agregar</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="card-footer text-muted">
-        <button type="submit" name="button" form="tipoHerramientas">Guardar</button>
+        <button class="btn btn-primary" type="submit" name="button" form="tipoHerramientas">Guardar</button>
       </div>
     </div>
   </div>
@@ -95,7 +98,7 @@ export default {
   methods:{
     agregarTipoHerramienta(tipoHerramienta){
       var asignable= this.listaAsignados.find(element => {
-        return element.partnumber == tipoHerramienta.partnumber;
+        return element.id == tipoHerramienta.id;
       });
 
       if(typeof asignable !== 'undefined'){
@@ -131,12 +134,12 @@ export default {
     }
   },
   computed:{
-    tipoHerramientasPns(){
-      var pns = '';
+    tipoHerramientasIds(){
+      var ids = '';
       this.listaAsignados.forEach(function(tipoHerramienta){
-        pns+= tipoHerramienta.partnumber + ':';
+        ids+= tipoHerramienta.id + ':';
       });
-      return pns.substr(0, pns.length -1);
+      return ids.substr(0, ids.length -1);
     },
     csrfToken(){
       let token = document.head.querySelector('meta[name="csrf-token"]');

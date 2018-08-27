@@ -7,8 +7,6 @@
       <div class="card-body table-responsive">
         <h4>Filtros</h4>
 
-        <herramientas-filtros @filtrar="filtrar"></herramientas-filtros>
-
         <table class="table table-striped table-borderless">
           <thead class="thead-dark">
             <th>Tool</th>
@@ -18,10 +16,10 @@
             <th>Descripcion</th>
             <th>top connec</th>
             <th>bottom connec</th>
-            <th>PN</th>
             <th>Acciones</th>
           </thead>
           <tbody>
+            <herramientas-filtros @filtrar="filtrar"></herramientas-filtros>
             <tr v-for="(herramienta, index) in herramientas">
               <td>{{ herramienta.tool }}</td>
               <td>{{ herramienta.od }}</td>
@@ -30,7 +28,6 @@
               <td>{{ herramienta.descrip }}</td>
               <td>{{ herramienta.top_conec }}</td>
               <td>{{ herramienta.bottom_conec }}</td>
-              <td>{{ herramienta.partnumber }}</td>
               <td>
                 <a class="btn btn-warning" :href="urlEdit(herramienta.id)"><i class="fas fa-edit"></i></a>
                 <a class="btn btn-danger" href="#" @click.prevent="destroy(urlDestroy(herramienta.id), index)"><i class="fas fa-trash-alt"></i></a>
