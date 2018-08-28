@@ -13,6 +13,7 @@ class HerramientasController extends Controller{
 	public function create($id){
 
 		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
+		$proyecto->tipoHerramientas->sortBy('posicion');
 		$herramientas= collect();
 		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
 			$herramientas= $herramientas->concat($tipoHerramienta->herramientas());
@@ -53,7 +54,7 @@ class HerramientasController extends Controller{
 				$herramienta->checked= false;
 				return $herramienta;
 			}));
-			
+
 		}
 
 		return view('admin.proyectos.herramientas.edit', [
@@ -74,18 +75,18 @@ function flatten($array) {
     foreach ($array as $item) {
     	$result[$indice]['inspec'] = $item->inspec;
     	$result[$indice]['prep'] = $item->prep;
-    	$arreglo = $item->herramientas->toArray()[0]; 
+    	$arreglo = $item->herramientas->toArray()[0];
     	foreach ($arreglo as $key => $value)
     		$result[$indice][$key] = $value;
-    	
+
     	$indice++;
-    	
+
     }
 return collect($result);
 }
 
 
-$herramientas = flatten($proyectoherramientas);		
+$herramientas = flatten($proyectoherramientas);
 
 				return view('admin.proyectos.herramientas.check', [
 			'proyecto' => $proyecto,
@@ -110,7 +111,7 @@ public function updatecheck(Request $request, $id){
 		return redirect(route('admin.proyectos.index'));
 
 	}
-	
+
 
 	public function update(Request $request, $id){
 
