@@ -2,7 +2,10 @@
 
 namespace App\Http\Resources;
 
+
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\PrecioItem;
+use App\Models\ManiobraTipo;
 
 class Project extends JsonResource
 {
@@ -15,9 +18,8 @@ class Project extends JsonResource
     public function toArray($request)
     {
 
-      
-        $herramientas_principales = $this->load('herramientas')->herramientas;
-dd($herramientas_principales);
+       $herramientas_principales = $this->load('herramientas')->herramientas;
+
        $listaherramientasprincipales = array();
        foreach ($herramientas_principales as  $cadaherramienta){
                  $listaherramientasprincipales[] = $cadaherramienta;
@@ -40,6 +42,38 @@ dd($herramientas_principales);
        foreach ($vehiculo_requisitos as  $cadarequisito){
                  $listarequisitos[] = $cadarequisito;
        }
+
+       ///////////////
+// calcular precios para ese proyecto
+       //////////////
+
+       $idlistaprecios = $this->idlistaprecios;
+
+       $primero = PrecioItem::select("STTPRE_ARTCOD","STTPRE_PRECIO as precio")->where('STTPRE_CODLIS','=',$idlistaprecios)->get();
+       $segundo = $primero->load('descripcion');
+
+    function flatten($array) {
+      $result = [];
+      $indice = 0;
+    foreach ($array as $item) {
+      $result[$indice]['codigo'] = $item->STTPRE_ARTCOD;
+      $result[$indice]['descripcion'] = $item->descripcion->descripcion;
+      $result[$indice]['precio'] = $item->precio;
+      $indice++;
+      
+      }
+      return collect($result);
+    }
+
+  $precios = flatten($segundo);
+
+  ///////////////////
+  // calcular las maniobras
+  ////////////////////////////////////////
+
+   $maniobras = ManiobraTipo::all()->load('observaciones');
+
+
 
 if ($request->is('api/project/soloprincipales/*')) {
       
@@ -96,7 +130,9 @@ else
     'herramientas_principales ' => $listaherramientasprincipales,
     'herramientas_backup ' => $listaherramientassecundarias,
     'herramientas_mano' => $listaherramientasmano,
-    'vehiculo' => $listarequisitos
+    'vehiculo' => $listarequisitos,
+    'precios' => $precios,
+    'maniobras' => $maniobras
      ];
        
 }

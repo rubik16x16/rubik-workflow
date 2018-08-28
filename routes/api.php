@@ -34,6 +34,7 @@ Route::get('/users/{imei}', 'Admin\UsuariosController@listar');
 Route::get('/project/{imei}', 'Admin\ProyectosController@listar');
 //descargar lista de precios del proyecto
 Route::get('/project/prices/{imei}', 'Admin\PrecioItemController@listar');
+Route::get('/project/maniobras/{imei}', 'Admin\ManiobrasController@listar');
 
 //descargar solo herramientas principales
 Route::get('/project/soloprincipales/{imei}', 'Admin\ProyectosController@listar');

@@ -141,15 +141,16 @@ class ProyectosController extends Controller{
 		return view('admin.proyectos.edit', [
 			'proyecto' => $proyecto,
       'proyectoJson' => str_replace('"', "'", $proyecto->toJson()),
-        'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios')->toJson(),
-			//'clientes' => str_replace('"', "'", Cliente::all()->load('locaciones', 'locaciones.pozos')->toJson()),
+      'clientes' => Cliente::select("VTMCLH_NROCTA","VTMCLH_NOMBRE")->OrderBy("VTMCLH_NOMBRE","DESC")->get()->load('locaciones', 'locaciones.pozos','listasdeprecios')->toJson(),
 			'pozos' => Pozo::all(),
 			'servicios' => Servicio::all()->where('USR_STMATI_APP','S'),
 			'ciapuwos' => CiaPuWo::all(),
 			'listaprecios' => ListaPrecio::all(),
 			'locaciones' => Locacion::all(),
 			'operaciones' => Operacion::all(),
-			'ingenieros' => $this->operadoresIngenierosyCoordinadores()
+      'estados' => ProyectoEstado::all(),
+      'ingenieros' => $this->operadoresIngenierosyCoordinadores(),
+      'casing' => ProyectoCasing::all()->load('casingdatos')->toJson()
 
 		]);
 

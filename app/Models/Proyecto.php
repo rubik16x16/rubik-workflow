@@ -31,10 +31,11 @@ class Proyecto extends Model{
 
 	public function herramientas(){
 
-		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta')->OrderBy("posicion","asc");
+		return $this->belongsToMany('App\Models\Herramienta', 'proyecto_herramienta');
 
 	}
 
+	
 	public function herramientasmano(){
 
 		return $this->belongsToMany('App\Models\HerramientaMano', 'proyecto_herramienta_mano')->select('proyecto_herramienta_mano.id','nombre','estado');
