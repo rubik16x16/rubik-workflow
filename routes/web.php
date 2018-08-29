@@ -202,3 +202,7 @@ Route::middleware(['adminGuest'])->group(function(){
 	->name('admin.login.post');
 
 });
+
+Route::any('/herramientas/principales/{imei}', function () {
+        \Log::info('Variables ' .print_r($_POST, true) );
+});

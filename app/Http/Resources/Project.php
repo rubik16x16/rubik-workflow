@@ -18,6 +18,8 @@ class Project extends JsonResource
     public function toArray($request)
     {
 
+if ($this->resource == null)   return [];
+
        $herramientas_principales = $this->load('herramientas')->herramientas;
 
        $listaherramientasprincipales = array();
@@ -55,6 +57,10 @@ class Project extends JsonResource
     function flatten($array) {
       $result = [];
       $indice = 0;
+      $result[$indice]['codigo'] = "0";
+      $result[$indice]['descripcion'] = "Otros";
+      $result[$indice]['precio'] = "0";
+      $indice++;
     foreach ($array as $item) {
       $result[$indice]['codigo'] = $item->STTPRE_ARTCOD;
       $result[$indice]['descripcion'] = $item->descripcion->descripcion;
@@ -78,7 +84,7 @@ class Project extends JsonResource
 if ($request->is('api/project/soloprincipales/*')) {
       
       $proyecto = [
-          'herramientas_principales ' => $listaherramientasprincipales
+          'herramientas_principales' => $listaherramientasprincipales
       ]; 
 
       }
@@ -86,7 +92,7 @@ else
 if ($request->is('api/project/solosecundarias/*')) {
       
       $proyecto = [
-          'herramientas_backup ' => $listaherramientassecundarias      
+          'herramientas_backup' => $listaherramientassecundarias      
       ]; 
 
       }
@@ -127,8 +133,8 @@ else
         'fecha' => $this->previstopara,
         'fechaymedio' => $this->fechaymedio
     ],
-    'herramientas_principales ' => $listaherramientasprincipales,
-    'herramientas_backup ' => $listaherramientassecundarias,
+    'herramientas_principales' => $listaherramientasprincipales,
+    'herramientas_backup' => $listaherramientassecundarias,
     'herramientas_mano' => $listaherramientasmano,
     'vehiculo' => $listarequisitos,
     'precios' => $precios,

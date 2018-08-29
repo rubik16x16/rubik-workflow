@@ -105,4 +105,12 @@ class HerramientasController extends Controller{
 		$herramienta->delete();
 
   }
+
+public function chequearprincipales($id){
+
+    $herramienta= Herramienta::find($id);
+    $herramienta->delete();
+
+  }
+
 }

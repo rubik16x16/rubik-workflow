@@ -44,6 +44,6 @@ Route::get('/project/solosecundarias/{imei}', 'Admin\ProyectosController@listar'
 Route::get('/project/solodemano/{imei}', 'Admin\ProyectosController@listar');
 
 //sincronizar sistema desde tablet con chequeo herramientas
-Route::post('/herramientas/principales/{imei}', 'Admin\HerramientaController@chequearprincipales');
-Route::post('/herramientas/secundarias/{imei}', 'Admin\HerramientaController@chequearsecundarias');
-Route::post('/herramientas/demano/{imei}', 'Admin\HerramientaController@chequeardemano');
+Route::post('/herramientas/principales/{imei}', 'Admin\ProyectosController@chequearprincipales');
+Route::post('/herramientas/secundarias/{imei}', 'Admin\ProyectosController@chequearsecundarias');
+Route::post('/herramientas/demano/{imei}', 'Admin\ProyectosController@chequeardemano');

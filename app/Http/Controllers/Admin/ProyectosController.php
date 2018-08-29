@@ -11,6 +11,7 @@ use App\Models\Proyecto;
 use App\Models\Usuario;
 use App\Models\ProyectoUsuario;
 use App\Models\ProyectoTipoHerramienta;
+use App\Models\ProyectoHerramienta;
 use App\Models\ProyectoEstado;
 use App\Models\Cliente;
 use App\Models\Pozo;
@@ -222,47 +223,40 @@ class ProyectosController extends Controller{
         }])->get());
   */}
 
-  public function chequearprincipales(Request $request, $imei){
+public function chequearprincipales(Request $request, $imei){
 
     $proyecto = Proyecto::where("tablet_imei",$imei)->first();
-    $herramientas_principales = $proyecto->load('herramientas')->herramientas;
-    foreach ($herramientas_principales as  $cadaherramienta){
-                 $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
-       }
+ \Log::info($request['data']);
+foreach ($request['data'] as $herramienta){
+ 
+  $proyecto_herramienta = ProyectoHerramienta::where([["proyecto_id",$proyecto->id],["herramienta_id",$herramienta['idherramienta']]])->first(); 
 
-    $proyecto->fill($request->request->all());
-    $proyecto->save();
-
-    return response()->json(null, 201);
-  }
+  $proyecto_herramienta->rec = $herramienta['rec'];   
+  $proyecto_herramienta->save(); 
+ 
+}
+}
+    
 
 public function chequearsecundarias(Request $request, $imei){
 
     $proyecto = Proyecto::where("tablet_imei",$imei)->first();
-   $herramientas_secundarias = $this->load('herramientas')->herramientas;
-    foreach ($herramientas_secundarias as  $cadaherramienta){
-                 $proyecto->herramientas->cadaherramienta->rec = $request->herramientas->cadaherramienta->rec;
-       }
+ 
+ \Log::info($request['data']);
 
-    $proyecto->fill($request->request->all());
-    $proyecto->save();
+foreach ($request['data'] as $herramienta){
 
-    return response()->json(null, 201);
-  }
+  $proyecto_herramienta = ProyectoHerramienta::where([["herramienta_id",$herramienta['idherramienta']]])->first(); 
+  $proyecto_herramienta->rec = $herramienta['rec'];   
+  $proyecto_herramienta->save(); 
+ 
+}
+    
+
+ }
 
 public function chequeardemano(Request $request, $imei){
 
-    $proyecto = Proyecto::where("tablet_imei",$imei)->first();
-   $herramientas_mano = $this->load('herramientasmano')->herramientasmano;
-    foreach ($herramientas_mano as  $cadaherramienta){
-                 $proyecto->herramientasmano->cadaherramienta->estado = $request->herramientasmano->cadaherramienta->estado;
-       }
 
-    $proyecto->fill($request->request->all());
-    $proyecto->save();
-
-    return response()->json(null, 201);
-  }
-
-
+}
 }

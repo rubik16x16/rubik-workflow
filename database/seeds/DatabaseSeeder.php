@@ -8,7 +8,7 @@ class DatabaseSeeder extends Seeder{
    *
    * @return void
    */
-  public function run(){ /*
+  public function run(){ 
     $this->call(UsuariosTableSeeder::class);
     $this->call(RolesTableSeeder::class);
     $this->call(UsuarioRolTableSeeder::class);
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder{
     $this->call(PermisosTableSeeder::class);
 		$this->call(HerramientasTableSeeder::class);
     $this->call(HerramientaManoTableSeeder::class);
-    $this->call(VehiculoRequisitoTableSeeder::class); */
+    $this->call(VehiculoRequisitoTableSeeder::class); 
      $this->call(ProyectoEstadoSeeder::class);
   }
 }
