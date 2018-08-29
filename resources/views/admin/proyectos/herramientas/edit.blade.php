@@ -64,7 +64,7 @@
                 <td>{{ $herramienta->id }}</td>
                 <td>{{ $herramienta->pn }}</td>
                 <td>{{ $herramienta->sn }}</td>
-                <td><input type="checkbox" name="herramienta-{{ $herramienta }}" value="{{ $herramienta->id }}-{{ $tipoHerramienta->posicion }}" @if($herramienta->checked) checked @endif></td>
+                <td><input type="radio" name="herramienta-{{ $tipoHerramienta->id }}" value="{{ $herramienta->id }}-{{ $tipoHerramienta->posicion }}" @if($herramienta->checked) checked @endif></td>
               </tr>
               @endforeach
             </tbody>

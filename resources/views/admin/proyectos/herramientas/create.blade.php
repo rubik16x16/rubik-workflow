@@ -63,7 +63,7 @@
                 <td>{{ $herramienta->id }}</td>
                 <td>{{ $herramienta->pn }}</td>
                 <td>{{ $herramienta->sn }}</td>
-                <td><input type="checkbox" name="herramienta-{{ $herramienta }}" value="{{ $herramienta->id }}-{{ $tipoHerramienta->posicion }}"></td>
+                <td><input type="radio" name="herramienta-{{ $tipoHerramienta->id }}" value="{{ $herramienta->id }}-{{ $tipoHerramienta->posicion }}"></td>
               </tr>
               @endforeach
             </tbody>
