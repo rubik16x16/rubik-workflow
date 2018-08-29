@@ -20,4 +20,12 @@ class Herramienta extends Model{
     'top_conec', 'bottom_conec'
   ];
 
+  public function posicion(){
+
+    $proyectoHerramienta= $this->hasOne('App\Models\ProyectoHerramienta')->get()->first();
+
+    return $proyectoHerramienta->posicion;
+
+  }
+
 }

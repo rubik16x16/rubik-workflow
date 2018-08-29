@@ -97,13 +97,6 @@ export default {
   },
   methods:{
     agregarTipoHerramienta(tipoHerramienta){
-      var asignable= this.listaAsignados.find(element => {
-        return element.id == tipoHerramienta.id;
-      });
-
-      if(typeof asignable !== 'undefined'){
-        return alert('este tipoHerramienta ya esta asignado')
-      }
       this.listaAsignados.push(tipoHerramienta);
     },
     quitarTipoHerramienta(index){

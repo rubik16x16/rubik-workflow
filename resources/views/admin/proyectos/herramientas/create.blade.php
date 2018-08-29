@@ -7,38 +7,70 @@
 <form action="{{ route('admin.proyecto.herramientas.store', ['id' => $proyecto->id]) }}" method="post">
   {{ csrf_field() }}
 
-	<h4 class="text-center">Herramientas</h2>
+	<h4 class="text-center">Asignar herramientas</h2>
 
-    <table class="table text-center">
-      <thead class="thead-dark">
-        <th>Tool</th>
-        <th>OD</th>
-        <th>LG</th>
-        <th>Type</th>
-        <th>Descripción</th>
-        <th>top connec</th>
-        <th>bottom connec</th>
-        <th>PN</th>
-        <th>SN</th>
-        <th>Agregar</th>
-      </thead>
-      <tbody>
-        @foreach($herramientas as $herramienta)
-         <tr>
-          <td>{{ $herramienta->tool }}</td>
-          <td>{{ $herramienta->od }}</td>
-          <td>{{ $herramienta->largo }}</td>
-          <td>{{ $herramienta->type }}</td>
-          <td>{{ $herramienta->descrip }}</td>
-          <td>{{ $herramienta->top_conec }}</td>
-          <td>{{ $herramienta->bottom_conec }}</td>
-          <td>{{ $herramienta->partnumber }}</td>
-          <td>{{ $herramienta->nroserie }}</td>
-          <td><input type="checkbox" name="herramienta-{{ $herramienta->id }}" value="{{ $herramienta->id }}"></td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+    @foreach($tipoHerramientas as $tipoHerramienta)
+      <div class="row text-center">
+        <div class="col-6">
+          <table class="table table-striped table-borderless">
+            <thead class="thead-dark">
+              <th colspan="2">tipo de herramienta posicion {{ $tipoHerramienta->posicion }}</th>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">tool</th>
+                <td>{{ $tipoHerramienta->herramienta->tool }}</td>
+              </tr>
+              <tr>
+                <th scope="row">od</th>
+                <td>{{ $tipoHerramienta->herramienta->od }}</td>
+              </tr>
+              <tr>
+                <th scope="row">largo</th>
+                <td>{{ $tipoHerramienta->herramienta->largo }}</td>
+              </tr>
+              <tr>
+                <th scope="row">type</th>
+                <td>{{ $tipoHerramienta->herramienta->type }}</td>
+              </tr>
+              <tr>
+                <th scope="row">descripcion</th>
+                <td>{{ $tipoHerramienta->herramienta->descrip }}</td>
+              </tr>
+              <tr>
+                <th scope="row">top connection</th>
+                <td>{{ $tipoHerramienta->herramienta->top_conec }}</td>
+              </tr>
+              <tr>
+                <th scope="row">bottom connection</th>
+                <td>{{ $tipoHerramienta->herramienta->bottom_conec }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <h4>Herramientas disponibles</h4>
+          <table class="table table-striped table-borderless">
+            <thead class="thead-dark">
+              <th>#</th>
+              <th>pn</th>
+              <th>sn</th>
+              <th>usar</th>
+            </thead>
+            <tbody>
+              @foreach($tipoHerramienta->herramientas as $herramienta)
+              <tr>
+                <td>{{ $herramienta->id }}</td>
+                <td>{{ $herramienta->pn }}</td>
+                <td>{{ $herramienta->sn }}</td>
+                <td><input type="radio" name="herramienta-{{ $tipoHerramienta->id }}" value="{{ $herramienta->id }}-{{ $tipoHerramienta->posicion }}"></td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    @endforeach
 
   <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
