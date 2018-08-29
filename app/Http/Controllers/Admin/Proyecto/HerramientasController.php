@@ -15,13 +15,15 @@ class HerramientasController extends Controller{
 		$proyecto= Proyecto::find($id)->load('tipoHerramientas');
 		$proyecto->tipoHerramientas->sortBy('posicion');
 		$herramientas= collect();
-		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
-			$herramientas= $herramientas->concat($tipoHerramienta->herramientas());
-		}
+		$test= collect(['nombre' => 'anthony', 'edad' => 18]);
+
+		$proyecto->tipoHerramientas->each(function($tipoHerramienta){
+			$tipoHerramienta->herramientas= $tipoHerramienta->herramientas();
+		});
 
 		return view('admin.proyectos.herramientas.create', [
 			'proyecto' => $proyecto,
-			'herramientas' => $herramientas
+			'tipoHerramientas' => $proyecto->tipoHerramientas
 		]);
 
 	}
@@ -30,9 +32,13 @@ class HerramientasController extends Controller{
 
 		foreach($request->all() as $clave => $valor){
 			if(substr($clave, 0, 11) == 'herramienta'){
+
+				$valor= explode('-', $valor);
+
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_id' => $valor
+					'herramienta_id' => $valor[0],
+					'posicion' => $valor[1]
 				]);
 			}
 		}
@@ -44,22 +50,24 @@ class HerramientasController extends Controller{
 	public function edit(Request $request, $id){
 
 		$proyecto= Proyecto::find($id)->load('tipoHerramientas', 'herramientas');
-		$herramientas= $proyecto->herramientas->map(function($herramienta){
-			$herramienta->checked= true;
-			return $herramienta;
-		});
 
-		foreach($proyecto->tipoHerramientas as $tipoHerramienta){
-			$herramientas= $herramientas->concat($tipoHerramienta->herramientas()->map(function($herramienta){
+		$proyecto->tipoHerramientas->each(function($tipoHerramienta) use($proyecto){
+			$tipoHerramienta->herramientas= $tipoHerramienta->herramientas();
+			$tipoHerramienta->herramientas->each(function($herramienta){
 				$herramienta->checked= false;
-				return $herramienta;
-			}));
+			});
 
-		}
+			$proyecto->herramientas->each(function($herramienta) use($tipoHerramienta){
+				if($herramienta->posicion() == $tipoHerramienta->posicion){
+					$herramienta->checked= true;
+					$tipoHerramienta->herramientas= $tipoHerramienta->herramientas->concat([$herramienta]);
+				}
+			});
+		});
 
 		return view('admin.proyectos.herramientas.edit', [
 			'proyecto' => $proyecto,
-			'herramientas' => $herramientas
+			'tipoHerramientas' => $proyecto->tipoHerramientas
 		]);
 
 	}
@@ -119,9 +127,13 @@ public function updatecheck(Request $request, $id){
 
 		foreach($request->all() as $clave => $valor){
 			if(substr($clave, 0, 11) == 'herramienta'){
+
+				$valor= explode('-', $valor);
+
 				ProyectoHerramienta::create([
 					'proyecto_id' => $id,
-					'herramienta_id' => $valor
+					'herramienta_id' => $valor[0],
+					'posicion' => $valor[1]
 				]);
 			}
 		}
