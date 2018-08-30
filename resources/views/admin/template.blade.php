@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Admin</title>
   <link rel="stylesheet" type="text/css" href="{{ asset('dist/css/app.css') }}">
+ 
+  
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -49,6 +51,7 @@
 
   @section('scripts')
   <script src="{{ asset('dist/js/app.js') }}" ></script>
+
   @show
 
 </body>

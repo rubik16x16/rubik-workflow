@@ -203,6 +203,6 @@ Route::middleware(['adminGuest'])->group(function(){
 
 });
 
-Route::any('/herramientas/principales/{imei}', function () {
-        \Log::info('Variables ' .print_r($_POST, true) );
+Route::get('/test/datepicker', function () {
+    return view('datepicker');
 });

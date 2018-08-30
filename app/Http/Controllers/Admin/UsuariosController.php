@@ -155,11 +155,9 @@ class UsuariosController extends Controller{
 
    public function listar(){
   
-   return new UserResource(Usuario::select('id','name','email as username','clave as password')->get());
-    /*return new UserResource(Usuario::select('id','email as username','clave as password')
-        ->with(['roles' => function($query){ 
-            $query->select('rol_id');
-        }])->get());
-  */}
+   return new UserResource(Usuario::select('id','name','pin')->get());
+   // return new UserResource(Usuario::select('id','email as username','clave as password')->get());
+    
 
+}
 }
