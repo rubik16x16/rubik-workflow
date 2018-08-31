@@ -155,7 +155,7 @@ class UsuariosController extends Controller{
 
    public function listar(){
   
-   return new UserResource(Usuario::select('id','name','pin')->get());
+   return new UserResource(Usuario::select('id','name as username','pin')->get());
    // return new UserResource(Usuario::select('id','email as username','clave as password')->get());
     
 

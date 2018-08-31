@@ -72,4 +72,9 @@ class Proyecto extends Model{
 
 	}
 
+	public function tablet() {
+
+		return $this->hasOne('App\Models\Tablet');
+	}
+
 }

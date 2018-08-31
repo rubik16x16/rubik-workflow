@@ -202,7 +202,3 @@ Route::middleware(['adminGuest'])->group(function(){
 	->name('admin.login.post');
 
 });
-
-Route::get('/test/datepicker', function () {
-    return view('datepicker');
-});

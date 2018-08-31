@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Proyecto;
 use App\Models\ProyectoHerramienta;
+use App\Models\Tablet;
+use App\Models\HerramientaMano;
+use App\Models\VehiculoRequisito;
 
 class HerramientasController extends Controller{
 
@@ -74,8 +77,9 @@ class HerramientasController extends Controller{
 
 public function check(Request $request, $id){
 
-		$proyecto= Proyecto::find($id)->load('tipoHerramientas', 'herramientas');
+		$proyecto= Proyecto::find($id)->load('tipoHerramientas', 'herramientas','tablet');
 		$proyectoherramientas = ProyectoHerramienta::where("proyecto_id",$id)->get()->load('herramientas');
+
 
 function flatten($array) {
     $result = [];
@@ -98,7 +102,11 @@ $herramientas = flatten($proyectoherramientas);
 
 				return view('admin.proyectos.herramientas.check', [
 			'proyecto' => $proyecto,
-			'herramientas' => $herramientas
+			'herramientas' => $herramientas,
+			'demano' => HerramientaMano::all(),
+			'requisitos'=> VehiculoRequisito::all(),
+			'tablet' => Tablet::whereRaw("(proyecto_id = 0 OR proyecto_id = $id)")->get()
+
 		]);
 
 	}
