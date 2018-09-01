@@ -35,5 +35,6 @@ mix.js('resources/assets/js/components/roles/app.js', 'public/dist/js/roles-app.
 mix.js('resources/assets/js/components/herramientas/app.js', 'public/dist/js/herramientas-app.js');
 
 mix.js('resources/assets/js/components/proyectos/app.js', 'public/dist/js/proyectos/proyectos-app.js');
+mix.js('resources/assets/js/components/proyectos/herramientas/app.js', 'public/dist/js/proyectos/herramientas-app.js');
 mix.js('resources/assets/js/components/proyectos/operadores/app.js', 'public/dist/js/proyectos/operadores-app.js');
 mix.js('resources/assets/js/components/proyectos/tipoHerramientas/app.js', 'public/dist/js/proyectos/tipo-herramientas-app.js');

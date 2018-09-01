@@ -23,7 +23,10 @@ class HerramientasController extends Controller{
 
 		return view('admin.proyectos.herramientas.create', [
 			'proyecto' => $proyecto,
-			'tipoHerramientas' => $proyecto->tipoHerramientas
+			'tipoHerramientas' => $proyecto->tipoHerramientas,
+			'routes' => json_encode([
+				'store' => route('admin.proyecto.herramientas.create', ['id' => $id])
+			])
 		]);
 
 	}
